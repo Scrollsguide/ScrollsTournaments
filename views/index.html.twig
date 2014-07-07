@@ -1,0 +1,8 @@
+{% extends "base.html.twig" %}
+{% block content %}
+	{% for block in homepage.getBlocks() %}
+		{% if block.layout %}
+			{% include 'partials/blocks/' ~ block.layout ~ '.html' with { 'block': block } %}
+		{% endif %}
+	{% endfor %}
+{% endblock %}

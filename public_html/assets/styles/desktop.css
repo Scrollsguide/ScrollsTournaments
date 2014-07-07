@@ -1,0 +1,32 @@
+@media (min-width: 850px) {
+	.navbar-nav.navbar-right {
+		font-size: 14px;
+	}
+	.navbar-default .navbar-nav>li>a {
+	    font-weight: bold;
+	}
+
+	.navbar-default .navbar-nav>li>a {
+	    padding: 15px 15px;
+	}
+
+	.video-header iframe {
+		max-width: 75%;
+		display: block;
+		margin: 0 auto;
+	}
+}
+@media (min-width: 992px) {
+	.content-item .content-container h4 {
+		height: 2.3em;
+		vertical-align: middle;
+		display: table-cell;
+	}
+	:not('.series-content') .content-item .content-container {
+
+	}
+
+	a.video-container:hover .content-container {
+	}
+
+}

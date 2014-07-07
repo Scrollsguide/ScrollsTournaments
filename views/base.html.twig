@@ -1,0 +1,124 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="shortcut icon" href="/favicon.ico">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <!-- vendor css -->
+		<link rel="stylesheet" type="text/css" href="{{ cdn_asset('/assets/cache/css/vendors.css') }}" />
+
+        {% block customcss %}
+        {% endblock %}
+
+        <!-- custom css -->
+		<link rel="stylesheet" type="text/css" href="{{ cdn_asset('/assets/cache/css/main.css') }}" />
+
+        <script src="{{ cdn_asset('/assets/js/vendor/modernizr.js') }}"></script>
+
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+        <div class="container">
+            <!-- Fixed navbar -->
+			{% block navbar %}
+				<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+				  <div class="container-fluid">
+					<div class="navbar-header">
+					  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					  </button>
+					  <a class="navbar-brand" href="{{ path('index') }}" data-instant>
+                        <img src="{{ cdn_asset('/assets/images/logo.png') }}" />Scrolls Tournaments
+                      </a>
+					</div>
+					<div class="navbar-collapse collapse">
+					  
+					  <ul class="nav navbar-nav navbar-right">
+
+						<li class="dropdown">
+
+						  <li class="dropdown">
+							  <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+							  <ul class="dropdown-menu">
+								  <li class="divider"></li>
+								  <li class="dropdown-header">External</li>
+								  <li><a href="http://www.scrollsguide.com/forum" target="_blank"><div><i class="fa fa-{{ categoryIcon('forum') }}"></i></div> Forum</a></li>
+								  <li><a href="http://www.scrollsguide.com/wiki/index.php/Main_Page" target="_blank"><div><i class="fa fa-{{ categoryIcon('wiki') }}"></i></div> Wiki</a></li>
+							  </ul>
+						  </li>
+
+						</li>
+					  </ul>
+					</div><!--/.nav-collapse -->
+				  </div>
+				</div>
+			{% endblock %}
+
+            {% block content %}
+		
+			{% endblock %}
+
+
+            <div class="footer">
+                <div class="row">
+                    <hr />
+				    
+					<div class="col-xs-12 footer-copy"><span>&copy; Scrolls Tournaments 2014</span>
+					
+					<p class="pull-right">
+						<iframe src="{{ cdn_asset('/assets/html/github-btn.html?user=Scrollsguide&repo=ScrollsTournaments&type=watch&count=true') }}"
+									allowtransparency="true" frameborder="0" scrolling="0" width="78" height="20"></iframe></p>
+					
+					</div>
+					
+                </div>
+            </div>
+
+        </div>
+
+		{{ app.debug|raw }}
+
+		<script>
+			var _gaq=[['_setAccount','UA-16433114-4'],['_trackPageview']];
+			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+				g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+				s.parentNode.insertBefore(g,s)}(document,'script'));
+		</script>
+
+		<script src="{{ cdn_asset('/assets/cache/js/vendors.js') }}" data-no-instant></script>
+
+        <script src="{{ cdn_asset('/assets/js/main.js') }}"></script>
+		<!--
+		<script src="{{ cdn_asset('/assets/js/vendor/instantclick.min.js') }}"></script>
+		<script data-no-instant>
+			InstantClick.on('change', function(){
+				ga('send', 'pageview');
+                //fix social buttons and any other weird responsive glitches caused by
+                //instaclick ajaxing stuff and not trigging a full domready cycle
+                $(window).resize();
+			});
+		
+			InstantClick.init('mousedown', true);
+		</script>
+		-->
+
+        {% block customjs %}
+
+        {% endblock %}
+</body>
+</html>

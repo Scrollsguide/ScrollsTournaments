@@ -1,0 +1,20 @@
+{
+	"routes": {
+		"index": {
+			"path": "/",
+			"action": "Index::index"
+		},
+		"resource_cache": {
+			"path": "/assets/cache/{filetype}/{filename}.{filetype}",
+			"requirements": {
+				"filetype": "css|js",
+				"filename": "[a-zA-Z0-9-]+"
+			},
+			"action": "Resource::assetCache"
+		},
+		"404": {
+			"path": "/404",
+			"action": "Index::p404"
+		}
+	}
+}
