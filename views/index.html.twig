@@ -1,8 +1,89 @@
 {% extends "base.html.twig" %}
 {% block content %}
-	{% for block in homepage.getBlocks() %}
-		{% if block.layout %}
-			{% include 'partials/blocks/' ~ block.layout ~ '.html' with { 'block': block } %}
-		{% endif %}
-	{% endfor %}
+	
+	<div class="container bracket" style="margin-top: 30px;">
+		<div class="row">
+			<div class="col-lg-3 text-right">
+				<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
+			</div>
+			
+			<div class="col-lg-6">
+				<h1 class="text-center">[Tournament name] <br />Finals</h1>
+				
+				
+				<div class="col-lg-5 text-left">
+					<h2>Player 1</h2>
+					<ul>
+						<li>Rating: 1234</li>
+					</ul>
+					
+				</div>
+				<div class="col-lg-2  text-center">
+					<h2>VS.</h2>
+				</div>
+				<div class="col-lg-5 text-right">
+					<h2>Player 2</h2>
+					<ul>
+						<li>Rating: 1234</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="col-lg-3 text-left">
+				<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-3">
+				Semi Finals - Player 1
+			</div>
+			<div class="col-lg-3">
+				Semi Finals - Player 2
+			</div>
+			<div class="col-lg-3">
+				Semi Finals - Player 3
+			</div>
+			<div class="col-lg-3">
+				Semi Finals - Player 4
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="col-lg-6">
+					Quarter
+				</div>
+				<div class="col-lg-6">
+					Quarter
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="col-lg-6">
+					Quarter
+				</div>
+				<div class="col-lg-6">
+					Quarter
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="col-lg-6">
+					Quarter
+				</div>
+				<div class="col-lg-6">
+					Quarter
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="col-lg-6">
+					Quarter
+				</div>
+				<div class="col-lg-6">
+					Quarter
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
 {% endblock %}
