@@ -4,6 +4,10 @@
 			"path": "/",
 			"action": "Index::index"
 		},
+		"view_match": {
+			"path": "/match",
+			"action": "Match::viewMatch"
+		},
 		"resource_cache": {
 			"path": "/assets/cache/{filetype}/{filename}.{filetype}",
 			"requirements": {
