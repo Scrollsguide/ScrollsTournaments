@@ -1,8 +1,251 @@
 {% extends "base.html.twig" %}
 {% block content %}
-	{% for block in homepage.getBlocks() %}
-		{% if block.layout %}
-			{% include 'partials/blocks/' ~ block.layout ~ '.html' with { 'block': block } %}
-		{% endif %}
-	{% endfor %}
+	
+	<div class="container bracket" style="margin-top: 30px;">
+		<div class="row">
+			<p>
+				<i class="fa fa-circle color-not-started"></i> <b>Match has not started</b>
+				<i class="fa fa-circle color-started"></i> <b>Match has started</b>
+				<i class="fa fa-circle color-finished"></i> <b>Match is over</b> 
+			</p>
+		</div>
+		
+		<!-- Finals -->
+		<div class="row">
+			<h1 class="text-center">['Tournament name']<br />Finals <br /><small>(Best of 5)</small></h1>
+			<div class="col-md-3 col-sm-3 text-right hidden-xs">
+				<!-- Insert Animated avatar like the SG profiles -->
+				<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
+			</div>
+			
+			<div class="col-md-6  col-sm-6">
+				
+				<div class="col-md-5 col-xs-5 text-center">
+					<h2>Orangee</h2>
+					<span><img src="http://i.imgur.com/0njz5pI.png" alt="" width="100%"/></span>
+					
+				</div>
+				<div class="col-md-2 col-xs-2 text-center">
+					<!-- Numbers are number of wins for each player -->
+					<h2><b>3</b> VS <b>2</b></h2>
+				</div>
+				<div class="col-md-5 col-xs-5 text-center">
+					<h2>kBasten</h2>
+					<span><img src="http://i.imgur.com/2cAp13M.png" alt="" width="100%"/></span>
+				</div>
+				
+				<div class="col-md">
+				
+				</div>
+			</div>
+			
+			<div class="col-md-3 col-sm-3  hidden-xs text-left">
+				<!-- Insert Animated avatar like the SG profiles flip this one 180deg-->
+				<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
+			</div>
+		</div>
+		
+		<!-- Semi Finals -->
+		<div class="row text-center">
+		
+			<div class="col-md-6 col-sm-6 col-xs-6 match">
+				<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+				<p class=""><i class="fa fa-circle color-not-started"></i> <b>Semi Finals</b><br /><small>(Best of 3)</small></p>
+				<div class="col-md-6 col-sm-6 col-xs-6">				
+					<div class="player-head" style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
+					<span><b>Orangee</b> (2)</span>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-6">
+					<div class="player-head flip" style="background-image: url(http://scrolldier.com/resources/head_129.png);"></div>
+					<span>(1) Zylus</span>
+				</div>
+			</div>
+			
+			<div class="col-md-6 col-sm-6 col-xs-6 match">
+				<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+				<p class=""><i class="fa fa-circle color-started"></i> <b>Semi Finals</b><br /><small>(Best of 3)</small></p>
+				<div class="col-md-6 col-sm-6 col-xs-6">
+					<div class="player-head" style="background-image: url(http://scrolldier.com/resources/head_37.png);"></div>
+					<span><b>kbasten</b> (2)</span>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-6">
+					<div class="player-head flip" style="background-image: url(http://scrolldier.com/resources/head_197.png);"></div>
+					<span>(0) Blinky</span>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Quaters -->
+		<div class="row text-center">
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+				<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+				<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br /><small>Single Elimination</small></p>
+				<div class="col-md-6">
+					<span><b>Orangee</b></span>
+				</div>
+				<div class="col-md-6">
+					<span>player</span>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+				<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+				<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br /><small>Single Elimination</small></p>
+				<div class="col-md-6">
+					<span>player</span>
+				</div>
+				<div class="col-md-6">
+					<span><b>Zylus</b></span>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+				<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+				<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br /><small>Single Elimination</small></p>
+				<div class="col-md-6">
+					<span><b>kBasten</b></span>
+				</div>
+				<div class="col-md-6">
+					<span>iwantanickplease</span>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+				<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+				<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br /><small>Single Elimination</small></p>
+				<div class="col-md-6">
+					<span>player</span>
+				</div>
+				<div class="col-md-6">
+					<span><b>Blinky</b></span>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 16O -->
+		<div class="row text-center">
+			<div class="col-md-3">	
+				<div class="col-md-6 col-sm-6 col-xs-4 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 1</b></span>
+					</div>
+					
+					<div class="col-md-12 col-sm-6">
+						<span>player 2</span>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-sm-6 col-xs-4 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 3</b></span>
+					</div>
+					
+					<div class="col-md-12 col-sm-6">
+						<span>player 4</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">	
+				<div class="col-md-6 col-sm-6 col-xs-4 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 5</b></span>
+					</div>
+					
+					<div class="col-md-12 col-sm-6">
+						<span>player 6</span>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-sm-6 col-xs-4 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 7</b></span>
+					</div>
+					<div class="col-md-12 col-sm-6">
+						<span>player 8</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">	
+				<div class="col-md-6 col-sm-6 col-xs-4 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 9</b></span>
+					</div>
+					<div class="col-md-12 col-sm-6">
+						<span>player 10</span>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-sm-6 col-xs-4 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 11</b></span>
+					</div>
+					<div class="col-md-12 col-sm-6">
+						<span>player 12</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">	
+				<div class="col-md-6 col-sm-6 col-xs-6 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 13</b></span>
+					</div>
+					<div class="col-md-12 col-sm-6">
+						<span>player 14</span>
+					</div>
+				</div>
+				
+				<div class="col-md-6 col-sm-6 col-xs-6 match">
+					<!-- add classes to FA icon color-not-started, color-started, color-finished-->
+					<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
+					<div class="col-md-12 col-sm-6">
+						<span><b>player 15</b></span>
+					</div>
+					<div class="col-md-12 col-sm-6">
+						<span>player 16</span>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- Optional More bracets -->
+		<div class="row text-center">
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+			
+				<a href="#">Earlier brackets</a>
+			
+			</div>
+			
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+			
+				<a href="#">Earlier brackets</a>
+				
+			</div>
+			
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+			
+				<a href="#">Earlier brackets</a>
+			
+			</div>
+			
+			<div class="col-md-3 col-sm-3 col-xs-6 match">
+
+				<a href="#">Earlier brackets</a>
+				
+			</div>
+		</div>
+		
+	</div>
+	
 {% endblock %}

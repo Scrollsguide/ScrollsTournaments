@@ -1,0 +1,57 @@
+/* @group Brackets */
+
+.bracket{
+	& ul li{
+		list-style: none;
+	}
+	
+	& .player-head{
+		width: 100%;
+		height: 100px;
+		background-size: 200px auto;
+		background-position: center top;
+		background-repeat: no-repeat;
+	}
+	
+	& .row{
+		margin-bottom: 20px;
+	}
+	
+	
+	& .match{
+		border-left: 2px solid @match-border-color;
+		border-right: 2px solid @match-border-color;
+		
+		&:first-of-type{
+			border-left: 2px solid @match-border-color;
+		}
+		
+		&:last-of-type{
+			border-right: 2px solid @match-border-color;
+		}
+	}
+	
+	& div[class^='col-']{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+
+/* Colors */
+
+.color-not-started{
+	color: @color-not-started;
+}
+.color-started{
+	color: @color-started;
+}
+.color-finished{
+	color: @color-finihed;
+}
+
+.flip{
+	.transform(rotateY(180deg));
+}
+
+/* @end */
