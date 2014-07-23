@@ -2,3 +2,18 @@
 
 
 }
+
+ul.match-data li{
+	padding: 5px;
+	
+
+	&:nth-of-type(odd){
+		background-color: rgba(0, 0, 0, .05);
+	}
+	&:first-of-type{
+		.border-radius(3px 3px 0px 0px);
+	}
+	&:last-of-type{
+		.border-radius(0px 0px 3px 3px);
+	}
+}
