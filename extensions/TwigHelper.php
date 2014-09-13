@@ -78,4 +78,29 @@
 
 			return rtrim(substr($str, 0, $length)) . $last;
 		}
+		
+		/*
+			Generates the font-awesome icon for a corresponding category
+		*/
+		public function categoryIcon($category) {
+			$iconMap = array(
+				'about'        => 'info',
+				'submit'       => 'upload',
+				'beginner'     => 'cogs',
+				'intermediate' => 'star',
+				'master'       => 'trophy',
+				'video'        => 'video-camera',
+				'strategy'     => 'puzzle-piece',
+				'decks'        => 'inbox',
+				'judgement'    => 'flag',
+				'ui'           => 'laptop',
+				'404'          => 'exclamation',
+				'forum'        => 'comments',
+				'wiki'         => 'globe',
+				'series'       => 'sort-alpha-asc'
+			);
+			$category = strtolower($category);
+
+			return isset($iconMap[$category]) ? $iconMap[$category] : '';
+		}
 	}

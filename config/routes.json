@@ -4,6 +4,17 @@
 			"path": "/",
 			"action": "Index::index"
 		},
+		"tournament_create": {
+			"path": "/tournament/create",
+			"action": "Tournament::create"
+		},
+		"tournament_result": {
+			"path": "/tournament/{name}/results",
+			"action": "Tournament::viewResult",
+			"requirements": {
+				"name": "[a-z0-9-]+"
+			}
+		},
 		"view_match": {
 			"path": "/match",
 			"action": "Match::viewMatch"

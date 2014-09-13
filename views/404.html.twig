@@ -8,13 +8,5 @@
         	We were unable to find a page that matched your request.  You could try the <a href="{{ path('index') }}" data-instant>Homepage</a>, or one of the guides below.
         </p>
     </div>
-    <!-- type 2, three articles -->
-    {% if recommendedGuides|length %}
-		<div class="row content-block more-block">
-			{% for guide in recommendedGuides %}
-				{% include 'partials/touts/single-item.html' with { 'guide': guide } %}
-			{% endfor %}
-		</div>
-	{% endif %}
 {% endblock %}
 
