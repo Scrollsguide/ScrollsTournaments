@@ -51,7 +51,17 @@
 						 <li class=""><a href="#">Home</a></li>
 						 <li><a href="#">New Tournament</a></li>
 						 <li><a href="#">Brackets</a></li>
-					</ul>
+					</ul>						
+						<ul class="nav navbar-nav user-navbar navbar-right">
+							<!-- Only show when Logged in! -->
+							<li>
+								{% if app.session.user.isloggedin %}
+									<a href="{{ path('logout') }}" data-instant>{{ app.session.user.username }}</a>
+								{% else %}
+									<a href="{{ path('login') }}" data-instant>Login</a>									
+								{% endif %}
+							</li>
+						</ul>
 					  <ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
 

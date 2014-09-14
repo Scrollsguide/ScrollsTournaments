@@ -19,6 +19,19 @@
 			"path": "/match",
 			"action": "Match::viewMatch"
 		},
+		"login": {
+			"path": "/login",
+			"action": "User::login"
+		},
+		"login_post": {
+			"path": "/login",
+			"action": "User::doLogin",
+			"method": "POST"
+		},
+		"logout": {
+			"path": "/logout",
+			"action": "User::doLogout"
+		},
 		"resource_cache": {
 			"path": "/assets/cache/{filetype}/{filename}.{filetype}",
 			"requirements": {
