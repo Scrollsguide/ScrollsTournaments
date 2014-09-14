@@ -15,11 +15,24 @@
 		},
 		"tournament_view": {
 			"path": "/tournament/{name}",
-			"action": "Tournament::view"
+			"action": "Tournament::view",
+			"requirements": {
+				"name": "[a-z0-9-]+"
+			}
 		},
 		"tournament_enter": {
 			"path": "/tournament/{name}/enter",
-			"action": "Tournament::enter"
+			"action": "Tournament::enter",
+			"requirements": {
+				"name": "[a-z0-9-]+"
+			}
+		},
+		"tournament_invite": {
+			"path": "/invite/{code}",
+			"action": "Tournament::acceptInvite",
+			"requirements": {
+				"code": "[a-z0-9]{10}"
+			}
 		},
 		"tournament_result": {
 			"path": "/tournament/{name}/results",

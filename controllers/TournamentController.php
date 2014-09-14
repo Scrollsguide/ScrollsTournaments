@@ -23,6 +23,41 @@
 			}
 		}
 		
+		public function enterAction($url){
+			// set up entity and repository
+			$em = $this->getApp()->get("EntityManager");
+			$tournamentRepository = $em->getRepository("Tournament");
+		
+			// look for tournament in the repo
+			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
+				$regstate = $tournament->getRegState();
+				if ($regstate === RegistrationState::OPEN){
+					
+				
+				
+					// notify user
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "You are now participating!");
+				} else if ($regstate === RegistrationState::INVITE_ONLY) {
+					// notify user that registration is invite-only
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Registrations are invite-only for this tournament.");
+				} else {
+					// notify user that registration is closed
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Registrations are closed for this tournament.");
+				}
+				
+				// redirect to tournament page
+				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
+
+				return new RedirectResponse($tournamentRoute);
+			} else { // tournament not found
+				return $this->p404();
+			}
+		}
+		
+		public function acceptInviteAction($code){
+			
+		}
+		
 		public function newAction(){
 			if (!$this->user->checkAccessLevel(AccessLevel::USER)) {
 				return $this->toLogin();
