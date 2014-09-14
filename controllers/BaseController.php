@@ -3,6 +3,8 @@
 	class BaseController extends Controller {
 	
 		private $cache;
+		
+		protected $user;
 	
 		public function __construct(App $app) {
 			parent::__construct($app);
@@ -12,6 +14,7 @@
 			));
 			
 			$this->cache = new CacheNew($app, "MySQL");
+			$this->user = $app->getSession()->getUser();
 		}
 		
 		protected function getCache(){

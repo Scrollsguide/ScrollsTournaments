@@ -4,9 +4,22 @@
 			"path": "/",
 			"action": "Index::index"
 		},
-		"tournament_create": {
-			"path": "/tournament/create",
-			"action": "Tournament::create"
+		"tournament_new": {
+			"path": "/tournament/new",
+			"action": "Tournament::new"
+		},
+		"tournament_save": {
+			"path": "/tournament/save",
+			"action": "Tournament::save",
+			"method": "POST"
+		},
+		"tournament_view": {
+			"path": "/tournament/{name}",
+			"action": "Tournament::view"
+		},
+		"tournament_enter": {
+			"path": "/tournament/{name}/enter",
+			"action": "Tournament::enter"
 		},
 		"tournament_result": {
 			"path": "/tournament/{name}/results",
