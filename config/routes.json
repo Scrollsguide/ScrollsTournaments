@@ -41,6 +41,13 @@
 				"name": "[a-z0-9-]+"
 			}
 		},
+		"tournament_start": {
+			"path": "/tournament/{name}/start",
+			"action": "Tournament::start",
+			"requirements": {
+				"name": "[a-z0-9-]+"
+			}
+		},
 		"view_match": {
 			"path": "/match",
 			"action": "Match::viewMatch"

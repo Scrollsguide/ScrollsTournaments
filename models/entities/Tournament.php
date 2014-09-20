@@ -8,9 +8,13 @@
 		private $date;
 		
 		private $url;
+
+		private $maxplayers = 0; // default, no max
 		
 		// state of registration: see below
 		private $regstate;
+
+		private $players = array();
 		
 		public function __construct(){
 		
@@ -54,6 +58,22 @@
 		
 		public function setRegState($regstate){
 			$this->regstate = $regstate;
+		}
+
+		public function setMaxplayers($maxplayers){
+			$this->maxplayers = $maxplayers;
+		}
+
+		public function getMaxplayers(){
+			return (int)$this->maxplayers;
+		}
+
+		public function getPlayers(){
+			return $this->players;
+		}
+
+		public function addPlayer($player){
+			$this->players[] = $player;
 		}
 	
 	}
