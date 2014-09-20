@@ -16,7 +16,8 @@
 			'css/vendors.css' => array(
 				'/styles/vendor/bootstrap.min.css',
 				'/styles/vendor/font-awesome.min.css',
-				'/styles/vendor/rrssb.css'
+				'/styles/vendor/rrssb.css',
+				'/styles/vendor/jquery.bracket.min.css'
 			),
 
 			'js/vendors.js'   => array(
@@ -33,7 +34,8 @@
 				'/js/vendor/bootstrap/scrollspy.js',
 				'/js/vendor/bootstrap/collapse.js',
 				'/js/vendor/bootstrap/tab.js',
-				'/js/vendor/rrssb.js'
+				'/js/vendor/rrssb.js',
+				'/js/vendor/jquery.bracket.min.js'
 			)
 		);
 

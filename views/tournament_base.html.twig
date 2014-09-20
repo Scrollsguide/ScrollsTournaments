@@ -19,7 +19,8 @@
 		{% endblock %}
 		
 		<ul class='nav nav-tabs'>
-			<li class='active'><a data-toggle='tab' href='#overview'>Bracket</a></li>
+			<li class='active'><a data-toggle='tab' href='#overview'>Overview</a></li>
+			<li><a data-toggle='tab' href='#bracket'>Bracket</a></li>
 			<li><a data-toggle='tab' href='#admin'>Admin</a></li>
 		</ul>
 		
@@ -34,7 +35,7 @@
 						<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
 					</div>
 					
-					<div class="col-md-6  col-sm-6">
+					<div class="col-md-6 col-sm-6">
 						
 						<div class="col-md-5 col-xs-5 text-center">
 							 <!-- Names likes to scrolldier or SG profiles -->
@@ -68,7 +69,7 @@
 						</div>
 					</div>
 					
-					<div class="col-md-3 col-sm-3  hidden-xs text-left">
+					<div class="col-md-3 col-sm-3 hidden-xs text-left">
 						<!-- Insert Animated avatar like the SG profiles flip this one 180deg-->
 						<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
 					</div>
@@ -278,7 +279,32 @@
 			<div id='admin' class='tab-pane fade'>
 				Admin stuff
 			</div>
+			<div id='bracket' class='tab-pane fade'>
+				Bracket
+
+				<div id="bracket-graph"></div>
+			</div>
 		</div>
 	</div>
 	
+{% endblock %}
+{% block customjs %}
+<script type="text/javascript">
+
+	var minimalData = {
+	teams : [
+	["Team 1", "Team 2"], /* first matchup */
+	["Team 3", "Team 4"]  /* second matchup */
+	],
+	results : [
+	[[1,2], [3,4]],       /* first round */
+	[[4,6], [2,1]]        /* second round */
+	]
+	}
+
+	$(function() {
+	$('#bracket-graph').bracket({
+	init: minimalData /* data to initialize the bracket with */ })
+	})
+</script>
 {% endblock %}
