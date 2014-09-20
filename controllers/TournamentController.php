@@ -72,7 +72,19 @@
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				// TODO: check whether user is admin for this tournament
 
-				$this->generateBrackets($tournament);
+				for ($i = 0; $i < 4; $i++) {
+					$p = new TournamentPlayer();
+					$p->setTournamentId($tournament->getId());
+					$p->setPlayerId($i);
+					$tournament->addPlayer($p);
+				}
+
+				$bracketGenerator = new BracketGenerator($tournament);
+
+				$brackets = $bracketGenerator->generateBrackets();
+
+				var_dump($brackets);
+				die();
 			} else { // tournament not found
 				return $this->p404();
 			}
@@ -117,7 +129,4 @@
 			return new RedirectResponse($tournamentRoute);
 		}
 
-		private function generateBrackets(Tournament $t){
-
-		}
 	}

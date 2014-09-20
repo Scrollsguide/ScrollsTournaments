@@ -15,4 +15,12 @@ CREATE TABLE IF NOT EXISTS `tournaments` (
   `date` int(10) NOT NULL,
   `regstate` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `tournament_players` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `tournament_id` int(10) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tournament_id` (`tournament_id`,`player_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
