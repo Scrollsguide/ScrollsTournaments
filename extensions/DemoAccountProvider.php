@@ -1,7 +1,7 @@
 <?php
 
 	class DemoAccountProvider extends AccountProvider {
-
+	
 		// implement your own authenticate function here
 		// or extend AccountProvider class for your own provider
 		public function authenticate($username, $password) {
@@ -15,5 +15,12 @@
 			} else {
 				return AccessLevel::user();
 			}
+		}
+		
+		public function callback(User $u){
+			// load user data here
+			$u->setUserData(array(
+				'id' => rand(0, 100)
+			));
 		}
 	}

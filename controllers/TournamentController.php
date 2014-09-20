@@ -37,18 +37,19 @@
 				if ($regstate === RegistrationState::OPEN) {
 				
 					// register this player
+					$user = $this->getApp()->getSession()->getUser();
+					$userId = $user->getUserData()['id'];
+					
 					$tpRepo = $em->getRepository("TournamentPlayer");
-
-
+					
 					$tournamentPlayer = new TournamentPlayer();
-					$tournamentPlayer->setPlayerId(2);
+					$tournamentPlayer->setPlayerId($userId);
 					$tournamentPlayer->setTournamentId($tournament->getId());
 
 					$tpRepo->persist($tournamentPlayer);
 					
 					// add log
-					$this->addLog($tournament, $em, "Player ... just joined the tournament.");
-
+					$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $user->getUsername()));
 
 					// notify user
 					$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "You are now participating!");
@@ -73,7 +74,7 @@
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
-
+			
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				// TODO: check whether user is admin for this tournament
@@ -87,13 +88,26 @@
 
 				$bracketGenerator = new BracketGenerator($tournament);
 
-				$brackets = $bracketGenerator->generateBrackets();
+				$bracketRounds = $bracketGenerator->generateBrackets();
+				
+				// start inserting rounds in database
+				$pdo = $this->getApp()->get("database")->getConnection();
+				for ($round = count($bracketRounds) - 1; $round >= 0; $round--){
+					$tournamentRepository->persistRound($bracketRounds[$round]);
+					
+					$brackets = $bracketRounds[$round]->getBrackets();
+					for ($bracket = 0; $bracket < count($brackets); $bracket++){
+						$tournamentRepository->persistBracket($brackets[$bracket], $tournament, $bracketRounds[$round]);
+					
+						$bracketDBId = $pdo->lastInsertId();
+						
+						// set db id to parent of next children
+						$brackets[$bracket]->setId($bracketDBId);
+					}
+				}
 
 				// add start action to log
-				$this->addLog($tournament, $em, sprintf("The tournament has started with %d players!", count($tournament->getPlayers())));
-				
-				var_dump($brackets);
-				die();
+				$this->saveLog($tournament, $em, sprintf("The tournament has started with %d players!", count($tournament->getPlayers())));
 			} else { // tournament not found
 				return $this->p404();
 			}
@@ -141,7 +155,6 @@
 			$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $t->getUrl()));
 
 			return new RedirectResponse($tournamentRoute);
-
 		}
 
 		private function saveLog(Tournament $t, EntityManager $em, $line){

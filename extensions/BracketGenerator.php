@@ -26,7 +26,6 @@
 
 			$players = $this->tournament->getPlayers();
 			$player_index = 0;
-			$bracket_id = 0;
 
 			$brackets = array();
 
@@ -39,7 +38,7 @@
 
 				for ($bracket_count = 0; $bracket_count < $round->getMatchCount(); $bracket_count++) {
 					$bracket = new Bracket();
-					$bracket->setId($bracket_id++);
+					$bracket->setId(0);
 
 					$players_in_bracket = 2;
 					if ($round->isByesRound()) {
@@ -49,7 +48,6 @@
 							$double_rounds--;
 						}
 					}
-
 
 					// keep adding players while there are still unassigned players
 					for ($j = 0; $j < $players_in_bracket && $player_index < count($players); $j++) {
@@ -85,6 +83,8 @@
 				$name = ($i === $num_rounds) ? 'finals' : 'round ' . $i;
 
 				$br = new BracketRound($name);
+				$br->setTournamentId($this->tournament->getId());
+				$br->setRoundNr($i);
 				$br->setMatchCount($max_matchups);
 
 				if ($i === 2) {
@@ -96,6 +96,7 @@
 		}
 
 		private function generateTree(){
+			// no need to check the finals
 			for ($r = 0; $r < count($this->rounds) - 1; $r++){
 				$brackets = $this->rounds[$r]->getBrackets();
 
@@ -115,53 +116,6 @@
 					$brackets[$b]->setChild($nextBrackets[$index]);
 				}
 			}
-		}
-
-	}
-
-	class BracketRound {
-
-		private $name;
-
-		private $match_count;
-
-		private $isByesRound = false;
-
-		private $brackets = array();
-
-		public function __construct($name) {
-			$this->name = $name;
-		}
-
-		public function getName() {
-			return $this->name;
-		}
-
-		public function getMatchCount() {
-			return $this->match_count;
-		}
-
-		public function setMatchCount($count) {
-			$this->match_count = $count;
-		}
-
-		public function setIsByesRound($isByesRound) {
-			$this->isByesRound = $isByesRound;
-		}
-
-		public function isByesRound() {
-			return $this->isByesRound;
-		}
-
-		/**
-		 * @return Bracket array
-		 */
-		public function getBrackets() {
-			return $this->brackets;
-		}
-
-		public function addBracket(Bracket $bracket) {
-			$this->brackets[] = $bracket;
 		}
 
 	}

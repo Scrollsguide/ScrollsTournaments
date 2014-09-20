@@ -42,4 +42,35 @@
 			return $logLines;
 		}
 
+		public function persistRound(BracketRound $br){
+			$sth = $this->getConnection()->prepare("INSERT INTO bracket_rounds
+					SET tournament_id = :t_id,
+					round_nr = :r_nr,
+					`name` = :name");
+					
+			$sth->bindValue(":t_id", $br->getTournamentId(), PDO::PARAM_INT);
+			$sth->bindValue(":r_nr", $br->getRoundNr(), PDO::PARAM_INT);
+			$sth->bindValue(":name", $br->getName(), PDO::PARAM_STR);
+			
+			$sth->execute();
+		}
+		
+		public function persistBracket(Bracket $b, Tournament $t, BracketRound $br){
+			if (($child = $b->getChild()) !== null){
+				$c_id = $child->getId();
+			} else {
+				$c_id = 0;
+			}
+		
+			$sth = $this->getConnection()->prepare("INSERT INTO bracket
+					SET tournament_id = :t_id,
+					round = :r_nr,
+					child_bracket_id = :c_id");
+					
+			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
+			$sth->bindValue(":r_nr", $br->getRoundNr(), PDO::PARAM_INT);
+			$sth->bindValue(":c_id", $c_id, PDO::PARAM_INT);
+			
+			$sth->execute();			
+		}
 	}

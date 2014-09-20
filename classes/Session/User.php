@@ -4,6 +4,8 @@
 
 		private $accessLevel;
 
+		private $userData;
+		
 		private $username;
 
 		private $isLoggedIn = false;
@@ -18,6 +20,8 @@
 				$this->isLoggedIn = true;
 
 				$this->setAccessLevel($ap->getAccessLevel($this));
+				
+				$ap->callback($this);
 				
 				return true;
 			} else {
@@ -46,6 +50,14 @@
 		public function checkAccessLevel($level) {
 			return ($this->accessLevel & $level) === $level;
 		}
+		
+		public function setUserData($data){
+			$this->userData = $data;
+		}
+		
+		public function getUserData(){
+			return $this->userData;
+		}
 
 		// saves all user data in session
 		public function save() {
@@ -71,7 +83,8 @@
 			return array(
 				'isLoggedIn',
 				'accessLevel',
-				'username'
+				'username',
+				'userData'
 			);
 		}
 

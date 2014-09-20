@@ -23,5 +23,7 @@
 		public abstract function authenticate($username, $password);
 		
 		public abstract function getAccessLevel(User $user);
+		
+		public abstract function callback(User $user);
 
 	}

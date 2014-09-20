@@ -1,6 +1,28 @@
 CREATE DATABASE IF NOT EXISTS `tournaments` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `tournaments`;
 
+CREATE TABLE IF NOT EXISTS `bracket` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `tournament_id` int(10) NOT NULL,
+  `round` int(2) NOT NULL,
+  `child_bracket_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `bracket_players` (
+  `bracket_id` int(10) NOT NULL,
+  `tournament_player_id` int(10) NOT NULL,
+  `score` int(1) NOT NULL,
+  PRIMARY KEY (`bracket_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `bracket_rounds` (
+  `tournament_id` int(10) NOT NULL,
+  `round_nr` int(2) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`tournament_id`,`round_nr`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `roles` (
   `tournament` int(10) NOT NULL,
   `user` int(10) NOT NULL,
@@ -15,14 +37,15 @@ CREATE TABLE IF NOT EXISTS `tournaments` (
   `date` int(10) NOT NULL,
   `regstate` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `tournament_log` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `tournament_id` int(10) NOT NULL,
   `time` int(10) NOT NULL,
   `line` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `tournament_players` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -30,4 +53,4 @@ CREATE TABLE IF NOT EXISTS `tournament_players` (
   `player_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tournament_id` (`tournament_id`,`player_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
