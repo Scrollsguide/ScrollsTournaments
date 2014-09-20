@@ -292,7 +292,7 @@
 					
 					<div class="row">
 						<div class="col-lg-4">
-							<h2>Players Signed up <small>5</small></h2>
+							<h2>Players Signed up <small>{{ tournament.players|length }}</small></h2>
 							
 							<div class="col-sm-11">
 								<div class="form-group">
@@ -317,8 +317,8 @@
 						</div>
 						<div class="col-lg-8">
 							<div class="form-group">
-							     <label for="twitch_imput">Name</label>
-							     <input type="text" id="twitch_imput" class="form-control" placeholder="Tournament Name" value="{{ tournament.name }}">
+							     <label for="name">Name</label>
+							     <input type="text" id="name" class="form-control" placeholder="Tournament Name" value="{{ tournament.name }}">
 							</div>
 							<div class="form-group">
 								<label class="control-label" for="desc">Description of the tournament</label>
@@ -332,12 +332,8 @@
 							
 							<fieldset disabled>
 							<div class="form-group">
-								<label class="control-label" for="desc">Tournament Log</label>
-	<!-- Best if this got ajax/autoupdate -->
-								<textarea class="form-control" id="desc" rows="5">
-00:00:00: Starting Tournament
-00:01:34: kBasten won against Blinky
-							</textarea>
+								<label class="control-label" for="log">Tournament Log</label>
+								<textarea class="form-control" id="log" rows="5">{% for l in tournament.loglines %}{{ l.time|date('d/m/Y H:i:s') }}: {{ l.line }}{% endfor %}</textarea>
 							</div>
 							</fieldset>
 						</div>

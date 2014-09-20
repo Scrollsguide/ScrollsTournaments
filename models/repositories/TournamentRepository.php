@@ -25,5 +25,21 @@
 			
 			$sth->execute();
 		}
+		
+		public function addTournamentLog(Tournament $t){
+			$sth = $this->getConnection()->prepare("SELECT time, line
+						FROM tournament_log
+						WHERE tournament_id = :t_id");
+			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
+
+			$sth->execute();
+
+			$logLines = $sth->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($logLines as $line) {
+				$t->addLogLine($line);
+			}
+
+			return $logLines;
+		}
 
 	}

@@ -16,6 +16,8 @@
 		private $regstate;
 
 		private $players = array();
+		
+		private $logLines = array();
 
 		public function __construct() {
 
@@ -77,6 +79,13 @@
 			$this->players[] = $player;
 		}
 
+		public function getLogLines(){
+			return $this->logLines;
+		}
+		
+		public function addLogLine($line){
+			$this->logLines[] = $line;
+		}
 	}
 
 	class RegistrationState {

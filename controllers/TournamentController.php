@@ -16,6 +16,8 @@
 
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
+				$tournamentRepository->addTournamentLog($tournament);
+			
 				return $this->render("tournament_user.html.twig", array(
 					"tournament" => $tournament,
 				));
@@ -33,7 +35,8 @@
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				$regstate = $tournament->getRegState();
 				if ($regstate === RegistrationState::OPEN) {
-
+				
+					// register this player
 					$tpRepo = $em->getRepository("TournamentPlayer");
 
 
@@ -42,6 +45,9 @@
 					$tournamentPlayer->setTournamentId($tournament->getId());
 
 					$tpRepo->persist($tournamentPlayer);
+					
+					// add log
+					$this->addLog($tournament, $em, "Player ... just joined the tournament.");
 
 
 					// notify user
@@ -83,6 +89,9 @@
 
 				$brackets = $bracketGenerator->generateBrackets();
 
+				// add start action to log
+				$this->addLog($tournament, $em, sprintf("The tournament has started with %d players!", count($tournament->getPlayers())));
+				
 				var_dump($brackets);
 				die();
 			} else { // tournament not found
@@ -122,11 +131,27 @@
 			$tournamentRepository = $em->getRepository("Tournament");
 
 			$tournamentRepository->persist($t);
+			
+			$t->setId($this->getApp()->get("database")->getConnection()->lastInsertId());
+			
+			// save create tournament action to log
+			$this->saveLog($t, $em, "Tournament created.");
 
 			// redirect to new tournament page
 			$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $t->getUrl()));
 
 			return new RedirectResponse($tournamentRoute);
+
 		}
 
+		private function saveLog(Tournament $t, EntityManager $em, $line){
+			$tl = new TournamentLog();
+			$tl->setTournamentId($t->getId());
+			$tl->setTime(time());
+			$tl->setLine($line);
+			
+			$logRepository = $em->getRepository("TournamentLog");
+			$logRepository->persist($tl);
+		}
+		
 	}
