@@ -38,7 +38,8 @@
 				$double_rounds = $to_assign - $round->getMatchCount();
 
 				for ($bracket_count = 0; $bracket_count < $round->getMatchCount(); $bracket_count++) {
-					$bracket = new Bracket($bracket_id++);
+					$bracket = new Bracket();
+					$bracket->setId($bracket_id++);
 
 					$players_in_bracket = 2;
 					if ($round->isByesRound()) {
@@ -60,25 +61,8 @@
 				}
 			}
 
-			for ($r = 0; $r < count($this->rounds) - 1; $r++){
-				$brackets = $this->rounds[$r]->getBrackets();
+			$this->generateTree();
 
-				$nextBrackets = $this->rounds[$r + 1]->getBrackets();
-
-				$index = 0;
-
-				for ($b = 0; $b < count($brackets); $b++){
-					while (count($nextBrackets[$index]->getParents()) === 2 ||
-							count($nextBrackets[$index]->getPlayers()) === 2 ||
-							(count($nextBrackets[$index]->getParents()) === 1 && count($nextBrackets[$index]->getPlayers()) === 1)){
-						$index++;
-					}
-
-					$nextBrackets[$index]->addParent($brackets[$b]);
-					$brackets[$b]->setChild($nextBrackets[$index]);
-				}
-			}
-			
 			return $this->rounds;
 		}
 
@@ -103,7 +87,7 @@
 				$br = new BracketRound($name);
 				$br->setMatchCount($max_matchups);
 
-				if ($i == 2) {
+				if ($i === 2) {
 					$br->setIsByesRound(true);
 				}
 
@@ -111,6 +95,28 @@
 			}
 
 			return $this->rounds;
+		}
+
+		private function generateTree(){
+			for ($r = 0; $r < count($this->rounds) - 1; $r++){
+				$brackets = $this->rounds[$r]->getBrackets();
+
+				$nextBrackets = $this->rounds[$r + 1]->getBrackets();
+
+				$index = 0;
+
+				for ($b = 0; $b < count($brackets); $b++){
+					// look for suitable children
+					while (count($nextBrackets[$index]->getParents()) === 2 ||
+						count($nextBrackets[$index]->getPlayers()) === 2 ||
+						(count($nextBrackets[$index]->getParents()) === 1 && count($nextBrackets[$index]->getPlayers()) === 1)){
+						$index++;
+					}
+
+					$nextBrackets[$index]->addParent($brackets[$b]);
+					$brackets[$b]->setChild($nextBrackets[$index]);
+				}
+			}
 		}
 
 	}
@@ -180,55 +186,4 @@
 			return pow(2, $rounds) - $n;
 		}
 
-	}
-
-	class Bracket {
-
-		private $id;
-
-		private $players = array();
-
-		private $parents = array();
-
-		private $child;
-
-		public function __construct($id) {
-			$this->id = $id;
-		}
-
-		public function getId() {
-			return $this->id;
-		}
-
-		public function addPlayer(TournamentPlayer $p) {
-			if (count($this->players) === 2) {
-				throw new Exception("Bracket cannot contain more than two players.");
-			}
-
-			$this->players[] = $p;
-		}
-
-		public function getPlayers() {
-			return $this->players;
-		}
-
-		public function getParents() {
-			return $this->parents;
-		}
-
-		public function addParent(Bracket $parent) {
-			if (count($this->parents) === 2) {
-				throw new Exception("Bracket cannot have more than two parents.");
-			}
-
-			$this->parents[] = $parent;
-		}
-
-		public function getChild() {
-			return $this->child;
-		}
-
-		public function setChild(Bracket $child) {
-			$this->child = $child;
-		}
 	}

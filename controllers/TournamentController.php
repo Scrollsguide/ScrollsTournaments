@@ -72,7 +72,7 @@
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				// TODO: check whether user is admin for this tournament
 
-				for ($i = 0; $i < 4; $i++){
+				for ($i = 0; $i < 4; $i++) {
 					$p = new TournamentPlayer();
 					$p->setTournamentId($tournament->getId());
 					$p->setPlayerId($i);
