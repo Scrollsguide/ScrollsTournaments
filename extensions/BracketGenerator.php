@@ -93,8 +93,6 @@
 
 				$this->rounds[$i - 1] = $br;
 			}
-
-			return $this->rounds;
 		}
 
 		private function generateTree(){
