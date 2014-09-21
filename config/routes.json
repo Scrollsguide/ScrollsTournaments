@@ -20,9 +20,17 @@
 				"name": "[a-z0-9-]+"
 			}
 		},
+		"tournament_register": {
+			"path": "/tournament/{name}/register",
+			"action": "Tournament::register",
+			"requirements": {
+				"name": "[a-z0-9-]+"
+			}
+		},
 		"tournament_enter": {
 			"path": "/tournament/{name}/enter",
 			"action": "Tournament::enter",
+			"method": "POST",
 			"requirements": {
 				"name": "[a-z0-9-]+"
 			}

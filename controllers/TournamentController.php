@@ -42,6 +42,21 @@
 				return $this->p404();
 			}
 		}
+		
+		public function registerAction($url){
+			// set up entity and repository
+			$em = $this->getApp()->get("EntityManager");
+			$tournamentRepository = $em->getRepository("Tournament");
+
+			// look for tournament in the repo
+			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
+				return $this->render("tournament_register.html.twig", array(
+					'tournament' => $tournament
+				));
+			} else { // tournament not found
+				return $this->p404();
+			}
+		}
 
 		public function enterAction($url) {
 			// set up entity and repository
@@ -124,7 +139,8 @@
 		}
 
 		public function acceptInviteAction($code) {
-
+			// load tournament for invite
+			
 		}
 
 		public function newAction() {
@@ -142,7 +158,7 @@
 
 			$r = $this->getApp()->getRequest();
 
-			$regState = $r->getParameter("regstate");
+			$regState = (int)$r->getParameter("regstate");
 			if (!RegistrationState::valid($regState)){
 				$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid registration state.");				
 				return $this->toNewPage();
@@ -156,6 +172,8 @@
 			$t->setName($name);
 			$t->setUrl(URLUtils::makeBlob($name));
 			$t->setRegState($regState);
+			
+			// TODO: use request parameter for type
 			$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);
 
 			$em = $this->getApp()->get("EntityManager");
@@ -164,6 +182,15 @@
 			$tournamentRepository->persist($t);
 			
 			$t->setId($this->getApp()->get("database")->getConnection()->lastInsertId());
+			
+			// check for invite-only and generate invite
+			if ($regState === RegistrationState::INVITE_ONLY){
+				$invite = new Invite();
+				$invite->setTournamentId($t->getId());
+				$invite->setCode(InviteHelper::generateCode());
+				
+				$tournamentRepository->persistInvite($invite);
+			}
 			
 			// save create tournament action to log
 			$this->saveLog($t, $em, "Tournament created.");
