@@ -13,8 +13,7 @@
 		
 		private $round_nr;
 
-		public function __construct($name) {
-			$this->name = $name;
+		public function __construct() {
 		}
 		
 		public function getTournamentId(){
@@ -27,6 +26,10 @@
 
 		public function getName() {
 			return $this->name;
+		}
+		
+		public function setName($name){
+			$this->name = $name;
 		}
 
 		public function getRoundNr(){

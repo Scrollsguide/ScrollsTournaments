@@ -18,6 +18,8 @@
 		private $players = array();
 		
 		private $logLines = array();
+		
+		private $rounds = array();
 
 		public function __construct() {
 
@@ -75,7 +77,7 @@
 			return $this->players;
 		}
 
-		public function addPlayer($player) {
+		public function addPlayer(TournamentPlayer $player) {
 			$this->players[] = $player;
 		}
 
@@ -83,8 +85,16 @@
 			return $this->logLines;
 		}
 		
-		public function addLogLine($line){
+		public function addLogLine(TournamentLog $line){
 			$this->logLines[] = $line;
+		}
+
+		public function getRounds(){
+			return $this->rounds;
+		}
+		
+		public function addRound(BracketRound $round){
+			$this->rounds[] = $round;
 		}
 	}
 

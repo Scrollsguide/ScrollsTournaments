@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS `bracket` (
 
 CREATE TABLE IF NOT EXISTS `bracket_players` (
   `bracket_id` int(10) NOT NULL,
-  `tournament_player_id` int(10) NOT NULL,
-  `score` int(1) NOT NULL,
-  PRIMARY KEY (`bracket_id`)
+  `player_id` int(10) NOT NULL,
+  `score` int(1) NOT NULL DEFAULT '-1',
+  UNIQUE KEY `bracket_id` (`bracket_id`,`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `bracket_rounds` (

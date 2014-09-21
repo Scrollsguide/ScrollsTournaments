@@ -17,7 +17,7 @@
 				'/styles/vendor/bootstrap.min.css',
 				'/styles/vendor/font-awesome.min.css',
 				'/styles/vendor/rrssb.css',
-				'/styles/vendor/jquery.bracket.min.css'
+				'/styles/vendor/jquery.bracket.css'
 			),
 
 			'js/vendors.js'   => array(

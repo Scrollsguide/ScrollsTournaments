@@ -82,7 +82,8 @@
 				// TODO: remove temporary names
 				$name = ($i === $num_rounds) ? 'finals' : 'round ' . $i;
 
-				$br = new BracketRound($name);
+				$br = new BracketRound();
+				$br->setName($name);
 				$br->setTournamentId($this->tournament->getId());
 				$br->setRoundNr($i);
 				$br->setMatchCount($max_matchups);
@@ -116,26 +117,6 @@
 					$brackets[$b]->setChild($nextBrackets[$index]);
 				}
 			}
-		}
-
-	}
-
-	class BracketUtils {
-
-		public static function highestBase($n) {
-			$i = 0;
-			while (pow(2, $i) < $n) {
-				$i++;
-			}
-
-			return $i;
-		}
-
-		// calculate number of byes for $n players
-		public static function calcByes($n) {
-			$rounds = BracketUtils::highestBase($n);
-
-			return pow(2, $rounds) - $n;
 		}
 
 	}

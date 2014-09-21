@@ -1,0 +1,36 @@
+{% set maxheight = renderdata.max_matchups * 64 %}
+{% set teamcontainerheight = 53 %}
+<div class='jQBracket' style='width: {{ renderdata.total_width }}px'>
+	<div class='bracket' style='height: {{ maxheight }}px'>
+		{% for r in tournament.rounds %}
+			<div class='round'>
+				{% set bracketheight = maxheight / r.brackets|length %}
+				{% for b in r.brackets %}
+					{% set c = b.players|length < 2 ? ' np' : '' %}
+					<div class='b-match' style='height: {{ bracketheight }}px;'>
+						<div class='teamContainer{{ c }}' style='top: {{ (bracketheight - teamcontainerheight) / 2 }}px' data-child='{{ b.child.id }}' data-id='{{ b.id }}'>
+							{% for p in b.players %}
+								{% set s = p.getBracketScore(b.id) %}
+								<div class='team' data-team-id='{{ p.id }}' data-result='{{ s }}'>
+									<div class='bracket-label'>{{ p.id }}</div>
+									<div class='score'>{{ s != -1 ? s : '--' }}</div>
+								</div>
+							{% endfor %}
+							{% if b.players|length < 2 %}
+								{% for left in range(0, 1 - b.players|length) %}
+									<div class='team'>
+										<div class='bracket-label'>--</div>
+										<div class='score'>--</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+							<div class='connector' style='width: 20px; right: -22px;'>
+								<div class='connector' style='width: 20px; right: -20px; bottom: 0px'></div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+</div>

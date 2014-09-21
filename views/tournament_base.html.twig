@@ -276,7 +276,7 @@
 					</div>
 				</div>
 			</div>
-			<div id='admin' class='tab-pane fade in active'>
+			<div id='admin' class='tab-pane fade'>
 				<div class="row">
 					<div class="row">
 						<div class="form-group">
@@ -333,7 +333,8 @@
 							<fieldset disabled>
 							<div class="form-group">
 								<label class="control-label" for="log">Tournament Log</label>
-								<textarea class="form-control" id="log" rows="5">{% for l in tournament.loglines %}{{ l.time|date('d/m/Y H:i:s') }}: {{ l.line }}{% endfor %}</textarea>
+								<textarea class="form-control" id="log" rows="5">{% for l in tournament.loglines %}{{ l.time|date('d/m/Y H:i:s') }}: {{ l.line }}
+{% endfor %}</textarea>
 							</div>
 							</fieldset>
 						</div>
@@ -343,7 +344,20 @@
 			<div id='bracket' class='tab-pane fade'>
 				Bracket
 
-				<div id="bracket-graph"></div>
+				<!--<div id="bracket-graph-new"></div>-->
+			</div>
+			<div id='bracket-test' class='tab-pane fade in active'>
+				<div id="bracket-graph">
+					Bracket:
+					{% include 'bracket_render.html.twig' %}
+				
+				</div>
+			
+			
+			
+			
+			
+			
 			</div>
 		</div>
 	</div>
@@ -354,18 +368,26 @@
 
 	var minimalData = {
 	teams : [
-	["Team 1", "Team 2"], /* first matchup */
-	["Team 3", "Team 4"]  /* second matchup */
+		["Team 1", "Team 2"], /* first matchup */
+		["Team 3", "Team 4"],  /* second matchup */
+		["Team 5", ""],
+		["Team 7", ""]
 	],
 	results : [
-	[[1,2], [3,4]],       /* first round */
-	[[4,6], [2,1]]        /* second round */
+		[
+			[[1,2], [3,4], [5, 6], [7, 0]],       /* first round */
+			[[4,6], [2,1]],        /* second round */
+			[[4,3], [3, 5]]
+		]
 	]
 	}
 
 	$(function() {
-	$('#bracket-graph').bracket({
-	init: minimalData /* data to initialize the bracket with */ })
+		$('#bracket-graph-new').bracket({
+			init: minimalData,
+			byes: "byes"
+		})
 	})
 </script>
+<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_renderer.js') }}'></script>
 {% endblock %}

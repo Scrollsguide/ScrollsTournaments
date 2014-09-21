@@ -12,14 +12,26 @@
 		public function viewAction($url) {
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
-			$tournamentRepository = $em->getRepository("Tournament");
-
+			$tournamentRepository = $em->getRepository("Tournament");			
+			
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				$tournamentRepository->addTournamentLog($tournament);
+				$tournamentRepository->addTournamentPlayers($tournament);
+				$tournamentRepository->addBracket($tournament);
+			
+				// add some rendering data
+				// we have to reorder the brackets for easier rendering
+
+				$maxMatchups = BracketUtils::highestBase(count($tournament->getPlayers()));
+				$renderData = array(
+					'total_width' => count($tournament->getRounds()) * 190 + 10,
+					'max_matchups' => $maxMatchups
+				);
 			
 				return $this->render("tournament_user.html.twig", array(
 					"tournament" => $tournament,
+					"renderdata" => $renderData
 				));
 			} else { // tournament not found in the repository
 				return $this->p404();
@@ -75,16 +87,14 @@
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
 			
+			
+			
+			
+			
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				// TODO: check whether user is admin for this tournament
-
-				for ($i = 0; $i < 4; $i++) {
-					$p = new TournamentPlayer();
-					$p->setTournamentId($tournament->getId());
-					$p->setPlayerId($i);
-					$tournament->addPlayer($p);
-				}
+				$tournamentRepository->addTournamentPlayers($tournament);
 
 				$bracketGenerator = new BracketGenerator($tournament);
 
@@ -97,9 +107,7 @@
 					
 					$brackets = $bracketRounds[$round]->getBrackets();
 					for ($bracket = 0; $bracket < count($brackets); $bracket++){
-						$tournamentRepository->persistBracket($brackets[$bracket], $tournament, $bracketRounds[$round]);
-					
-						$bracketDBId = $pdo->lastInsertId();
+						$bracketDBId = $tournamentRepository->persistBracket($brackets[$bracket], $tournament, $bracketRounds[$round]);
 						
 						// set db id to parent of next children
 						$brackets[$bracket]->setId($bracketDBId);
