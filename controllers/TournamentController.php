@@ -21,7 +21,6 @@
 				$tournamentRepository->addBracket($tournament);
 			
 				// add some rendering data
-
 				$maxMatchups = 0;
 				foreach ($tournament->getRounds() as $round){
 					if ($round->getMatchCount() > $maxMatchups){
@@ -31,7 +30,8 @@
 				
 				$renderData = array(
 					'total_width' => count($tournament->getRounds()) * 190 + 10,
-					'max_matchups' => $maxMatchups
+					'max_matchups' => $maxMatchups,
+					'num_byes' => BracketUtils::calcByes(count($tournament->getPlayers()))
 				);
 			
 				return $this->render("tournament_user.html.twig", array(

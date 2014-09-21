@@ -87,19 +87,9 @@
 		public function categoryIcon($category) {
 			$iconMap = array(
 				'about'        => 'info',
-				'submit'       => 'upload',
-				'beginner'     => 'cogs',
-				'intermediate' => 'star',
-				'master'       => 'trophy',
-				'video'        => 'video-camera',
-				'strategy'     => 'puzzle-piece',
-				'decks'        => 'inbox',
-				'judgement'    => 'flag',
-				'ui'           => 'laptop',
 				'404'          => 'exclamation',
 				'forum'        => 'comments',
-				'wiki'         => 'globe',
-				'series'       => 'sort-alpha-asc'
+				'wiki'         => 'globe'
 			);
 			$category = strtolower($category);
 
@@ -114,6 +104,8 @@
 					return "Single Elimination";
 				case TournamentType::DOUBLE_ELIMINATION:
 					return "Double Elimination";
+				case TournamentType::SWISS:
+					return "Swiss";
 			}
 		}
 	}

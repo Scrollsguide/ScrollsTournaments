@@ -14,6 +14,8 @@
 
 		// state of registration: see below
 		private $regstate;
+		
+		private $tournamenttype;
 
 		private $players = array();
 		
@@ -102,7 +104,7 @@
 		}
 		
 		public function setTournamentType($type){
-			$this->type = $type;
+			$this->tournamenttype = $type;
 		}
 		
 	}

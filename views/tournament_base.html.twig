@@ -286,7 +286,7 @@
 					<div class="form-group">
 						<div class="col-sm-12 text-center">
 								<br />
-								<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.name }) }}">Start</a>
+								<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.url }) }}">Start</a>
 							<div class="col-sm-12">
 								<label class="" for="">Create the brackets and start the tournament</label>
 							</div>
@@ -315,6 +315,9 @@
 									<li><i class="fa fa-circle color-started"></i> {{ player.id }}</li>
 								{% endfor %}
 							</ul>
+							{% if renderdata.num_byes > 0 %}
+								{{ renderdata.num_byes }} byes required.
+							{% endif %}
 						</div>
 					</div>
 					<div class="col-lg-8">

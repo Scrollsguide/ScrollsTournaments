@@ -37,7 +37,7 @@
 				$double_rounds = $to_assign - $round->getMatchCount();
 
 				for ($bracket_count = 0; $bracket_count < $round->getMatchCount(); $bracket_count++) {
-					$bracket = new Bracket();
+					$bracket = new SingleEliminationBracket();
 					$bracket->setId(0);
 
 					$players_in_bracket = 2;
@@ -82,7 +82,7 @@
 				// TODO: remove temporary names
 				$name = ($i === $num_rounds) ? 'finals' : 'round ' . $i;
 
-				$br = new BracketRound();
+				$br = new SingleEliminationBracketRound();
 				$br->setName($name);
 				$br->setTournamentId($this->tournament->getId());
 				$br->setRoundNr($i);

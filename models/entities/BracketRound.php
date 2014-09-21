@@ -5,8 +5,6 @@
 
 		private $match_count;
 
-		private $isByesRound = false;
-
 		private $brackets = array();
 		
 		private $tournament_id;
@@ -46,14 +44,6 @@
 
 		public function setMatchCount($count) {
 			$this->match_count = $count;
-		}
-
-		public function setIsByesRound($isByesRound) {
-			$this->isByesRound = $isByesRound;
-		}
-
-		public function isByesRound() {
-			return $this->isByesRound;
 		}
 
 		/**

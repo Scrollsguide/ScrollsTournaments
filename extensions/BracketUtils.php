@@ -41,7 +41,7 @@
 			// now make brackets
 			$tournamentBrackets = array();
 			foreach ($brackets as $b){
-				$bObj = new Bracket();
+				$bObj = new SingleEliminationBracket();
 				$bObj->setId($b['id']);
 				
 				$tournamentBrackets[$b['id']] = $bObj;
