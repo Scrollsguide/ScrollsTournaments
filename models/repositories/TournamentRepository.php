@@ -16,12 +16,14 @@
 					SET name = :name,
 					url = :url,
 					date = :date,
-					regstate = :regstate");
+					regstate = :regstate,
+					tournamenttype = :t_type");
 					
 			$sth->bindValue(":name", $tournament->getName(), PDO::PARAM_STR);
 			$sth->bindValue(":url", $tournament->getUrl(), PDO::PARAM_STR);
 			$sth->bindValue(":date", $tournament->getDate(), PDO::PARAM_INT);
 			$sth->bindValue(":regstate", $tournament->getRegState(), PDO::PARAM_INT);
+			$sth->bindValue(":t_type", $tournament->getTournamentType(), PDO::PARAM_INT);
 			
 			$sth->execute();
 		}

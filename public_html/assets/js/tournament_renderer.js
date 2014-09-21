@@ -95,5 +95,15 @@ $(document).ready(function(){
 			}
 			connectors.css("display", "block");
 		}
-	};
+	}
+	
+	$(".jQBracket .team").hover(function(){
+		console.log("hover");
+		var team = $(this).attr("data-team-id");
+		if (team){
+			$(".team[data-team-id='" + team + "']").addClass("highlight");
+		}
+	}, function(){
+		$(".highlight").removeClass("highlight");
+	});
 });

@@ -56,9 +56,22 @@
 				$rounds[$b['round']]->addBracket($tournamentBrackets[$b['id']]);
 			}
 			
+			foreach ($rounds as $round){
+				$round->setMatchCount(count($round->getBrackets()));
+			}
+			
 			foreach ($players as $p){
 				$tournamentBrackets[$p['bracket_id']]->addPlayer($tournamentPlayers[$p['player_id']]);
 			}
+		}
+		
+		public static function shuffleRand($players, $seed){
+			srand($seed);
+			$order = array_map(function(){ return rand(); }, range(1, count($players)));
+
+			array_multisort($order, $players);
+			
+			return $players;
 		}
 
 	}

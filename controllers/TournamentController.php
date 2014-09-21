@@ -21,9 +21,14 @@
 				$tournamentRepository->addBracket($tournament);
 			
 				// add some rendering data
-				// we have to reorder the brackets for easier rendering
 
-				$maxMatchups = BracketUtils::highestBase(count($tournament->getPlayers()));
+				$maxMatchups = 0;
+				foreach ($tournament->getRounds() as $round){
+					if ($round->getMatchCount() > $maxMatchups){
+						$maxMatchups = $round->getMatchCount();
+					}
+				}
+				
 				$renderData = array(
 					'total_width' => count($tournament->getRounds()) * 190 + 10,
 					'max_matchups' => $maxMatchups
@@ -87,16 +92,13 @@
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
 			
-			
-			
-			
-			
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				// TODO: check whether user is admin for this tournament
 				$tournamentRepository->addTournamentPlayers($tournament);
 
 				$bracketGenerator = new BracketGenerator($tournament);
+				$bracketGenerator->setSeed(rand());
 
 				$bracketRounds = $bracketGenerator->generateBrackets();
 				
@@ -140,6 +142,12 @@
 
 			$r = $this->getApp()->getRequest();
 
+			$regState = $r->getParameter("regstate");
+			if (!RegistrationState::valid($regState)){
+				$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid registration state.");				
+				return $this->toNewPage();
+			}
+			
 			$name = $r->getParameter("name");
 
 			$t = new Tournament();
@@ -147,7 +155,8 @@
 			$t->setDate(time());
 			$t->setName($name);
 			$t->setUrl(URLUtils::makeBlob($name));
-			$t->setRegState($r->getParameter("regstate"));
+			$t->setRegState($regState);
+			$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);
 
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
@@ -163,6 +172,11 @@
 			$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $t->getUrl()));
 
 			return new RedirectResponse($tournamentRoute);
+		}
+		
+		private function toNewPage(){			
+			$newTournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_new");
+			return new RedirectResponse($newTournamentRoute);
 		}
 
 		private function saveLog(Tournament $t, EntityManager $em, $line){

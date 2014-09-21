@@ -14,22 +14,27 @@
 			<div class="alert alert-success">{{ flash }}</div>
 		{% endfor %}
 		
+		{% for flash in app.session.flashbag.get('tournament_error') %}
+			<div class="alert alert-danger">{{ flash }}</div>
+		{% endfor %}
+		
 		{% block tournament_actions %}
 		
 		{% endblock %}
 		
 		<ul class='nav nav-tabs'>
 			<li><a data-toggle='tab' href='#overview'>Overview</a></li>
-			<li><a data-toggle='tab' href='#bracket'>Bracket</a></li>
-			<li  class='active'><a data-toggle='tab' href='#admin'>Admin</a></li>
+			<li class='active'><a data-toggle='tab' href='#bracket'>Bracket</a></li>
+			<li><a data-toggle='tab' href='#admin'>Admin</a></li>
 		</ul>
 		
 		<div class='tab-content'>
 			<div id='overview' class='tab-pane fade'>
 				<!-- Finals -->
 				<div class="row">
-					<!-- ['Tournament name'] = Tournament name,  ['how far in the tournament'] = Quarters, Semi finas, fianls etc..-->
-					<h1 class="text-center">{{ tournament.name }}<br /><i class="fa fa-circle color-started"></i> Finals<br /><small>(Best of X)</small></h1>
+					<h1 class="text-center">{{ tournament.name }}<br />
+					{{ tournament.players|length }} player {{ tournamentType(tournament) }}
+					<br /><i class="fa fa-circle color-started"></i> Finals<br /><small>(Best of X)</small></h1>
 					<div class="col-md-3 col-sm-3 text-right hidden-xs">
 						<!-- Insert Animated avatar like the SG profiles -->
 						<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
@@ -278,75 +283,70 @@
 			</div>
 			<div id='admin' class='tab-pane fade'>
 				<div class="row">
-					<div class="row">
-						<div class="form-group">
-						   	<div class="col-sm-12 text-center">
-						   			<br />
-						   			<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.name }) }}">Start</a>
-						   		<div class="col-sm-12">
-						    		<label class="" for="">Create the brackets and start the tournament</label>
-						    	</div>
-						   	</div>
-						 </div>
-					</div>
-					
-					<div class="row">
-						<div class="col-lg-4">
-							<h2>Players Signed up <small>{{ tournament.players|length }}</small></h2>
-							
-							<div class="col-sm-11">
-								<div class="form-group">
-								     <label for="twitch_imput">Search</label>
-								     
-								     <input type="search" id="twitch_imput" class="form-control" placeholder="Search player...">
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<p>
-									<i class="fa fa-circle color-not-started"></i> <b>Not ready</b>
-									<i class="fa fa-circle color-started"></i> <b>Ready</b>
-								</p>
-								<ul>
-									<li><i class="fa fa-circle color-started"></i> player 1 </li>
-									<li><i class="fa fa-circle color-started"></i> player 2</li>
-									<li><i class="fa fa-circle color-not-started"></i> player 3</li>
-									<li><i class="fa fa-circle color-started"></i> player 4</li>
-									<li><i class="fa fa-circle color-started"></i> player 5</li>
-								</ul>
+					<div class="form-group">
+						<div class="col-sm-12 text-center">
+								<br />
+								<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.name }) }}">Start</a>
+							<div class="col-sm-12">
+								<label class="" for="">Create the brackets and start the tournament</label>
 							</div>
 						</div>
-						<div class="col-lg-8">
+					 </div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-4">
+						<h2>Players Signed up <small>{{ tournament.players|length }}</small></h2>
+						
+						<div class="col-sm-11">
 							<div class="form-group">
-							     <label for="name">Name</label>
-							     <input type="text" id="name" class="form-control" placeholder="Tournament Name" value="{{ tournament.name }}">
+								 <label for="twitch_imput">Search</label>
+								 
+								 <input type="search" id="twitch_imput" class="form-control" placeholder="Search player...">
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<p>
+								<i class="fa fa-circle color-not-started"></i> <b>Not ready</b>
+								<i class="fa fa-circle color-started"></i> <b>Ready</b>
+							</p>
+							<ul>
+								{% for player in tournament.players %}
+									<li><i class="fa fa-circle color-started"></i> {{ player.id }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<form class="form" role="form" method="POST" action="{{ path('tournament_save') }}">
+							<div class="form-group">
+								 <label for="name">Name</label>
+								 <input type="text" id="name" class="form-control" placeholder="Tournament Name" value="{{ tournament.name }}">
 							</div>
 							<div class="form-group">
 								<label class="control-label" for="desc">Description of the tournament</label>
 								<textarea class="form-control" id="desc" rows="5"></textarea>
 							</div>
 							<div class="form-group">
-							     <label for="twitch_imput">Twitch Stream</label>
-							     <input type="text" id="twitch_imput" class="form-control" placeholder="http://twitch.tv/username">
+								 <label for="twitch_imput">Twitch Stream</label>
+								 <input type="text" id="twitch_imput" class="form-control" placeholder="http://twitch.tv/username">
 							</div>
-							
-							
-							<fieldset disabled>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+								<input type="hidden" name='tournamentid' value='{{ tournament.id }}' />
+							</div>
+						</form>
+						<fieldset disabled>
 							<div class="form-group">
 								<label class="control-label" for="log">Tournament Log</label>
 								<textarea class="form-control" id="log" rows="5">{% for l in tournament.loglines %}{{ l.time|date('d/m/Y H:i:s') }}: {{ l.line }}
 {% endfor %}</textarea>
 							</div>
-							</fieldset>
-						</div>
+						</fieldset>
 					</div>
 				</div>
 			</div>
-			<div id='bracket' class='tab-pane fade'>
-				Bracket
-
-				<!--<div id="bracket-graph-new"></div>-->
-			</div>
-			<div id='bracket-test' class='tab-pane fade in active'>
+			<div id='bracket' class='tab-pane fade in active'>
 				<div id="bracket-graph">
 					Bracket:
 					{% include 'bracket_render.html.twig' %}
@@ -364,30 +364,5 @@
 	
 {% endblock %}
 {% block customjs %}
-<script type="text/javascript">
-
-	var minimalData = {
-	teams : [
-		["Team 1", "Team 2"], /* first matchup */
-		["Team 3", "Team 4"],  /* second matchup */
-		["Team 5", ""],
-		["Team 7", ""]
-	],
-	results : [
-		[
-			[[1,2], [3,4], [5, 6], [7, 0]],       /* first round */
-			[[4,6], [2,1]],        /* second round */
-			[[4,3], [3, 5]]
-		]
-	]
-	}
-
-	$(function() {
-		$('#bracket-graph-new').bracket({
-			init: minimalData,
-			byes: "byes"
-		})
-	})
-</script>
 <script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_renderer.js') }}'></script>
 {% endblock %}

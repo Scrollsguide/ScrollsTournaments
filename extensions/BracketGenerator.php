@@ -24,7 +24,7 @@
 		public function generateBrackets() {
 			$this->generateRounds();
 
-			$players = $this->tournament->getPlayers();
+			$players = BracketUtils::shuffleRand($this->tournament->getPlayers(), $this->seed);
 			$player_index = 0;
 
 			$brackets = array();

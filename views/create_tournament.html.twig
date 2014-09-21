@@ -4,6 +4,10 @@
         <div class="col-md-12 category-hdr">
             <h4><i class="fa fa-cogs"></i> Create A Tournament</h4>
         </div>
+		
+		{% for flash in app.session.flashbag.get('tournament_error') %}
+			<div class="alert alert-danger">{{ flash }}</div>
+		{% endfor %}
 
 		<div class="row content-well">
 			<form class="form-horizontal" role="form" method="POST" action="{{ path('tournament_save') }}">

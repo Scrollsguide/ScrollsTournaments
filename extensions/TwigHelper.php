@@ -23,6 +23,8 @@
 			$twig->addFunction(new Twig_SimpleFunction("currentRoute", array($t, "currentRoute")));
 			$twig->addFunction(new Twig_SimpleFunction("categoryIcon", array($t, "categoryIcon")));
 			$twig->addFunction(new Twig_SimpleFunction("imagePath", array($t, "imagePath")));
+			
+			$twig->addFunction(new Twig_SimpleFunction("tournamentType", array($t, "tournamentType")));
 
 			// filters
 			$twig->addFilter(new Twig_SimpleFilter("cut", array($t, "cut")));
@@ -102,5 +104,16 @@
 			$category = strtolower($category);
 
 			return isset($iconMap[$category]) ? $iconMap[$category] : '';
+		}
+		
+		public function tournamentType($t){
+			switch ($t->getTournamentType()){
+				case TournamentType::ROUND_ROBIN:
+					return "Round Robin";
+				case TournamentType::SINGLE_ELIMINATION:
+					return "Single Elimination";
+				case TournamentType::DOUBLE_ELIMINATION:
+					return "Double Elimination";
+			}
 		}
 	}

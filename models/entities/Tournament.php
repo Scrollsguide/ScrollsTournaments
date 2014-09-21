@@ -96,12 +96,13 @@
 		public function addRound(BracketRound $round){
 			$this->rounds[] = $round;
 		}
-	}
-
-	class RegistrationState {
-
-		const CLOSED = 0;
-		const OPEN = 1;
-		const INVITE_ONLY = 2;
-
+		
+		public function getTournamentType(){
+			return (int)$this->tournamenttype;
+		}
+		
+		public function setTournamentType($type){
+			$this->type = $type;
+		}
+		
 	}
