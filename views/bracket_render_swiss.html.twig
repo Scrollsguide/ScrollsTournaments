@@ -1,7 +1,7 @@
 {% set maxheight = renderdata.max_matchups * 64 %}
 {% set teamcontainerheight = 53 %}
 <div class='jQBracket' style='width: {{ renderdata.total_width }}px'>
-	<div class='bracket' style='height: {{ maxheight }}px'>
+	<div class='bracket swiss'>
 		{% for r in tournament.rounds %}
 			<div class='round'>
 				{% set bracketheight = maxheight / r.brackets|length %}
@@ -24,9 +24,6 @@
 									</div>
 								{% endfor %}
 							{% endif %}
-							<div class='connector' style='width: 20px; right: -22px;'>
-								<div class='connector' style='width: 20px; right: -20px; bottom: 0px'></div>
-							</div>
 						</div>
 					</div>
 				{% endfor %}

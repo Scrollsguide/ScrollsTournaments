@@ -32,7 +32,7 @@ div.jQBracket .finals {
 	position: relative;
 }
 
-div.jQBracket .bracket {
+div.jQBracket .bracket.single-elim {
 	float: right;
 	clear: left;
 }

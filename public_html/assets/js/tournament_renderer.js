@@ -2,8 +2,7 @@ $(document).ready(function(){
 	// connect all connectors
 	
 	var teamContainers = [];
-	$(".teamContainer").each(function(){
-	
+	$(".bracket-graph-se .teamContainer").each(function(){
 		var winner = 'none';
 		
 		if (!$(this).hasClass("np")){
@@ -63,7 +62,7 @@ $(document).ready(function(){
 			var childPosition = childObj.parent().position();
 			var childTop = childPosition.top + parseInt(childObj.css("top"));
 			
-			var parents = $("#bracket-graph").find("[data-child='" + child + "']");
+			var parents = $(".bracket-graph-se").find("[data-child='" + child + "']");
 			
 			if (parents.length === 1){ // byes, connect to bottom
 			
@@ -97,11 +96,11 @@ $(document).ready(function(){
 		}
 	}
 	
-	$(".jQBracket .team").hover(function(){
+	$(".bracket-graph-se .jQBracket .team").hover(function(){
 		console.log("hover");
 		var team = $(this).attr("data-team-id");
 		if (team){
-			$(".team[data-team-id='" + team + "']").addClass("highlight");
+			$(".bracket-graph-se .team[data-team-id='" + team + "']").addClass("highlight");
 		}
 	}, function(){
 		$(".highlight").removeClass("highlight");

@@ -25,6 +25,7 @@
 		<ul class='nav nav-tabs'>
 			<li><a data-toggle='tab' href='#overview'>Overview</a></li>
 			<li class='active'><a data-toggle='tab' href='#bracket'>Bracket</a></li>
+			<li><a data-toggle='tab' href='#bracket-swiss'>Swiss</a></li>
 			<li><a data-toggle='tab' href='#admin'>Admin</a></li>
 		</ul>
 		
@@ -350,21 +351,21 @@
 				</div>
 			</div>
 			<div id='bracket' class='tab-pane fade in active'>
-				<div id="bracket-graph">
-					Bracket:
-					{% include 'bracket_render.html.twig' %}
-				
+				<div class='bracket-graph-se'>
+					{% include 'bracket_render_se.html.twig' %}
 				</div>
-			
-			
-			
-			
-			
-			
+			</div>
+			<div id='bracket-swiss' class='tab-pane fade'>
+				<div class='bracket-graph-swiss'>
+					{% include 'bracket_render_swiss.html.twig' %}
+				</div>
 			</div>
 		</div>
 	</div>
 	
+{% endblock %}
+{% block customcss %}
+<link rel="stylesheet" href="{{ cdn_asset('/assets/styles/vendor/jquery.bracket.css') }}" />
 {% endblock %}
 {% block customjs %}
 <script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_renderer.js') }}'></script>
