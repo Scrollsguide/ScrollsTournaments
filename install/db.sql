@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `tournaments` (
   `url` varchar(50) NOT NULL,
   `date` int(10) NOT NULL,
   `regstate` int(1) NOT NULL DEFAULT '0',
+  `tournamenttype` int(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
