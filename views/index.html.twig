@@ -9,28 +9,24 @@
          </div>       
         
         <div class="col-lg-6">
-        	<div class="col-lg-12">
 			<h2>The Bunny Cup <small>Has Started</small></h2>
 		  	<div class="progress">
-		    	<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-		      40%
-		    	</div>
+		    	<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">40%</div>
 		   	</div>
 		   
 			<div class="btn-group btn-group-sm">
 			  <button type="button" class="btn btn-primary">Bracket</button>
 			  <button type="button" class="btn btn-primary">Overview</button>
 			</div>
-		</div>
-
 			{% for tournament in tournaments %}
-				<div class="col-lg-12">
-					<a href='{{ path('tournament_view', { 'name': tournament.url }) }}'>{{ tournament.name }}</a>
+				<div>
+					<a href='{{ path('tournament_view', { name: tournament.url }) }}'>{{ tournament.name }}</a>
 				</div>
 			{% endfor %}
-
 		</div>
-		<div class="col-lg-8"></div>
+
+
+		<div class="col-lg-6"></div>
     </div>
 {% endblock %}
 
