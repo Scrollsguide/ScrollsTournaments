@@ -2,7 +2,9 @@
 {% block content %}
 	<div class="row content-well content-block">
         <div class="col-md-12 category-hdr">
-            <h4><i class="fa fa-cogs"></i> Create A Tournament</h4>
+            <div class="page-header">
+              <h1><i class="fa fa-cogs"></i> Create A Tournament</h1>
+            </div>
         </div>
 		
 		{% for flash in app.session.flashbag.get('tournament_error') %}
@@ -12,22 +14,22 @@
 		<div class="row content-well">
 			<form class="form-horizontal" role="form" method="POST" action="{{ path('tournament_save') }}">
 			  <div class="form-group">
-				<label for="name" class="col-sm-2 control-label">Name *</label>
-				<div class="col-sm-10">
+				<label for="name" class="col-sm-4 control-label">Name *</label>
+				<div class="col-sm-8">
 				  <input type="text" class="form-control" name="name" value="" required />
 				</div>
 			  </div>
 				<div class="form-group">
-					<label for="type" class="col-sm-2 control-label">Type *</label>
-					<div class="col-sm-10">
+					<label for="type" class="col-sm-4 control-label">Type *</label>
+					<div class="col-sm-8">
 						<select class="form-control" name="type">
 							<option value="single-elimination">Single Elimination</option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="regstate" class="col-sm-2 control-label">Registration state *</label>
-					<div class="col-sm-10">
+					<label for="regstate" class="col-sm-4 control-label">Registration state *</label>
+					<div class="col-sm-8">
 						<select class="form-control" name="regstate">
 							<option value="0">Closed</option>
 							<option value="1">Open</option>
@@ -35,11 +37,40 @@
 						</select>
 					</div>
 				</div>
-			  <div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-				  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Create</button>
-				</div>
-			  </div>
+			 	
+			  	<div class="form-group">
+			  		<label for="gold_input" class="col-sm-4 control-label">Registration fee(In-Game Gold)</label>
+			  		<div class="col-sm-8">
+						<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="">
+			  		</div>
+			  	</div>			
+  				 
+  				 <div class="form-group">
+  				 	<label for="desc" class="col-sm-4 control-label">Description of the tournament</label>
+  				 	<div class="col-sm-8">
+  				 		<textarea class="form-control" id="desc" rows="5"></textarea>
+  				 	</div>
+  				 </div>
+
+  				<div class="form-group">
+  				     	<label for="twitch_imput" class="col-sm-4 control-label">Twitch Stream</label>
+  				     <div class="col-sm-8">
+  				     <input type="text" id="twitch_imput" class="form-control" placeholder="http://twitch.tv/username">
+  				     </div>
+  				</div>
+				 
+				
+				<div class="checkbox col-sm-offset-4">
+				   <label>
+				     <input type="checkbox"> Hide tournament (This tournament will not be listed)
+				   </label>
+				 </div>
+				 
+				  <div class="form-group">
+				  	<div class="col-sm-offset-4 col-sm-8">
+				  	  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Create Tournament</button>
+				  	</div>
+				  </div>
 			</form>
 		</div>
 
