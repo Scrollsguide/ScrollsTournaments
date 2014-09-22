@@ -50,12 +50,21 @@
 
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
-				return $this->render("tournament_register.html.twig", array(
-					'tournament' => $tournament
-				));
+				return $this->renderRegisterPage($tournament);
 			} else { // tournament not found
 				return $this->p404();
 			}
+		}
+
+		public function renderRegisterPage(Tournament $tournament, Invite $invite = null) {
+			if ($tournament->getRegState() === RegistrationState::CLOSED){
+
+			}
+
+			return $this->render("tournament_register.html.twig", array(
+				'tournament' => $tournament,
+				'invite'     => $invite
+			));
 		}
 
 		public function enterAction($url) {
@@ -139,8 +148,19 @@
 		}
 
 		public function acceptInviteAction($code) {
-			// load tournament for invite
+			// set up entity and repository
+			$em = $this->getApp()->get("EntityManager");
+			$tournamentRepository = $em->getRepository("Tournament");
+			$inviteRepository = $em->getRepository("Invite");
 
+			if (($invite = $inviteRepository->findOneBy("code", $code)) !== null){
+				// find tournament also
+				if (($tournament = $tournamentRepository->findOneById($invite->getTournamentId())) !== null){
+					return $this->renderRegisterPage($tournament, $invite);
+				}
+			}
+
+			// TODO: invite/tournament not found page
 		}
 
 		public function newAction() {
@@ -190,7 +210,8 @@
 				$invite->setTournamentId($t->getId());
 				$invite->setCode(InviteHelper::generateCode());
 
-				$tournamentRepository->persistInvite($invite);
+				$inviteRepository = $em->getRepository("Invite");
+				$inviteRepository->persist($invite);
 			}
 
 			// save create tournament action to log

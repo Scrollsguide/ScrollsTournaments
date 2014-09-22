@@ -107,4 +107,9 @@
 			$this->tournamenttype = $type;
 		}
 
+		// helper for twig
+		public function isInviteOnly(){
+			return $this->getRegState() === RegistrationState::INVITE_ONLY;
+		}
+
 	}

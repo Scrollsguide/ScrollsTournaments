@@ -34,8 +34,20 @@
 					</div>
 				</div>
 
+				{% if tournament.isInviteOnly() %}
+					<div class="form-group">
+						<label for="invite" class="col-sm-4 control-label">Invite code</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="invite" placeholder="Invite" required {% if invite %}value="{{ invite.code }}" disabled="disabled"{% endif %}/>
+						</div>
+					</div>
+				{% endif %}
+
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
+						{% if invite %}
+							<input type="hidden" value="{{ invite.code }}" name="invite" />
+						{% endif %}
 						<button type="submit" class="btn btn-primary">Participate</button>
 					</div>
 				</div>
