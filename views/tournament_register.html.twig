@@ -4,23 +4,39 @@
 		<div class="col-md-12 category-hdr">
 
 			<div class="page-header">
-				<h1>Register for {{ tournament.name }}
+				<h1><i class="fa fa-pencil"></i> Register for {{ tournament.name }}
 					<small>{{ tournamentType(tournament) }}</small>
 				</h1>
 			</div>
 		</div>
+
 		<div class="row content-well">
-			<p>Register here for {{ tournament.name }}.</p>
+			<div class="col-lg-12">
+				<p>Register here for <b>{{ tournament.name }}</b>.</p>
+			</div>
 			<form class="form-horizontal" role="form" method="POST" action="{{ path('tournament_enter', { name: tournament.url }) }}">
+
+				<fieldset disabled>
+					<div class="form-group">
+						<label for="deck" class="col-sm-4 control-label">In Game Name</label>
+						<div class="col-sm-8">
+							<!-- 				  Always filled out unless person has not an ign on her/hes SG account -->
+							<input type="text" class="form-control" name="ign" placeholder="In Game Name" value="Orangee" />
+						</div>
+					</div>
+				</fieldset>
+
 				<div class="form-group">
-					<label for="deck" class="col-sm-2 control-label">Deck</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="deck" placeholder="deck" required />
+					<label for="deck" class="col-sm-4 control-label">Deck</label>
+					<div class="col-sm-8">
+						<!-- 			  Optional by Creator of tounament -->
+						<input type="text" class="form-control" name="deck" placeholder="Deck" required />
 					</div>
 				</div>
+
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">Participate</button>
+					<div class="col-sm-offset-4 col-sm-8">
+						<button type="submit" class="btn btn-primary">Participate</button>
 					</div>
 				</div>
 			</form>
