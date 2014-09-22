@@ -287,14 +287,15 @@
 					  <div class="form-group">
 						<div class="col-sm-12 text-center">
 						  <br />
-						  <a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.name }) }}">Start</a>
+						  <a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.name }) }}">Start {{ tournament.name }}</a>
 						  <div class="col-sm-12">
 							<label class="" for="">Create the brackets and start the tournament</label>
 						  </div>
 						</div>
 					  </div>
 					</div>
-					<div class="row">
+					<form method="post" action="">
+						<div class="row">
 					  <div class="col-md-4">
 						<h2>Players Signed up <small>{{ tournament.players|length }}</small></h2>
 						<div class="col-md-12">
@@ -305,10 +306,10 @@
 						</div>
 						<div class="col-md-12">
 						  <p>
-							<i class="fa fa-circle color-not-started"></i> <b>Not ready</b>
-							<i class="fa fa-circle color-started"></i> <b>Ready</b>
+							<i class="fa fa-circle color-not-started"></i> <b>Not Checked inn</b>
+							<i class="fa fa-circle color-started"></i> <b>Checked inn</b>
 						  </p>
-						  <ul>
+						  <ul class="list-unstyled">
 							{% for player in tournament.players %}
 								<li><i class="fa fa-circle color-started"></i> {{ player.id }}</li>
 							{% endfor %}
@@ -340,7 +341,14 @@
 						  </div>
 						</fieldset>
 					  </div>
+					  <div class="form-group">
+					  	<div class="col-sm-offset-4 col-sm-8">
+					  	  <button type="submit" class="btn btn-primary">Save</button>
+					  	</div>
+					  </div>
+					  
 					</div>
+					</form>
 				</div>
 			<div id='bracket' class='tab-pane fade in active'>
 				<div class='bracket-graph-se'>

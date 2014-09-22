@@ -26,7 +26,21 @@
 							<option value="single-elimination">Single Elimination</option>
 						</select>
 					</div>
+					
 				</div>
+				
+<!-- 				Only show this if select[name='type'] is single-elimination -->
+				<div class="form-group">
+					<label for="secondtype" class="col-sm-4 control-label">Best of</label>
+					<div class="col-sm-8">
+						<select class="form-control" name="secondtype">
+							<option value="bo1">Best of 1</option>
+							<option value="bo3">Best of 3</option>
+							<option value="bo1thenbo3">Best of 1 and Best of 3 for Semi and Fianls</option>
+						</select>
+					</div>
+				</div>
+				
 				<div class="form-group">
 					<label for="regstate" class="col-sm-4 control-label">Registration state *</label>
 					<div class="col-sm-8">
@@ -46,16 +60,16 @@
 			  	</div>			
   				 
   				 <div class="form-group">
-  				 	<label for="desc" class="col-sm-4 control-label">Description of the tournament</label>
+  				 	<label for="desc" class="col-sm-4 control-label">Description *</label>
   				 	<div class="col-sm-8">
-  				 		<textarea class="form-control" id="desc" rows="5"></textarea>
+  				 		<textarea class="form-control" id="desc" rows="8" placeholder="A description of how the trunament works, price pool, special rules etc.."></textarea>
   				 	</div>
   				 </div>
 
   				<div class="form-group">
-  				     	<label for="twitch_input" class="col-sm-4 control-label">Twitch Stream</label>
+  				     	<label for="twitch_input" class="col-sm-4 control-label">Twitch stream</label>
   				     <div class="col-sm-8">
-  				     <input type="text" id="twitch_input" class="form-control" placeholder="http://twitch.tv/username">
+  				     	<input type="text" id="twitch_input" class="form-control" placeholder="http://twitch.tv/username">
   				     </div>
   				</div>
 				
@@ -73,6 +87,15 @@
 						<div class="checkbox">
 						   <label>
 							 <input type="checkbox" name='requiredecks'> Require decks
+						   </label>
+						</div>
+					 </div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<div class="checkbox">
+						   <label>
+							 <input type="checkbox" name='requireCheckinn'> Require check inn (15min before start)
 						   </label>
 						</div>
 					 </div>
