@@ -5,7 +5,7 @@
 		private $accessLevel;
 
 		private $userData;
-		
+
 		private $username;
 
 		private $isLoggedIn = false;
@@ -20,9 +20,9 @@
 				$this->isLoggedIn = true;
 
 				$this->setAccessLevel($ap->getAccessLevel($this));
-				
+
 				$ap->callback($this);
-				
+
 				return true;
 			} else {
 				return false;
@@ -43,19 +43,19 @@
 			return $this->username;
 		}
 
-		public function setAccessLevel($level){
+		public function setAccessLevel($level) {
 			$this->accessLevel = $level;
 		}
-		
+
 		public function checkAccessLevel($level) {
 			return ($this->accessLevel & $level) === $level;
 		}
-		
-		public function setUserData($data){
+
+		public function setUserData($data) {
 			$this->userData = $data;
 		}
-		
-		public function getUserData(){
+
+		public function getUserData() {
 			return $this->userData;
 		}
 
@@ -98,16 +98,16 @@
 		const NONE = 1;
 		const USER = 2;
 		const ADMIN = 4;
-		
-		public static function guest(){
+
+		public static function guest() {
 			return AccessLevel::NONE;
 		}
-		
-		public static function user(){
+
+		public static function user() {
 			return AccessLevel::guest() | AccessLevel::USER;
 		}
-		
-		public static function admin(){
+
+		public static function admin() {
 			return AccessLevel::user() | AccessLevel::ADMIN;
 		}
 

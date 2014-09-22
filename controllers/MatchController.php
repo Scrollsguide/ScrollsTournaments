@@ -1,8 +1,9 @@
 <?php
+
 	class MatchController extends BaseController {
-		
-		public function viewMatchAction(){
+
+		public function viewMatchAction() {
 			return $this->render("match.html.twig");
 		}
-		
+
 	}

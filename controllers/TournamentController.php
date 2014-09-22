@@ -12,28 +12,28 @@
 		public function viewAction($url) {
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
-			$tournamentRepository = $em->getRepository("Tournament");			
-			
+			$tournamentRepository = $em->getRepository("Tournament");
+
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				$tournamentRepository->addTournamentLog($tournament);
 				$tournamentRepository->addTournamentPlayers($tournament);
 				$tournamentRepository->addBracket($tournament);
-			
+
 				// add some rendering data
 				$maxMatchups = 0;
-				foreach ($tournament->getRounds() as $round){
-					if ($round->getMatchCount() > $maxMatchups){
+				foreach ($tournament->getRounds() as $round) {
+					if ($round->getMatchCount() > $maxMatchups) {
 						$maxMatchups = $round->getMatchCount();
 					}
 				}
-				
+
 				$renderData = array(
-					'total_width' => count($tournament->getRounds()) * 190 + 10,
+					'total_width'  => count($tournament->getRounds()) * 190 + 10,
 					'max_matchups' => $maxMatchups,
-					'num_byes' => BracketUtils::calcByes(count($tournament->getPlayers()))
+					'num_byes'     => BracketUtils::calcByes(count($tournament->getPlayers()))
 				);
-			
+
 				return $this->render("tournament_user.html.twig", array(
 					"tournament" => $tournament,
 					"renderdata" => $renderData
@@ -42,8 +42,8 @@
 				return $this->p404();
 			}
 		}
-		
-		public function registerAction($url){
+
+		public function registerAction($url) {
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
@@ -67,19 +67,19 @@
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				$regstate = $tournament->getRegState();
 				if ($regstate === RegistrationState::OPEN) {
-				
+
 					// register this player
 					$user = $this->getApp()->getSession()->getUser();
 					$userId = $user->getUserData()['id'];
-					
+
 					$tpRepo = $em->getRepository("TournamentPlayer");
-					
+
 					$tournamentPlayer = new TournamentPlayer();
 					$tournamentPlayer->setPlayerId($userId);
 					$tournamentPlayer->setTournamentId($tournament->getId());
 
 					$tpRepo->persist($tournamentPlayer);
-					
+
 					// add log
 					$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $user->getUsername()));
 
@@ -106,7 +106,7 @@
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
-			
+
 			// look for tournament in the repo
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
 				// TODO: check whether user is admin for this tournament
@@ -116,16 +116,16 @@
 				$bracketGenerator->setSeed(rand());
 
 				$bracketRounds = $bracketGenerator->generateBrackets();
-				
+
 				// start inserting rounds in database
 				$pdo = $this->getApp()->get("database")->getConnection();
-				for ($round = count($bracketRounds) - 1; $round >= 0; $round--){
+				for ($round = count($bracketRounds) - 1; $round >= 0; $round--) {
 					$tournamentRepository->persistRound($bracketRounds[$round]);
-					
+
 					$brackets = $bracketRounds[$round]->getBrackets();
-					for ($bracket = 0; $bracket < count($brackets); $bracket++){
+					for ($bracket = 0; $bracket < count($brackets); $bracket++) {
 						$bracketDBId = $tournamentRepository->persistBracket($brackets[$bracket], $tournament, $bracketRounds[$round]);
-						
+
 						// set db id to parent of next children
 						$brackets[$bracket]->setId($bracketDBId);
 					}
@@ -140,7 +140,7 @@
 
 		public function acceptInviteAction($code) {
 			// load tournament for invite
-			
+
 		}
 
 		public function newAction() {
@@ -159,11 +159,12 @@
 			$r = $this->getApp()->getRequest();
 
 			$regState = (int)$r->getParameter("regstate");
-			if (!RegistrationState::valid($regState)){
-				$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid registration state.");				
+			if (!RegistrationState::valid($regState)) {
+				$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid registration state.");
+
 				return $this->toNewPage();
 			}
-			
+
 			$name = $r->getParameter("name");
 
 			$t = new Tournament();
@@ -172,7 +173,7 @@
 			$t->setName($name);
 			$t->setUrl(URLUtils::makeBlob($name));
 			$t->setRegState($regState);
-			
+
 			// TODO: use request parameter for type
 			$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);
 
@@ -180,18 +181,18 @@
 			$tournamentRepository = $em->getRepository("Tournament");
 
 			$tournamentRepository->persist($t);
-			
+
 			$t->setId($this->getApp()->get("database")->getConnection()->lastInsertId());
-			
+
 			// check for invite-only and generate invite
-			if ($regState === RegistrationState::INVITE_ONLY){
+			if ($regState === RegistrationState::INVITE_ONLY) {
 				$invite = new Invite();
 				$invite->setTournamentId($t->getId());
 				$invite->setCode(InviteHelper::generateCode());
-				
+
 				$tournamentRepository->persistInvite($invite);
 			}
-			
+
 			// save create tournament action to log
 			$this->saveLog($t, $em, "Tournament created.");
 
@@ -200,20 +201,21 @@
 
 			return new RedirectResponse($tournamentRoute);
 		}
-		
-		private function toNewPage(){			
+
+		private function toNewPage() {
 			$newTournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_new");
+
 			return new RedirectResponse($newTournamentRoute);
 		}
 
-		private function saveLog(Tournament $t, EntityManager $em, $line){
+		private function saveLog(Tournament $t, EntityManager $em, $line) {
 			$tl = new TournamentLog();
 			$tl->setTournamentId($t->getId());
 			$tl->setTime(time());
 			$tl->setLine($line);
-			
+
 			$logRepository = $em->getRepository("TournamentLog");
 			$logRepository->persist($tl);
 		}
-		
+
 	}

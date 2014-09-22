@@ -25,5 +25,5 @@
 		public function getPlayers() {
 			return $this->players;
 		}
-		
+
 	}

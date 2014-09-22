@@ -23,7 +23,7 @@
 			$twig->addFunction(new Twig_SimpleFunction("currentRoute", array($t, "currentRoute")));
 			$twig->addFunction(new Twig_SimpleFunction("categoryIcon", array($t, "categoryIcon")));
 			$twig->addFunction(new Twig_SimpleFunction("imagePath", array($t, "imagePath")));
-			
+
 			$twig->addFunction(new Twig_SimpleFunction("tournamentType", array($t, "tournamentType")));
 
 			// filters
@@ -80,24 +80,24 @@
 
 			return rtrim(substr($str, 0, $length)) . $last;
 		}
-		
+
 		/*
 			Generates the font-awesome icon for a corresponding category
 		*/
 		public function categoryIcon($category) {
 			$iconMap = array(
-				'about'        => 'info',
-				'404'          => 'exclamation',
-				'forum'        => 'comments',
-				'wiki'         => 'globe'
+				'about' => 'info',
+				'404'   => 'exclamation',
+				'forum' => 'comments',
+				'wiki'  => 'globe'
 			);
 			$category = strtolower($category);
 
 			return isset($iconMap[$category]) ? $iconMap[$category] : '';
 		}
-		
-		public function tournamentType($t){
-			switch ($t->getTournamentType()){
+
+		public function tournamentType($t) {
+			switch ($t->getTournamentType()) {
 				case TournamentType::ROUND_ROBIN:
 					return "Round Robin";
 				case TournamentType::SINGLE_ELIMINATION:

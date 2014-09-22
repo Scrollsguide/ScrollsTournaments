@@ -42,7 +42,7 @@
 
 					$players_in_bracket = 2;
 					if ($round->isByesRound()) {
-						if ($double_rounds === 0){
+						if ($double_rounds === 0) {
 							$players_in_bracket = 1;
 						} else {
 							$double_rounds--;
@@ -96,20 +96,20 @@
 			}
 		}
 
-		private function generateTree(){
+		private function generateTree() {
 			// no need to check the finals
-			for ($r = 0; $r < count($this->rounds) - 1; $r++){
+			for ($r = 0; $r < count($this->rounds) - 1; $r++) {
 				$brackets = $this->rounds[$r]->getBrackets();
 
 				$nextBrackets = $this->rounds[$r + 1]->getBrackets();
 
 				$index = 0;
 
-				for ($b = 0; $b < count($brackets); $b++){
+				for ($b = 0; $b < count($brackets); $b++) {
 					// look for suitable children
 					while (count($nextBrackets[$index]->getParents()) === 2 ||
 						count($nextBrackets[$index]->getPlayers()) === 2 ||
-						(count($nextBrackets[$index]->getParents()) === 1 && count($nextBrackets[$index]->getPlayers()) === 1)){
+						(count($nextBrackets[$index]->getParents()) === 1 && count($nextBrackets[$index]->getPlayers()) === 1)) {
 						$index++;
 					}
 

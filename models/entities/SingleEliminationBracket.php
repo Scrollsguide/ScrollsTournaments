@@ -1,6 +1,7 @@
 <?php
+
 	class SingleEliminationBracket extends Bracket {
-		
+
 		private $parents = array();
 
 		private $child;
@@ -24,5 +25,5 @@
 		public function setChild(SingleEliminationBracket $child) {
 			$this->child = $child;
 		}
-		
+
 	}

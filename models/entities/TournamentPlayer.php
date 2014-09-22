@@ -1,4 +1,5 @@
 <?php
+
 	class TournamentPlayer {
 
 		private $id;
@@ -6,7 +7,7 @@
 		private $tournament_id;
 
 		private $player_id;
-		
+
 		private $bracket_scores = array();
 
 		public function setId($id) {
@@ -32,20 +33,20 @@
 		public function getTournamentId() {
 			return (int)$this->tournament_id;
 		}
-		
-		public function getBracketScores(){
+
+		public function getBracketScores() {
 			return $this->bracket_scores;
 		}
-		
-		public function getBracketScore($bracket_id){
-			if (isset($this->bracket_scores[$bracket_id])){
+
+		public function getBracketScore($bracket_id) {
+			if (isset($this->bracket_scores[$bracket_id])) {
 				return (int)$this->bracket_scores[$bracket_id];
 			} else {
 				return null;
 			}
 		}
-		
-		public function setBracketScore($bracket_id, $score){
+
+		public function setBracketScore($bracket_id, $score) {
 			$this->bracket_scores[$bracket_id] = $score;
 		}
 

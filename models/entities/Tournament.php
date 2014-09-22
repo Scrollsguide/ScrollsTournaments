@@ -14,13 +14,13 @@
 
 		// state of registration: see below
 		private $regstate;
-		
+
 		private $tournamenttype;
 
 		private $players = array();
-		
+
 		private $logLines = array();
-		
+
 		private $rounds = array();
 
 		public function __construct() {
@@ -83,28 +83,28 @@
 			$this->players[] = $player;
 		}
 
-		public function getLogLines(){
+		public function getLogLines() {
 			return $this->logLines;
 		}
-		
-		public function addLogLine(TournamentLog $line){
+
+		public function addLogLine(TournamentLog $line) {
 			$this->logLines[] = $line;
 		}
 
-		public function getRounds(){
+		public function getRounds() {
 			return $this->rounds;
 		}
-		
-		public function addRound(BracketRound $round){
+
+		public function addRound(BracketRound $round) {
 			$this->rounds[] = $round;
 		}
-		
-		public function getTournamentType(){
+
+		public function getTournamentType() {
 			return (int)$this->tournamenttype;
 		}
-		
-		public function setTournamentType($type){
+
+		public function setTournamentType($type) {
 			$this->tournamenttype = $type;
 		}
-		
+
 	}

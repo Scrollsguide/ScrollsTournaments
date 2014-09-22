@@ -1,4 +1,5 @@
 <?php
+
 	class BracketRound {
 
 		private $name;
@@ -6,38 +7,38 @@
 		private $match_count;
 
 		private $brackets = array();
-		
+
 		private $tournament_id;
-		
+
 		private $round_nr;
 
 		public function __construct() {
 		}
-		
-		public function getTournamentId(){
+
+		public function getTournamentId() {
 			return (int)$this->tournament_id;
 		}
-		
-		public function setTournamentId($id){
+
+		public function setTournamentId($id) {
 			$this->tournament_id = $id;
 		}
 
 		public function getName() {
 			return $this->name;
 		}
-		
-		public function setName($name){
+
+		public function setName($name) {
 			$this->name = $name;
 		}
 
-		public function getRoundNr(){
+		public function getRoundNr() {
 			return (int)$this->round_nr;
 		}
-		
-		public function setRoundNr($nr){
+
+		public function setRoundNr($nr) {
 			$this->round_nr = $nr;
 		}
-		
+
 		public function getMatchCount() {
 			return $this->match_count;
 		}

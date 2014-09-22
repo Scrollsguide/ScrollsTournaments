@@ -1,7 +1,7 @@
 <?php
 
 	class UserController extends BaseController {
-	
+
 		public function __construct(App $app) {
 			parent::__construct($app);
 			// don't cache the user pages
@@ -15,7 +15,7 @@
 				"title" => "User login"
 			));
 		}
-		
+
 		// contains POST login information
 		public function doLoginAction() {
 			$r = $this->getApp()->getRequest();
