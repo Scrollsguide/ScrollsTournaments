@@ -2,7 +2,6 @@
 {% block content %}
 	<div class="row content-well content-block">
 		<div class="col-md-12 category-hdr">
-
 			<div class="page-header">
 				<h1>Scrolls Tournaments
 					<small>Subtext for header</small>
@@ -10,25 +9,81 @@
 			</div>
 		</div>
 
-		<div class="col-lg-6">
-			<h2>The Bunny Cup
-				<small>Has Started</small>
-			</h2>
-			<div class="progress">
-				<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-					40%
+		
+		<div class="col-lg-12">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, itaque, iusto eum deleniti saepe mollitia ullam sapiente quis architecto reprehenderit quibusdam facilis iste neque ea magni perspiciatis quaerat a eos eius aliquid nam nemo exercitationem porro. Nihil, sunt ipsam consequatur eveniet ab et fugiat minima in ratione omnis. Sed, sunt, vitae, ipsam minus consectetur veritatis repellat voluptate sapiente beatae ex dignissimos dolores quod exercitationem nemo culpa voluptas magni cumque cupiditate accusantium quas velit commodi modi! Sint, quam, autem, voluptates, doloremque culpa voluptatem explicabo illum vero ab consectetur quidem eos quas provident fuga tenetur. Dolor, placeat, nesciunt velit quibusdam voluptates nihil!</p>
+		</div>
+
+		<div class="col-lg-12 text-center">
+			<div class="col-lg-4 col-sm-12 col-xs-12">
+				<a class="btn btn-primary btn-lg" href="#creattournament">New Tournament</a>
+				<div class="col-lg-12">
+					<label class="small">Create a new tournament for your friends or a community.</label>
 				</div>
 			</div>
-
-			<div class="btn-group btn-group-sm">
-				<button type="button" class="btn btn-primary">Bracket</button>
-				<button type="button" class="btn btn-primary">Overview</button>
+			
+			<div class="col-lg-4 col-sm-6 col-xs-6">
+				<a class="btn btn-primary btn-lg" href="#creattournament">About</a>
+				<div class="col-lg-12">
+					<label class="small">What is this page?</label>
+				</div>	
 			</div>
+			
+			<div class="col-lg-4 col-sm-6 col-xs-6">
+				<a class="btn btn-primary btn-lg" href="#formats">Formants</a>
+				<div class="col-lg-12">
+					<label class="small">What tournament formats do we have?</label>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h2>Tournaments
+					<small>8</small>
+				</h2>
+			</div>
+			<div class="col-lg-6 col-sm-6">
+				<div class="col-lg-12 well">
+				<h2>
+					<a href='#path'><i class="fa fa-circle color-started"></i> The Bunny Cup</a><br />
+					<small>By: Lorem ipsum.</small>
+				</h2>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+						40%
+					</div>
+				</div>
+				<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, deserunt.</p>
+				<div class="btn-group btn-group-sm">
+					<button type="button" class="btn btn-primary">Bracket</button>
+					<button type="button" class="btn btn-primary">Overview</button>
+				</div>
+			</div>
+			</div>
+			<div class="row">
 			{% for tournament in tournaments %}
-				<div>
-					<a href='{{ path('tournament_view', { name: tournament.url }) }}'>{{ tournament.name }}</a>
+				<div class="col-lg-6 col-sm-6">
+					<div class="col-lg-12 well">
+						<div>
+							<a href='{{ path('tournament_view', { name: tournament.url }) }}'>{{ tournament.name }}</a>
+							<small>Starts in: 1 day 4hours 4min</small>
+						</div>
+						<ul class="list-unstyled small">
+							<li>* <a href="#checkinnlink">Checkin</a> 15min before</li>
+							<li>* Decks available when tournament starts</li>
+						</ul>
+						<div>
+							<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, nostrum, iusto, cumque laborum suscipit dignissimos cupiditate error commodi odio repellat accusantium ullam pariatur voluptate provident assumenda sequi hic nemo officia.</p>
+						</div>
+						<div class="col-lg-12 text-center">
+							<a href='#join' class="btn btn-primary">Participate</a>
+						</div>
+					</div>
 				</div>
 			{% endfor %}
+			</div>
 		</div>
 
 		<div class="col-lg-6"></div>
