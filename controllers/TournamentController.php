@@ -77,26 +77,25 @@
 				$regstate = $tournament->getRegState();
 				if ($regstate === RegistrationState::OPEN) {
 
-					// register this player
-					$user = $this->getApp()->getSession()->getUser();
-					$userId = $user->getUserData()['id'];
-
-					$tpRepo = $em->getRepository("TournamentPlayer");
-
-					$tournamentPlayer = new TournamentPlayer();
-					$tournamentPlayer->setPlayerId($userId);
-					$tournamentPlayer->setTournamentId($tournament->getId());
-
-					$tpRepo->persist($tournamentPlayer);
-
-					// add log
-					$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $user->getUsername()));
-
-					// notify user
-					$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "You are now participating!");
+					$this->registerCurrentUser($tournament);
 				} else if ($regstate === RegistrationState::INVITE_ONLY) {
-					// notify user that registration is invite-only
-					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Registrations are invite-only for this tournament.");
+					// check invite code
+
+					$inviteCode = $this->getApp()->getRequest()->getParameter("invite");
+
+					$inviteRepository = $em->getRepository("Invite");
+					if (($invite = $inviteRepository->findOneBy("code", $inviteCode)) !== null){
+						if ($invite->getTournamentId() === $tournament->getId()){
+							// all good, register the user :)
+							$this->registerCurrentUser($tournament);
+						} else {
+							// notify user that the code is wrong
+							$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The invite doesn't match this tournament.");
+						}
+					} else {
+						// notify user that the code is wrong
+						$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The invite doesn't match this tournament.");
+					}
 				} else {
 					// notify user that registration is closed
 					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Registrations are closed for this tournament.");
@@ -109,6 +108,27 @@
 			} else { // tournament not found
 				return $this->p404();
 			}
+		}
+
+		public function registerCurrentUser(Tournament $tournament){
+			$em = $this->getApp()->get("EntityManager");
+			// register this player
+			$user = $this->getApp()->getSession()->getUser();
+			$userId = $user->getUserData()['id'];
+
+			$tpRepo = $em->getRepository("TournamentPlayer");
+
+			$tournamentPlayer = new TournamentPlayer();
+			$tournamentPlayer->setPlayerId($userId);
+			$tournamentPlayer->setTournamentId($tournament->getId());
+
+			$tpRepo->persist($tournamentPlayer);
+
+			// add front-end confirmation
+			$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "You are now participating!");
+
+			// add log
+			$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $user->getUsername()));
 		}
 
 		public function startAction($url) {

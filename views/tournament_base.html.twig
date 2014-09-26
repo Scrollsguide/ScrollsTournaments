@@ -323,8 +323,8 @@
 							</div>
 							<div class="col-md-12">
 								<p>
-									<i class="fa fa-circle color-not-started"></i> <b>Not Checked inn</b>
-									<i class="fa fa-circle color-started"></i> <b>Checked inn</b>
+									<i class="fa fa-circle color-not-started"></i> <b>Not checked in</b>
+									<i class="fa fa-circle color-started"></i> <b>Checked in</b>
 								</p>
 								<ul class="list-unstyled">
 									{% for player in tournament.players %}
@@ -340,7 +340,7 @@
 							</div>
 							<div class="form-group">
 								<label for="gold_input">Registration fee(In-Game Gold)</label>
-								<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="" />
+								<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="" disabled="disabled" />
 							</div>
 							<div class="form-group">
 								<label class="control-label" for="desc">Description of the tournament</label>

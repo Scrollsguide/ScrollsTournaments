@@ -17,6 +17,8 @@
 
 		private $tournamenttype;
 
+		private $tournamentstate;
+
 		private $players = array();
 
 		private $logLines = array();
@@ -105,6 +107,14 @@
 
 		public function setTournamentType($type) {
 			$this->tournamenttype = $type;
+		}
+
+		public function getTournamentState(){
+			return (int)$this->tournamentstate;
+		}
+
+		public function setTournamentState($state){
+			$this->tournamentstate = $state;
 		}
 
 		// helper for twig
