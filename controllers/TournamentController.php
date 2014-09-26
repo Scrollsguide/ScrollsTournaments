@@ -160,8 +160,16 @@
 					}
 				}
 
-				// add start action to log
-				$this->saveLog($tournament, $em, sprintf("The tournament has started with %d players!", count($tournament->getPlayers())));
+				// add start action to log and notification
+				$msg = sprintf("The tournament has started with %d players!", count($tournament->getPlayers()));
+				$this->saveLog($tournament, $em, $msg);
+
+				// add notification
+				$this->getApp()->getSession()->getFlashBag()->add("tournament_message", $msg);
+
+				// redirect to tournament page
+				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
+				return new RedirectResponse($tournamentRoute);
 			} else { // tournament not found
 				return $this->p404();
 			}
