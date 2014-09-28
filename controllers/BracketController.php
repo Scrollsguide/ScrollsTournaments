@@ -41,5 +41,9 @@
 			return $this->render("partials/bracket_404.html.twig", 
 				array('err' => "Bracket not found for this tournament."));
 		}
+		
+		public function viewAdminAction($tournamentUrl, $bracketId){
+			return $this->render("admin/partials/update_bracket_modal.html.twig");
+		}
 	
 	}

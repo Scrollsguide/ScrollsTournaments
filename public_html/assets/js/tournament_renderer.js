@@ -1,5 +1,13 @@
 $(document).ready(function(){
 	refreshView();
+	
+	$(".jQBracket .teamContainer").click(function(){
+		// load current scores and player data
+		var bracketId = $(this).attr("data-id");
+		var tournamentName = $(this).parents(".jQBracket").attr("data-tournament-name");
+		
+		loadBracketData(tournamentName, bracketId);
+	});
 });
 
 var loader = function(){
@@ -7,7 +15,9 @@ var loader = function(){
 }
 
 var loadBracketData = function(tournament, bracketId){
-	var modalBody = $("#update-score-modal .modal-body");
+	var scoreModal = $("#view-score-modal");
+	scoreModal.modal();
+	var modalBody = scoreModal.find(".modal-body");
 	modalBody.html(loader());
 	$.get("/_/" + tournament + "/bracket/" + bracketId, function(output){
 		modalBody.html(output);
