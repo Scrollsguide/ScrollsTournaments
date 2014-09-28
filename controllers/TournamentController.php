@@ -15,10 +15,16 @@
 			$tournamentRepository = $em->getRepository("Tournament");
 
 			// look for tournament in the repo
-			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
+			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
 				$tournamentRepository->addTournamentLog($tournament);
 				$tournamentRepository->addTournamentPlayers($tournament);
 				$tournamentRepository->addBracket($tournament);
+				
+				// TODO: add && user->isAdmin()
+				if ($tournament->isInviteOnly()){
+					$inviteRepository = $em->getRepository("Invite");
+					$inviteRepository->addInvite($tournament);
+				}
 
 				// add some rendering data
 				$maxMatchups = 0;
@@ -49,7 +55,7 @@
 			$tournamentRepository = $em->getRepository("Tournament");
 
 			// look for tournament in the repo
-			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
+			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
 				return $this->renderRegisterPage($tournament);
 			} else { // tournament not found
 				return $this->p404();
@@ -73,7 +79,7 @@
 			$tournamentRepository = $em->getRepository("Tournament");
 
 			// look for tournament in the repo
-			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
+			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
 				$regstate = $tournament->getRegState();
 				if ($regstate === RegistrationState::OPEN) {
 
@@ -137,7 +143,7 @@
 			$tournamentRepository = $em->getRepository("Tournament");
 
 			// look for tournament in the repo
-			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== false) {
+			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
 				// TODO: check whether user is admin for this tournament
 				$tournamentRepository->addTournamentPlayers($tournament);
 

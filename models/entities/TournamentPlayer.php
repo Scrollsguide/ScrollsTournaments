@@ -7,6 +7,8 @@
 		private $tournament_id;
 
 		private $player_id;
+		
+		private $username;
 
 		private $bracket_scores = array();
 
@@ -24,6 +26,14 @@
 
 		public function getPlayerId() {
 			return (int)$this->player_id;
+		}
+		
+		public function getUsername(){
+			return $this->username;
+		}
+		
+		public function setUsername($username){
+			$this->username = $username;
 		}
 
 		public function setTournamentId($tournament_id) {

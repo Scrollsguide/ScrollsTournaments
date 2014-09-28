@@ -6,6 +6,8 @@
 
 		private $name;
 
+		private $description;
+		
 		private $date;
 
 		private $url;
@@ -25,6 +27,8 @@
 
 		private $rounds = array();
 
+		private $invite;
+		
 		public function __construct() {
 
 		}
@@ -43,6 +47,14 @@
 
 		public function setName($name) {
 			$this->name = $name;
+		}
+		
+		public function getDescription(){
+			return $this->description;
+		}
+		
+		public function setDescription($description){
+			$this->description = $description;
 		}
 
 		public function getDate() {
@@ -116,10 +128,29 @@
 		public function setTournamentState($state){
 			$this->tournamentstate = $state;
 		}
+		
+		public function getInvite(){
+			return $this->invite;
+		}
+		
+		public function setInvite(Invite $invite){
+			$this->invite = $invite;
+		}
 
 		// helper for twig
 		public function isInviteOnly(){
 			return $this->getRegState() === RegistrationState::INVITE_ONLY;
+		}
+		
+		public function getBracketById($id){
+			foreach ($this->getRounds() as $r){
+				foreach ($r->getBrackets() as $b){
+					if ($b->getId() === $id){
+						return $b;
+					}
+				}
+			}
+			return null;
 		}
 
 	}

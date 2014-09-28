@@ -1,0 +1,20 @@
+<div class='player-result'>
+	<div class='player-details'>
+		<div class='player-avatar' style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
+		<h4>{{ player_1.username }}</h4>
+	</div>
+	<div class='player-score'>{{ player_1.getBracketScore(bracket.id) }}</div>
+</div>
+<div class='vs'>VS</div>
+<div class='player-result'>
+	<div class='player-details'>
+		<div class='player-avatar' style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
+		<h4>{{ player_2.username }}</h4>
+	</div>
+	<div class='player-score'>{{ player_2.getBracketScore(bracket.id) }}</div>
+</div>
+{% if bracket.matchid != -1 %}
+	<div class='view-more'>
+		<a href='{{ path('view_match', { id: bracket.matchid }) }}'>View full match details</a>
+	</div>
+{% endif %}

@@ -16,7 +16,7 @@
 
 		<div class="col-lg-12 text-center">
 			<div class="col-lg-4 col-sm-12 col-xs-12">
-				<a class="btn btn-primary btn-lg" href="#creattournament">New Tournament</a>
+				<a class="btn btn-primary btn-lg" href="{{ path('tournament_new') }}">New Tournament</a>
 				<div class="col-lg-12">
 					<label class="small">Create a new tournament for your friends or a community.</label>
 				</div>
@@ -78,7 +78,7 @@
 							<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, nostrum, iusto, cumque laborum suscipit dignissimos cupiditate error commodi odio repellat accusantium ullam pariatur voluptate provident assumenda sequi hic nemo officia.</p>
 						</div>
 						<div class="col-lg-12 text-center">
-							<a href='#join' class="btn btn-primary">Participate</a>
+							<a href='{{ path('tournament_view', { name: tournament.url }) }}' class="btn btn-primary">Participate</a>
 						</div>
 					</div>
 				</div>

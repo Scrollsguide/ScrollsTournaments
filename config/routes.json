@@ -57,8 +57,19 @@
 			}
 		},
 		"view_match": {
-			"path": "/match",
-			"action": "Match::viewMatch"
+			"path": "/match/{id}",
+			"action": "Match::viewMatch",
+			"requirements": {
+				"id": "[0-9]+"
+			}
+		},
+		"bracket_data": {
+			"path": "/_/{name}/bracket/{id}",
+			"action": "Bracket::view",
+			"requirements": {
+				"name": "[a-z0-9-]+",
+				"id": "[0-9]+"
+			}
 		},
 		"login": {
 			"path": "/login",

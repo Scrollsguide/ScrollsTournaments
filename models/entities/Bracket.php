@@ -5,6 +5,8 @@
 		private $id;
 
 		private $players = array();
+		
+		private $match_id;
 
 		public function getId() {
 			return (int)$this->id;
@@ -24,6 +26,14 @@
 
 		public function getPlayers() {
 			return $this->players;
+		}
+		
+		public function getMatchId(){
+			return isset($this->match_id) ? (int)$this->match_id : -1;
+		}
+		
+		public function setMatchId($match_id){
+			$this->match_id = $match_id;
 		}
 
 	}

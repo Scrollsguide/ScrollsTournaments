@@ -20,4 +20,10 @@
 
 			$sth->execute();
 		}
+		
+		public function addInvite(Tournament $tournament){
+			if (($invite = $this->findOneBy("tournament_id", $tournament->getId())) !== null){
+				$tournament->setInvite($invite);
+			}
+		}
 	}

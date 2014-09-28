@@ -45,9 +45,10 @@
 		}
 
 		public function addTournamentPlayers(Tournament $t) {
-			$sth = $this->getConnection()->prepare("SELECT id, tournament_id, player_id
-						FROM tournament_players
-						WHERE tournament_id = :t_id");
+			$sth = $this->getConnection()->prepare("SELECT TP.id, TP.tournament_id, TP.player_id, U.username
+						FROM tournament_players TP, users U
+						WHERE TP.tournament_id = :t_id
+						AND U.id = TP.player_id");
 			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
 
 			$sth->execute();
@@ -68,9 +69,11 @@
 
 			$rounds = $sth->fetchAll(PDO::FETCH_CLASS, "BracketRound");
 
-			$sth = $this->getConnection()->prepare("SELECT id, round, child_bracket_id
-						FROM bracket
-						WHERE tournament_id = :t_id");
+			$sth = $this->getConnection()->prepare("SELECT B.id, B.round, BM.match_id, B.child_bracket_id
+						FROM bracket B
+                        LEFT JOIN bracket_matches BM
+                        ON BM.bracket_id = B.id
+						WHERE B.tournament_id = :t_id");
 			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
 			$sth->execute();
 

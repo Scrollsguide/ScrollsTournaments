@@ -1,4 +1,20 @@
 $(document).ready(function(){
+	refreshView();
+});
+
+var loader = function(){
+	return "<img src='/assets/images/ajax-loader.gif' class='modal-loader' />";
+}
+
+var loadBracketData = function(tournament, bracketId){
+	var modalBody = $("#update-score-modal .modal-body");
+	modalBody.html(loader());
+	$.get("/_/" + tournament + "/bracket/" + bracketId, function(output){
+		modalBody.html(output);
+	});
+}
+
+var refreshView = function(){
 	// connect all connectors
 	
 	var teamContainers = [];
@@ -30,7 +46,6 @@ $(document).ready(function(){
 					teams.eq(0).addClass("lose");					
 				}
 			}
-			console.log(results);
 		}
 		
 		teamContainers[parseInt($(this).attr("data-id"))] = {
@@ -52,7 +67,6 @@ $(document).ready(function(){
 			
 			var position = jObj.parent().position();
 			var top = position.top + parseInt(jObj.css("top"));
-			console.log("actual top of " + id + ": " + top);
 			
 			var offset = {
 				left: 0,
@@ -67,7 +81,7 @@ $(document).ready(function(){
 			if (parents.length === 1){ // byes, connect to bottom
 			
 			} else if (parents.length === 2){
-				console.log("two parents");
+				// console.log("two parents");
 			}
 			
 			var connectors = jObj.find(".connector");
@@ -80,14 +94,12 @@ $(document).ready(function(){
 			}
 			
 			if (top > childTop){
-				console.log(id + " is lower than " + childObj.attr("data-id"));
 				connector.css("border-top", "none");
 				connector.css("height", (top - childTop + offset.left + 1) + "px");
 				connector.css("bottom", (26 - offset.left) + "px");
 				
 				connectors.eq(1).css("top", "0px");
 			} else {
-				console.log(id + " is higher than " + childObj.attr("data-id"));
 				connector.css("border-bottom", "none");
 				connector.css("height", (childTop - top - offset.left + 1) + "px");
 				connector.css("top", (26 + offset.left) + "px");
@@ -97,7 +109,6 @@ $(document).ready(function(){
 	}
 	
 	$(".bracket-graph-se .jQBracket .team").hover(function(){
-		console.log("hover");
 		var team = $(this).attr("data-team-id");
 		if (team){
 			$(".bracket-graph-se .team[data-team-id='" + team + "']").addClass("highlight");
@@ -105,4 +116,4 @@ $(document).ready(function(){
 	}, function(){
 		$(".highlight").removeClass("highlight");
 	});
-});
+}
