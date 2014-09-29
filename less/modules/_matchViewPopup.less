@@ -1,0 +1,64 @@
+#view-score-modal, #update-score-modal {
+	.modal-body {
+		text-align: center;
+	}
+	.modal-footer {
+		margin: 0px;
+	}
+	.player-result{
+		width: 45%;
+		float: left;
+		background-color: #ececec;
+		border: 1px solid darken(#ececec, @darken);
+		
+		& .player-score{
+			border-top: 1px solid darken(#ececec, @darken);
+		}
+		
+		&.win{
+			border: 1px solid darken(@winColor, @darken) !important;
+			background-color: @winColor;
+			
+			& .player-score{
+				border-top: 1px solid darken(@winColor, @darken);
+			}
+			
+		}
+		
+		&.los{
+			border: 1px solid darken(@loseColor, @darken) !important;
+			background-color: @loseColor;
+			
+			& .player-score{
+				border-top: 1px solid darken(@loseColor, @darken);
+			}
+		}
+	}
+	
+	.player-avatar{
+		width: 100%;
+		height: 100px;	
+		background-size: 200px auto;
+		background-repeat: no-repeat;
+		background-position: center top;
+	}
+	
+	.player-score{
+		font-size: 24px;
+	}
+	
+	.vs{
+		margin-top: 80px;
+		font-weight: bold;
+		font-size: 24px;
+		width: 10%;
+		float: left;
+	}
+	
+	.view-more{
+		float: left;
+		clear: left;
+		width: 100%;
+		margin-top: 20px;
+	}
+}
