@@ -19,9 +19,9 @@
 				$tournamentRepository->addTournamentLog($tournament);
 				$tournamentRepository->addTournamentPlayers($tournament);
 				$tournamentRepository->addBracket($tournament);
-				
+
 				// TODO: add && user->isAdmin()
-				if ($tournament->isInviteOnly()){
+				if ($tournament->isInviteOnly()) {
 					$inviteRepository = $em->getRepository("Invite");
 					$inviteRepository->addInvite($tournament);
 				}
@@ -50,6 +50,10 @@
 		}
 
 		public function registerAction($url) {
+			if (!$this->user->checkAccessLevel(AccessLevel::USER)) {
+				return $this->toLogin();
+			}
+
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
@@ -63,17 +67,22 @@
 		}
 
 		public function renderRegisterPage(Tournament $tournament, Invite $invite = null) {
-			if ($tournament->getRegState() === RegistrationState::CLOSED){
+			if ($tournament->getRegState() === RegistrationState::CLOSED) {
 
 			}
 
 			return $this->render("tournament_register.html.twig", array(
 				'tournament' => $tournament,
-				'invite'     => $invite
+				'invite'     => $invite,
+				'ingamename' => $this->user->getUserData('ingame')
 			));
 		}
 
 		public function enterAction($url) {
+			if (!$this->user->checkAccessLevel(AccessLevel::USER)) {
+				return $this->toLogin();
+			}
+
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
@@ -90,8 +99,8 @@
 					$inviteCode = $this->getApp()->getRequest()->getParameter("invite");
 
 					$inviteRepository = $em->getRepository("Invite");
-					if (($invite = $inviteRepository->findOneBy("code", $inviteCode)) !== null){
-						if ($invite->getTournamentId() === $tournament->getId()){
+					if (($invite = $inviteRepository->findOneBy("code", $inviteCode)) !== null) {
+						if ($invite->getTournamentId() === $tournament->getId()) {
 							// all good, register the user :)
 							$this->registerCurrentUser($tournament);
 						} else {
@@ -116,11 +125,10 @@
 			}
 		}
 
-		public function registerCurrentUser(Tournament $tournament){
+		private function registerCurrentUser(Tournament $tournament) {
 			$em = $this->getApp()->get("EntityManager");
 			// register this player
-			$user = $this->getApp()->getSession()->getUser();
-			$userId = $user->getUserData()['id'];
+			$userId = $this->user->getUserData('id');
 
 			$tpRepo = $em->getRepository("TournamentPlayer");
 
@@ -134,7 +142,7 @@
 			$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "You are now participating!");
 
 			// add log
-			$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $user->getUsername()));
+			$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $this->user->getUsername()));
 		}
 
 		public function startAction($url) {
@@ -175,6 +183,7 @@
 
 				// redirect to tournament page
 				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
+
 				return new RedirectResponse($tournamentRoute);
 			} else { // tournament not found
 				return $this->p404();
@@ -182,14 +191,18 @@
 		}
 
 		public function acceptInviteAction($code) {
+			if (!$this->user->checkAccessLevel(AccessLevel::USER)) {
+				return $this->toLogin();
+			}
+
 			// set up entity and repository
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
 			$inviteRepository = $em->getRepository("Invite");
 
-			if (($invite = $inviteRepository->findOneBy("code", $code)) !== null){
+			if (($invite = $inviteRepository->findOneBy("code", $code)) !== null) {
 				// find tournament also
-				if (($tournament = $tournamentRepository->findOneById($invite->getTournamentId())) !== null){
+				if (($tournament = $tournamentRepository->findOneById($invite->getTournamentId())) !== null) {
 					return $this->renderRegisterPage($tournament, $invite);
 				}
 			}
@@ -225,6 +238,7 @@
 
 			$t->setDate(time());
 			$t->setName($name);
+			$t->setDescription($r->getParameter("desc"));
 			$t->setUrl(URLUtils::makeBlob($name));
 			$t->setRegState($regState);
 

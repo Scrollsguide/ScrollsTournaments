@@ -55,7 +55,15 @@
 			$this->userData = $data;
 		}
 
-		public function getUserData() {
+		public function getUserData($which = null) {
+			if ($which !== null) {
+				if (isset($this->userData[$which])) {
+					return $this->userData[$which];
+				} else {
+					return null;
+				}
+			}
+
 			return $this->userData;
 		}
 

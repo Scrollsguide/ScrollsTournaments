@@ -14,12 +14,14 @@
 		public function persist(Tournament $tournament) {
 			$sth = $this->getConnection()->prepare("INSERT INTO tournaments
 					SET name = :name,
+					description = :desc,
 					url = :url,
 					date = :date,
 					regstate = :regstate,
 					tournamenttype = :t_type");
 
 			$sth->bindValue(":name", $tournament->getName(), PDO::PARAM_STR);
+			$sth->bindValue(":desc", $tournament->getDescription(), PDO::PARAM_STR);
 			$sth->bindValue(":url", $tournament->getUrl(), PDO::PARAM_STR);
 			$sth->bindValue(":date", $tournament->getDate(), PDO::PARAM_INT);
 			$sth->bindValue(":regstate", $tournament->getRegState(), PDO::PARAM_INT);
@@ -45,7 +47,7 @@
 		}
 
 		public function addTournamentPlayers(Tournament $t) {
-			$sth = $this->getConnection()->prepare("SELECT TP.id, TP.tournament_id, TP.player_id, U.username
+			$sth = $this->getConnection()->prepare("SELECT TP.id, TP.tournament_id, TP.player_id, U.ingamename
 						FROM tournament_players TP, users U
 						WHERE TP.tournament_id = :t_id
 						AND U.id = TP.player_id");
