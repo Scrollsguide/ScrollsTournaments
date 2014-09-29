@@ -79,6 +79,15 @@
 				"id": "[0-9]+"
 			}
 		},
+		"update_bracket_score": {
+			"path": "/_admin/{name}/bracket/{id}/update",
+			"action": "Bracket::updateBracket",
+			"method": "POST",
+			"requirements": {
+				"name": "[a-z0-9-]+",
+				"id": "[0-9]+"
+			}
+		},
 		"login": {
 			"path": "/login",
 			"action": "User::login"

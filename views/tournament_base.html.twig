@@ -159,7 +159,7 @@
 								<div class="form-group">
 									<label class="control-label" for="log">Tournament Log</label>
 									<textarea class="form-control" id="log" rows="5">{% for l in tournament.loglines %}{{ l.time|date('d/m/Y H:i:s') }}: {{ l.line }}
-										{% endfor %}</textarea>
+{% endfor %}</textarea>
 								</div>
 							</fieldset>
 						</div>

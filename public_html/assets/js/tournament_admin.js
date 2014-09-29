@@ -11,6 +11,26 @@ $("document").ready(function(){
 		
 		$("#update-score-modal").modal();
 	});
+
+	$("#save-bracket").click(function(){
+		var updateForm = $("#update-score-modal form[name='submit-match-score']");
+		if (updateForm.length){
+			updateForm.submit(function(e){
+				e.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: updateForm.attr("action"),
+					data: updateForm.serialize(),
+					success: function(output){
+						console.log(output);
+					}
+				});
+			}).submit();
+		} else {
+			console.log("No length");
+		}
+		console.log(updateForm);
+	});
 });
 
 var loadBracketAdmin = function(tournament, bracketId){
