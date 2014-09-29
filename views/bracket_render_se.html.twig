@@ -12,7 +12,7 @@
 							{% for p in b.players %}
 								{% set s = p.getBracketScore(b.id) %}
 								<div class='team' data-team-id='{{ p.id }}' data-result='{{ s }}'>
-									<div class='bracket-label'>{{ p.username }}</div>
+									<div class='bracket-label'>{{ p.ingamename }}</div>
 									<div class='score'>{{ s != -1 ? s : '--' }}</div>
 								</div>
 							{% endfor %}
