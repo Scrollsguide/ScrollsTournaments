@@ -52,271 +52,37 @@
 
 		<div class='tab-content'>
 			<div id='overview' class='tab-pane fade bracket'>
-				<!-- Finals -->
-				<div class="row">
-					<h1 class="text-center">{{ tournament.name }}<br />
-						{{ tournament.players|length }} player {{ tournamentType(tournament) }}
-						<br /><i class="fa fa-circle color-started"></i> Finals<br />
-						<small>(Best of X)</small>
-					</h1>
-					<div class="col-md-3 col-sm-3 text-right hidden-xs">
-						<!-- Insert Animated avatar like the SG profiles -->
-						<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
+				<div class="page-header">
+					<h2>{{ tournament.name }}
+						<small>{{ tournament.players|length }} player {{ tournamentType(tournament) }}</small>
+					</h2>
+				</div>
+				
+	<!-- 			Twitch Stream if admin have one -->				
+				<div class="col-lg-12">
+
+					<div class="col-lg-8">
+						<iframe src="http://www.twitch.tv/joyfulrogue/embed" frameborder="0" scrolling="no" height="500" width="100%"></iframe><a href="http://www.twitch.tv/joyfulrogue?tt_medium=live_embed&tt_content=text_link&auto_play=false" style="padding:2px 0px 4px; display:block; width:100%; font-weight:normal; font-size:10px;text-decoration:underline;">Watch live video from {streamer} on www.twitch.tv</a>
 					</div>
-
-					<div class="col-md-6 col-sm-6">
-
-						<div class="col-md-5 col-xs-5 text-center">
-							<!-- Names likes to scrolldier or SG profiles -->
-							<h2><a target="_blank" href="http://scrolldier.com/user/orangee">Orangee</a></h2>
-							<span><img src="http://i.imgur.com/0njz5pI.png" alt="" width="100%" /></span>
-
-						</div>
-						<div class="col-md-2 col-xs-2 text-center">
-							<!-- Numbers are number of wins for each player -->
-							<h2><b>3</b> VS <b>2</b></h2>
-						</div>
-						<div class="col-md-5 col-xs-5 text-center">
-							<!-- Names likes to scrolldier or SG profiles -->
-							<h2><a target="_blank" href="http://scrolldier.com/user/kBasten">kBasten</a></h2>
-							<span><img src="http://i.imgur.com/2cAp13M.png" alt="" width="100%" /></span>
-						</div>
-
-						<div class="col-md text-center" style="margin-top: 300px;">
-							<h2><i class="fa fa-circle color-not-started"></i> Bronze Finals</h2>
-
-							<p class="">
-								<small>(Best of 3)</small>
-							</p>
-							<div class="col-md-6 col-sm-6 col-xs-6">
-								<div class="player-head" style="background-image: url(http://scrolldier.com/resources/head_13.png);"></div>
-								<span><b>Zylus</b> (2)</span>
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-6">
-								<div class="player-head flip" style="background-image: url(http://scrolldier.com/resources/head_197.png);"></div>
-								<span>(1) Blinky</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-3 col-sm-3 hidden-xs text-left">
-						<!-- Insert Animated avatar like the SG profiles flip this one 180deg-->
-						<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
+					<div class="col-lg-4">	
+						<iframe src="http://www.twitch.tv/joyfulrogue/chat?popout=" frameborder="0" scrolling="no" height="500" width="350"></iframe>
 					</div>
 				</div>
-
-				<!-- Semi Finals -->
-				<div class="row text-center">
-
-					<div class="col-md-6 col-sm-6 col-xs-6 match tops left-win">
-						<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-						<p class=""><i class="fa fa-circle color-not-started"></i> <b>Semi Finals</b><br />
-							<small>(Best of 3)</small>
-						</p>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<div class="player-head" style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
-							<span><b>Orangee</b> (2)</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<div class="player-head flip" style="background-image: url(http://scrolldier.com/resources/head_13.png);"></div>
-							<span>(1) Zylus</span>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-sm-6 col-xs-6 match tops left-win">
-						<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-						<p class=""><i class="fa fa-circle color-started"></i> <b>Semi Finals</b><br />
-							<small>(Best of 3)</small>
-						</p>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<div class="player-head" style="background-image: url(http://scrolldier.com/resources/head_37.png);"></div>
-							<span><b>kbasten</b> (2)</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<div class="player-head flip" style="background-image: url(http://scrolldier.com/resources/head_197.png);"></div>
-							<span>(0) Blinky</span>
-						</div>
-					</div>
+	<!-- 			End of Twitch Stream -->
+					
+				<div class="col-lg-12">
+					<ul class="list-unstyled">
+<!-- 						impratet smalls tuff -->
+						<li>Registration fee: <b>1000g</b></li>
+						<li>Admin: {adminname}</li>
+						<li>Moderator: {modname's}</li>
+					</ul>
 				</div>
-
-				<!-- Quaters -->
-				<div class="row text-center">
-					<div class="col-md-3 col-sm-3 col-xs-6 match tops left-win">
-						<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-						<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br />
-							<small>Single Elimination</small>
-						</p>
-						<div class="col-md-6">
-							<span><b>Orangee</b></span>
-						</div>
-						<div class="col-md-6">
-							<span>player</span>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-6 match tops right-win">
-						<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-						<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br />
-							<small>Single Elimination</small>
-						</p>
-						<div class="col-md-6">
-							<span>player</span>
-						</div>
-						<div class="col-md-6">
-							<span><b>Zylus</b></span>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-6 match tops left-win">
-						<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-						<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br />
-							<small>Single Elimination</small>
-						</p>
-						<div class="col-md-6">
-							<span><b>kBasten</b></span>
-						</div>
-						<div class="col-md-6">
-							<span>iwantanickplease</span>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-6 match tops right-win">
-						<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-						<p class=""><i class="fa fa-circle color-finished"></i> <b>Quarter Finals</b><br />
-							<small>Single Elimination</small>
-						</p>
-						<div class="col-md-6">
-							<span>player</span>
-						</div>
-						<div class="col-md-6">
-							<span><b>Blinky</b></span>
-						</div>
-					</div>
+				<div class="col-lg-12">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, fuga, sit dolorum velit corporis voluptates autem vitae officia facilis saepe similique deleniti suscipit mollitia minus quo vel voluptas magni facere inventore cupiditate dicta eligendi ipsa incidunt nam dolores sed nulla nisi voluptatum provident alias repellendus omnis dolore ut neque blanditiis vero ipsam adipisci. Pariatur, architecto, mollitia saepe provident exercitationem odit incidunt quisquam ratione debitis error quidem in deleniti omnis nostrum vero harum id possimus quaerat doloribus molestiae est cumque adipisci obcaecati illo ducimus quod perferendis. Laudantium, incidunt, officiis voluptas quasi soluta nemo dolore explicabo nulla at ratione suscipit architecto optio!</p>
+				
 				</div>
-
-				<!-- 16O -->
-				<div class="row text-center">
-					<div class="col-md-3">
-						<div class="col-md-6 col-sm-6 col-xs-4 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 1</b></span>
-							</div>
-
-							<div class="col-md-12 col-sm-6">
-								<span>player 2</span>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 col-xs-4 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 3</b></span>
-							</div>
-
-							<div class="col-md-12 col-sm-6">
-								<span>player 4</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="col-md-6 col-sm-6 col-xs-4 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 5</b></span>
-							</div>
-
-							<div class="col-md-12 col-sm-6">
-								<span>player 6</span>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 col-xs-4 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 7</b></span>
-							</div>
-							<div class="col-md-12 col-sm-6">
-								<span>player 8</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="col-md-6 col-sm-6 col-xs-4 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 9</b></span>
-							</div>
-							<div class="col-md-12 col-sm-6">
-								<span>player 10</span>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 col-xs-4 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 11</b></span>
-							</div>
-							<div class="col-md-12 col-sm-6">
-								<span>player 12</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="col-md-6 col-sm-6 col-xs-6 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 13</b></span>
-							</div>
-							<div class="col-md-12 col-sm-6">
-								<span>player 14</span>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-sm-6 col-xs-6 match">
-							<!-- add classes to FA icon color-not-started, color-started, color-finished-->
-							<p class=""><i class="fa fa-circle color-finished"></i> <b>Match</b></p>
-							<div class="col-md-12 col-sm-6">
-								<span><b>player 15</b></span>
-							</div>
-							<div class="col-md-12 col-sm-6">
-								<span>player 16</span>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-				<!-- Optional More bracets -->
-				<div class="row text-center">
-					<div class="col-md-3 col-sm-3 col-xs-6 match">
-
-						<a href="#">Earlier brackets</a>
-
-					</div>
-
-					<div class="col-md-3 col-sm-3 col-xs-6 match">
-
-						<a href="#">Earlier brackets</a>
-
-					</div>
-
-					<div class="col-md-3 col-sm-3 col-xs-6 match">
-
-						<a href="#">Earlier brackets</a>
-
-					</div>
-
-					<div class="col-md-3 col-sm-3 col-xs-6 match">
-
-						<a href="#">Earlier brackets</a>
-
-					</div>
-				</div>
+				
 			</div>
 			<div id='admin' class='tab-pane fade'>
 				<div class="row">
@@ -324,9 +90,13 @@
 						<div class="col-sm-12 text-center">
 							<br />
 							<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.name }) }}">Start {{ tournament.name }}</a>
+							
+							
 							<div class="col-sm-12">
 								<label class="" for="">Create the brackets and start the tournament</label>
 							</div>
+							
+							
 						</div>
 					</div>
 				</div>
@@ -401,6 +171,59 @@
 				</form>
 			</div>
 			<div id='bracket' class='tab-pane fade in active'>
+				<!-- Finals -->
+								<div class="row">
+									<h1 class="text-center">{{ tournament.name }}<br />
+										{{ tournament.players|length }} player {{ tournamentType(tournament) }}
+										<br /><i class="fa fa-circle color-started"></i> Finals<br />
+										<small>(Best of X)</small>
+									</h1>
+									<div class="col-md-3 col-sm-3 text-right hidden-xs">
+										<!-- Insert Animated avatar like the SG profiles -->
+										<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
+									</div>
+				
+									<div class="col-md-6 col-sm-6">
+				
+										<div class="col-md-5 col-xs-5 text-center">
+											<!-- Names likes to scrolldier or SG profiles -->
+											<h2><a target="_blank" href="http://scrolldier.com/user/orangee">Orangee</a></h2>
+											<span><img src="http://i.imgur.com/0njz5pI.png" alt="" width="100%" /></span>
+				
+										</div>
+										<div class="col-md-2 col-xs-2 text-center">
+											<!-- Numbers are number of wins for each player -->
+											<h2><b>3</b> VS <b>2</b></h2>
+										</div>
+										<div class="col-md-5 col-xs-5 text-center">
+											<!-- Names likes to scrolldier or SG profiles -->
+											<h2><a target="_blank" href="http://scrolldier.com/user/kBasten">kBasten</a></h2>
+											<span><img src="http://i.imgur.com/2cAp13M.png" alt="" width="100%" /></span>
+										</div>
+				
+										<div class="col-md text-center" style="margin-top: 300px;">
+											<h2><i class="fa fa-circle color-not-started"></i> Bronze Finals</h2>
+				
+											<p class="">
+												<small>(Best of 3)</small>
+											</p>
+											<div class="col-md-6 col-sm-6 col-xs-6">
+												<div class="player-head" style="background-image: url(http://scrolldier.com/resources/head_13.png);"></div>
+												<span><b>Zylus</b> (2)</span>
+											</div>
+											<div class="col-md-6 col-sm-6 col-xs-6">
+												<div class="player-head flip" style="background-image: url(http://scrolldier.com/resources/head_197.png);"></div>
+												<span>(1) Blinky</span>
+											</div>
+										</div>
+									</div>
+				
+									<div class="col-md-3 col-sm-3 hidden-xs text-left">
+										<!-- Insert Animated avatar like the SG profiles flip this one 180deg-->
+										<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
+									</div>
+								</div>
+			
 				<div class='bracket-graph-se'>
 					{% include 'bracket_render_se.html.twig' %}
 				</div>
