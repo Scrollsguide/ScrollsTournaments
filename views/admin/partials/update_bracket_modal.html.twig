@@ -1,11 +1,13 @@
 <form action="{{ path('update_bracket_score', { name: tournament.url, id: bracket.id }) }}" method="POST" name="submit-match-score">
+	<span>Select winner:</span>
 	<div class='player-result'>
 		<div class='player-details'>
 			<div class='player-avatar' style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
 			<h4>{{ player_1.ingamename }}</h4>
 		</div>
 		<div class='player-score'>
-			<input type='text' value='{{ player_1.getBracketScore(bracket.id) }}' />
+			{% set s = player_1.getBracketScore(bracket.id) %}
+			<input type='text' value='{{ s != -1 ? s : '' }}' name="score-player-{{ player_1.id }}" placeholder="Score" />
 		</div>
 	</div>
 	<div class='vs'>VS</div>
@@ -15,7 +17,8 @@
 			<h4>{{ player_2.ingamename }}</h4>
 		</div>
 		<div class='player-score'>
-			<input type='text' value='{{ player_2.getBracketScore(bracket.id) }}' />
+			{% set s = player_2.getBracketScore(bracket.id) %}
+			<input type='text' value='{{ s != -1 ? s : '' }}' name="score-player-{{ player_2.id }}" placeholder="Score" />
 		</div>
 	</div>
 </form>

@@ -41,8 +41,9 @@
 				);
 
 				return $this->render("tournament_user.html.twig", array(
-					"tournament" => $tournament,
-					"renderdata" => $renderData
+					"tournament"       => $tournament,
+					"renderdata"       => $renderData,
+					"is_participating" => $tournament->isPlayer($this->user)
 				));
 			} else { // tournament not found in the repository
 				return $this->p404();

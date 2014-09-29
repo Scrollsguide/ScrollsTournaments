@@ -53,7 +53,6 @@
 		}
 
 		public function updateBracketAction($tournamentUrl, $bracketId) {
-			/*
 			// TODO: check for admin
 			$em = $this->getApp()->get("EntityManager");
 
@@ -64,17 +63,32 @@
 				$tournamentRepository->addBracket($tournament);
 
 				if (($bracket = $tournament->getBracketById((int)$bracketId)) !== null) {
-					var_dump($bracket);
-					die();
+					$r = $this->getApp()->getRequest();
+
+					$matchId = $bracket->getMatchId();
+
+					$players = $bracket->getPlayers();
+					foreach ($players as $player){
+						$playerScore = $r->getParameter('score-player-' . $player->getId());
+						$player->setBracketScore($bracket->getId(), $playerScore);
+
+						$tournamentRepository->persistBracketScore($bracket, $player);
+					}
+
+
+					return $this->render("admin/partials/update_bracket_modal.html.twig",
+						array(
+							'tournament' => $tournament,
+							'player_1'   => $players[0],
+							'player_2'   => $players[1],
+							'bracket'    => $bracket,
+							'matchid'    => $matchId
+						));
 				}
 			}
 
 			return $this->render("partials/bracket_404.html.twig",
 				array('err' => "Bracket not found for this tournament."));
-			*/
-			$r = new HtmlResponse();
-			$r->setContent("yoyo");
-			return $r;
 		}
 
 	}

@@ -86,7 +86,7 @@
 				$bracket_ids[] = $b['id'];
 			}
 
-			$sth = $this->getConnection()->prepare("SELECT bracket_id, player_id, score
+			$sth = $this->getConnection()->prepare("SELECT bracket_id, player_id, score, win
 						FROM bracket_players
 						WHERE bracket_id IN (" . implode(",", $bracket_ids) . ")");
 			$sth->execute();
@@ -144,5 +144,9 @@
 			$this->getConnection()->commit();
 
 			return $bracketDBId;
+		}
+
+		public function persistBracketScore(Bracket $b, TournamentPlayer $tp){
+
 		}
 	}

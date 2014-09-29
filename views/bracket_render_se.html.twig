@@ -1,5 +1,5 @@
-{% set maxheight = renderdata.max_matchups * 64 %}
-{% set teamcontainerheight = 53 %}
+{% set maxheight = renderdata.max_matchups * 72 %}
+{% set teamcontainerheight = 61 %}
 <div class='jQBracket' style='width: {{ renderdata.total_width }}px' data-tournament-name="{{ tournament.url }}">
 	<div class='bracket single-elim' style='height: {{ maxheight }}px'>
 		{% for r in tournament.rounds %}
@@ -11,7 +11,7 @@
 						<div class='teamContainer{{ c }}' style='top: {{ (bracketheight - teamcontainerheight) / 2 }}px' data-child='{{ b.child.id }}' data-id='{{ b.id }}'>
 							{% for p in b.players %}
 								{% set s = p.getBracketScore(b.id) %}
-								<div class='team' data-team-id='{{ p.id }}' data-result='{{ s }}'>
+								<div class='team' data-team-id='{{ p.id }}' data-result='{{ s }}' data-win='{{ p.getBracketWin(b.id) }}'>
 									<div class='bracket-label'>{{ p.ingamename }}</div>
 									<div class='score'>{{ s != -1 ? s : '--' }}</div>
 								</div>

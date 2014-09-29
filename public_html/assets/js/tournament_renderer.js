@@ -98,21 +98,21 @@ var refreshView = function(){
 			var connector = connectors.eq(0);
 			
 			if (teamContainer.winner.pos === 'top'){
-				offset.left = -13;
+				offset.left = -15;
 			} else if (teamContainer.winner.pos === 'bottom'){
-				offset.left = 13;
+				offset.left = 15;
 			}
 			
 			if (top > childTop){
 				connector.css("border-top", "none");
 				connector.css("height", (top - childTop + offset.left + 1) + "px");
-				connector.css("bottom", (26 - offset.left) + "px");
+				connector.css("bottom", (30 - offset.left) + "px");
 				
 				connectors.eq(1).css("top", "0px");
 			} else {
 				connector.css("border-bottom", "none");
 				connector.css("height", (childTop - top - offset.left + 1) + "px");
-				connector.css("top", (26 + offset.left) + "px");
+				connector.css("top", (30 + offset.left) + "px");
 			}
 			connectors.css("display", "block");
 		}

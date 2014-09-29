@@ -3,7 +3,8 @@
 		<div class='player-avatar' style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
 		<h4>{{ player_1.ingamename }}</h4>
 	</div>
-	<div class='player-score'>{{ player_1.getBracketScore(bracket.id) }}</div>
+	{% set s = player_1.getBracketScore(bracket.id) %}
+	<div class='player-score'>{{ s != -1 ? s : 'No score yet' }}</div>
 </div>
 
 <div class='vs'>VS</div>
@@ -13,7 +14,8 @@
 		<div class='player-avatar' style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
 		<h4>{{ player_2.ingamename }}</h4>
 	</div>
-	<div class='player-score'>{{ player_2.getBracketScore(bracket.id) }}</div>
+	{% set s = player_2.getBracketScore(bracket.id) %}
+	<div class='player-score'>{{ s != -1 ? s : 'No score yet' }}</div>
 </div>
 
 {% if bracket.matchid != -1 %}

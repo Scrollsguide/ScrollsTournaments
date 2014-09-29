@@ -1,6 +1,12 @@
 {% extends 'tournament_base.html.twig' %}
 {% block tournament_actions %}
 	<div class="col-lg-12 text-center">
-		<h2><a href="{{ path('tournament_register', { name: tournament.url }) }}">Participate</a></h2>
+		<h2>
+			{% if is_participating %}
+
+			{% else %}
+				<a href="{{ path('tournament_register', { name: tournament.url }) }}">Participate</a>
+			{% endif %}
+		</h2>
 	</div>
 {% endblock %}

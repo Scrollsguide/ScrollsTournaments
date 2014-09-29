@@ -12,7 +12,7 @@ $("document").ready(function(){
 		$("#update-score-modal").modal();
 	});
 
-	$("#save-bracket").click(function(){
+	$("#update-score-modal #save-bracket").click(function(){
 		var updateForm = $("#update-score-modal form[name='submit-match-score']");
 		if (updateForm.length){
 			updateForm.submit(function(e){
@@ -26,10 +26,7 @@ $("document").ready(function(){
 					}
 				});
 			}).submit();
-		} else {
-			console.log("No length");
 		}
-		console.log(updateForm);
 	});
 });
 
@@ -40,5 +37,14 @@ var loadBracketAdmin = function(tournament, bracketId){
 	modalBody.html(loader());
 	$.get("/_admin/" + tournament + "/bracket/" + bracketId, function(output){
 		modalBody.html(output);
+		clickActions();
+	});
+}
+
+var clickActions = function(){
+	$("#update-score-modal .player-result").click(function(){
+		console.log("click");
+		$("#update-score-modal .player-result.win").removeClass("win");
+		$(this).addClass("win");
 	});
 }

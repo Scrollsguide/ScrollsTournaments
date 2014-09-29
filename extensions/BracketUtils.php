@@ -27,7 +27,7 @@
 			}
 
 			foreach ($players as $p) {
-				$tournamentPlayers[$p['player_id']]->setBracketScore($p['bracket_id'], $p['score']);
+				$tournamentPlayers[$p['player_id']]->setBracketResult($p['bracket_id'], $p['score'], $p['win']);
 			}
 
 			// hashmap for rounds too

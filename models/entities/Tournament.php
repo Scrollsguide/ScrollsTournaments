@@ -153,4 +153,15 @@
 			return null;
 		}
 
+		public function isPlayer(User $u){
+			if (($ingameName = $u->getUserData('ingame')) !== null){
+				foreach ($this->players as $p){
+					if ($p->getIngameName() === $ingameName){
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
 	}
