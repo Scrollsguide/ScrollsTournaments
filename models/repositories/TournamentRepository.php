@@ -146,7 +146,18 @@
 			return $bracketDBId;
 		}
 
-		public function persistBracketScore(Bracket $b, TournamentPlayer $tp){
+		public function persistBracketResult(Bracket $b, TournamentPlayer $tp){
+			$setQuery = "score = :score, win = :win";
+			$sth = $this->getConnection()->prepare("INSERT INTO bracket_players
+						SET bracket_id = :b_id,
+						player_id = :p_id,
+						" . $setQuery . "
+						ON DUPLICATE KEY UPDATE " . $setQuery);
+			$sth->bindValue(":b_id", $b->getId(), PDO::PARAM_INT);
+			$sth->bindValue(":p_id", $tp->getId(), PDO::PARAM_INT);
+			$sth->bindValue(":score", $tp->getBracketScore($b->getId()));
+			$sth->bindValue(":win", $tp->getBracketWin($b->getId()));
 
+			$sth->execute();
 		}
 	}

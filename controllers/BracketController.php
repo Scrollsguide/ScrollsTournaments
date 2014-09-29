@@ -67,12 +67,14 @@
 
 					$matchId = $bracket->getMatchId();
 
+					error_reporting(E_ALL);
+
 					$players = $bracket->getPlayers();
 					foreach ($players as $player){
 						$playerScore = $r->getParameter('score-player-' . $player->getId());
-						$player->setBracketScore($bracket->getId(), $playerScore);
+						$player->setBracketResult($bracket->getId(), $playerScore, 0);
 
-						$tournamentRepository->persistBracketScore($bracket, $player);
+						$tournamentRepository->persistBracketResult($bracket, $player);
 					}
 
 
