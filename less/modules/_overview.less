@@ -1,0 +1,29 @@
+ul.players li{
+
+	width: 100%;
+	background-color: #eee;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-bottom-width: 0px;
+	
+	&:last-of-type{
+		border-bottom-width: 1px;
+		border-radius: 0px 0px 3px 3px;
+	}
+	
+	&:first-of-type{
+		border-radius: 3px 3px 0px 0px;
+	}
+	
+	&:nth-of-type(even){
+		background-color: lighten(#eee, 3%);
+	}
+	
+	
+}
+
+.players-header{
+	font-weight: bold;
+	font-size: 18px;
+}
+
