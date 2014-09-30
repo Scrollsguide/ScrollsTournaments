@@ -70,7 +70,7 @@
 			if (isset($this->bracket_scores[$bracket_id])) {
 				return (int)$this->bracket_scores[$bracket_id]['win'];
 			} else {
-				return 0;
+				return -1;
 			}
 		}
 

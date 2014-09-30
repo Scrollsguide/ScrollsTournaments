@@ -33,28 +33,21 @@ var refreshView = function(){
 		
 		if (!$(this).hasClass("np")){
 			var teams = $(this).find(".team");
-			var results = [
-				teams.eq(0).attr('data-result'),
-				teams.eq(1).attr('data-result')
-			];
-			if (results[0] === results[1]){
-			
-			} else {
-				if (results[0] > results[1]){
-					winner = {
-						pos: 'top',
-						team: teams.eq(0).attr("data-team-id")
-					};
-					teams.eq(0).addClass("win");
-					teams.eq(1).addClass("lose");
-				} else {
-					winner = {
-						pos: 'bottom',
-						team: teams.eq(1).attr("data-team-id")
-					};
-					teams.eq(1).addClass("win");
-					teams.eq(0).addClass("lose");					
-				}
+
+			if (teams.eq(0).attr("data-win") == 1){
+				winner = {
+					pos: 'top',
+					team: teams.eq(0).attr("data-team-id")
+				};
+				teams.eq(0).addClass("win");
+				teams.eq(1).addClass("lose");
+			} else if (teams.eq(1).attr("data-win") == 1){
+				winner = {
+					pos: 'bottom',
+					team: teams.eq(1).attr("data-team-id")
+				};
+				teams.eq(1).addClass("win");
+				teams.eq(0).addClass("lose");
 			}
 		}
 		

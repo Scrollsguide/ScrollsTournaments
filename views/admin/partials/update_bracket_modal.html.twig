@@ -1,6 +1,6 @@
 <form action="{{ path('update_bracket_score', { name: tournament.url, id: bracket.id }) }}" method="POST" name="submit-match-score">
 	<div class="col-lg-12 text-center">Select winner:</div>
-	<div class='player-result'>
+	<div class='player-result{% if player_1.getBracketWin(bracket.id) == 1 %} win{% elseif player_1.getBracketWin(bracket.id) == 0 %} lose{% endif %}' data-player-id="{{ player_1.id }}">
 		<div class='player-details'>
 			<div class='player-avatar' style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
 			<h4>{{ player_1.ingamename }}</h4>
@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class='vs'>VS</div>
-	<div class='player-result'>
+	<div class='player-result{% if player_2.getBracketWin(bracket.id) == 1 %} win{% elseif player_2.getBracketWin(bracket.id) == 0 %} lose{% endif %}' data-player-id="{{ player_2.id }}">
 		<div class='player-details'>
 			<div class='player-avatar' style="background-image: url(http://scrolldier.com/resources/head_135.png);"></div>
 			<h4>{{ player_2.ingamename }}</h4>
@@ -21,4 +21,5 @@
 			<input type='text' value='{{ s != -1 ? s : '' }}' name="score-player-{{ player_2.id }}" placeholder="Score" />
 		</div>
 	</div>
+	<input type="hidden" name="winner" value="{% if winner %}{{ winner.id }}{% else %}-1{% endif %}" />
 </form>
