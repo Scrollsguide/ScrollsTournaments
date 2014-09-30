@@ -50,6 +50,7 @@
 			<li><a data-toggle='tab' href='#overview'>Overview</a></li>
 			<li class='active'><a data-toggle='tab' href='#bracket'>Bracket</a></li>
 			<li><a data-toggle='tab' href='#bracket-swiss'>Swiss</a></li>
+			<li><a data-toggle='tab' href='#tournament-log'>Log</a></li>
 			<li><a data-toggle='tab' href='#admin'>Admin</a></li>
 		</ul>
 
@@ -166,13 +167,6 @@
 								<label for="twitch-input">Twitch Stream</label>
 								<input type="text" id="twitch-input" class="form-control" placeholder="http://twitch.tv/username" />
 							</div>
-							<fieldset disabled>
-								<div class="form-group">
-									<label class="control-label" for="log">Tournament Log</label>
-									<textarea class="form-control" id="log" rows="5">{% for l in tournament.loglines %}{{ l.time|date('d/m/Y H:i:s') }}: {{ l.line }}
-{% endfor %}</textarea>
-								</div>
-							</fieldset>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-4 col-sm-8">
@@ -244,6 +238,20 @@
 			<div id='bracket-swiss' class='tab-pane fade'>
 				<div class='bracket-graph-swiss'>
 					{% include 'bracket_render_swiss.html.twig' %}
+				</div>
+			</div>
+			<div id="tournament-log" class="tab-pane fade">
+				<div class="page-header">
+					<h2>Tournament log</h2>
+				</div>
+				<div class="col-sm-12">
+					<ul class="list-unstyled">
+						{% for l in tournament.loglines %}
+							<li>
+								<span class='log-time'>{{ l.time|date('d/m/Y H:i:s') }}</span><span class="log-line">{{ l.line }}</span>
+							</li>
+						{% endfor %}
+					</ul>
 				</div>
 			</div>
 		</div>
