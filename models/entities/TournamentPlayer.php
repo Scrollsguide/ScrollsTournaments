@@ -14,6 +14,8 @@
 
 		private $ingamename;
 
+		private $role;
+
 		public function setId($id) {
 			$this->id = $id;
 		}
@@ -52,6 +54,14 @@
 
 		public function getTournamentId() {
 			return (int)$this->tournament_id;
+		}
+
+		public function getRole(){
+			return (int)$this->role;
+		}
+
+		public function setRole($role){
+			$this->role = $role;
 		}
 
 		public function getBracketScores() {

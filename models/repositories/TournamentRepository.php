@@ -81,6 +81,7 @@
 
 			$brackets = $sth->fetchAll(PDO::FETCH_ASSOC);
 
+			// create list of ids for use in next query
 			$bracket_ids = array();
 			foreach ($brackets as $b) {
 				$bracket_ids[] = $b['id'];
@@ -159,5 +160,21 @@
 			$sth->bindValue(":win", $tp->getBracketWin($b->getId()));
 
 			$sth->execute();
+		}
+
+		public function getUserRole(Tournament $t, $userId){
+			$sth = $this->getConnection()->prepare("SELECT role
+						FROM roles
+						WHERE tournament_id = :t_id
+						AND user_id = :u_id");
+			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
+			$sth->bindValue(":u_id", $userId, PDO::PARAM_INT);
+			$sth->execute();
+
+			if (($role = $sth->fetch(PDO::FETCH_ASSOC)) !== false){
+				return (int)$role['role'];
+			} else {
+				return TournamentPlayerRole::NONE;
+			}
 		}
 	}

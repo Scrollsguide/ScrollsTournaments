@@ -88,6 +88,10 @@
 				"id": "[0-9]+"
 			}
 		},
+		"calendar": {
+			"path": "/calendar",
+			"action": "Calendar::index"
+		},
 		"login": {
 			"path": "/login",
 			"action": "User::login"

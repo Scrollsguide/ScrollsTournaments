@@ -20,6 +20,8 @@
 				$tournamentRepository->addTournamentPlayers($tournament);
 				$tournamentRepository->addBracket($tournament);
 
+				// $tournamentRepository->getUserRole($tournament, $this->user->getId());
+
 				// TODO: add && user->isAdmin()
 				if ($tournament->isInviteOnly()) {
 					$inviteRepository = $em->getRepository("Invite");
