@@ -1,0 +1,238 @@
+@cal-size: 100% / 7;
+
+@todayColor: #d9edf7;
+@highlightColor: #ccc;
+@normalColor: darken(#f8f8f8, 5%);
+
+@color-1: #CE0000;
+@color-2: #8a02f3;
+@color-3: #3fcd06;
+@color-4: #ff8800;
+@color-5: #3f81f1;
+
+.turny i{
+	color: @color-1;
+}
+
+.stream i{
+	color: @color-2;
+}
+
+.event i{
+	color: @color-3;
+}
+
+.season i{
+	color: @color-4;
+}
+
+.personal i{
+	color: @color-5;
+}
+ul.events{
+	width: 100%;
+}
+
+ul.events li{
+	font-size: 12px;
+	padding: 2px 4px;
+	min-height: 20px;
+	line-height: 16px;
+	width: 100%;
+	
+	&:hover{
+		border-radius: 3px;
+		color: #f8f8f8;
+		cursor: pointer;
+	}
+	
+	&:hover i{
+		color: #f8f8f8;
+	}
+	
+	&.turny:hover{
+		background-color: @color-1;
+	}
+	&.stream:hover{
+		background-color: @color-2;
+	}
+	&.event:hover{
+		background-color: @color-3;
+	}
+	&.season:hover{
+		background-color: @color-4;
+	}
+	&.personal:hover{
+		background-color: @color-5;
+	}
+	
+	&.msg{
+		width: 100%;
+		float: left;
+		clear: left;
+	}
+}
+
+h2 + ul.events{
+	margin-top: 20px;
+	
+	& li{
+		font-size: 20px;
+		height: auto;
+		padding: 5px 10px;
+		float: left;
+		clear: left;
+		border-radius: 3px;
+		
+		& small{
+			color: #555;
+		}
+		&:hover small{
+			color: #f8f8f8;
+		}
+		&:nth-of-type(even){
+			background-color: darken(@normalColor, 2%);
+		}
+	}
+}
+.day-date{
+	width: 100%;
+	height: 25px;
+	
+	& small{
+		width: auto;
+	}
+}
+.today-desc{
+	padding: 5px 10px 5px 23px;
+}
+
+[class^='cal-']{
+	height: 100px;
+	background-color: @normalColor;
+	float: left;
+	border: 1px solid rgba(0, 0, 0, 0);
+	padding: 5px 10px;
+	color: #777;
+	
+	&.day-lable{
+		height: 40px;
+		text-align: left;
+	}
+	
+	&:nth-last-of-type(odd):not(.day-lable):not(.today) {
+		background-color: darken(@normalColor, 2%);
+	}
+	
+	&:hover:nth-last-of-type(odd):not(.day-lable):not(.today) {
+		background-color: darken(@normalColor, 15%);
+		border: 1px solid darken(@normalColor, 25%);
+	}
+	
+	&:hover:not(.day-lable){
+		background-color: @highlightColor;
+		border: 1px solid darken(@highlightColor ,10%);
+		color: #444;
+	}
+	
+	&.today{
+		background-color: @todayColor;
+		border: 1px solid darken(@todayColor ,10%);
+		color: darken(@todayColor ,50%);
+		&:hover{
+			background-color: darken(@todayColor ,10%);
+			border: 1px solid darken(@todayColor ,20%);
+			color: darken(@todayColor ,60%);
+		}
+	}
+	
+	&.next-month{
+		background-color: lighten(@normalColor, 5%);
+		color: #888;
+		
+		&:hover{
+			background-color: darken(@normalColor, 5%);
+			color: #666;
+		}
+		&:nth-last-of-type(odd):not(.day-lable) {
+			background-color: darken(@normalColor, .5%);
+		}
+	}
+	
+	&.tiny{
+		cursor: pointer;
+		& ul li{
+			float: left;
+			width: auto;
+		}
+	}
+}
+
+.calendar{
+	border: 1px solid darken(@normalColor, 10%);
+	width: 100%;
+	border-radius: 3px;
+	overflow: hidden;
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.cal-1{
+	width: @cal-size * 1;
+}
+
+.cal-2{
+	width: @cal-size * 2;
+}
+
+.cal-3{
+	width: @cal-size * 3;
+}
+
+.cal-4{
+	width: @cal-size * 4;
+}
+
+.cal-5{
+	width: @cal-size * 5;
+}
+
+.cal-6{
+	width: @cal-size * 6;
+}
+
+.date-xs{
+	display: inline;
+	float: right;
+}
+
+.week{
+	width: @cal-size * 7;
+	float: left;
+	clear: left;
+	background-color: @normalColor;
+	border-top: 1px solid lighten(@normalColor, 10%);
+	border-bottom: 1px solid darken(@normalColor, 10%);
+	
+	&:last-of-type{
+		border-bottom-width: 0px
+	}
+	
+	&:first-of-type{
+		border-top-width: 0px;
+	}
+}
+@media (max-width: 992px) {
+	ul.events li{
+		font-size: 8px;
+	}
+}
+@media (max-width: 768px) {
+	[class^='cal-']{
+		width: 100%;
+		height: auto;
+	}
+	ul.events li{
+		font-size: 14px;
+	}
+}
