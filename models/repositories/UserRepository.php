@@ -15,11 +15,13 @@
 			// since username is a unique key, the ingamename will get updated
 			// once the SG user object is updated
 			$sth = $this->getConnection()->prepare("INSERT INTO users
-					SET username = :username,
+					SET id = :id,
+					username = :username,
 					ingamename = :ingamename
 					ON DUPLICATE KEY UPDATE
 					ingamename = :ingamename");
 
+			$sth->bindValue(":id", $u->getUserData('id'), PDO::PARAM_INT);
 			$sth->bindValue(":username", $u->getUsername(), PDO::PARAM_STR);
 			$sth->bindValue(":ingamename", $u->getUserData('ingame'), PDO::PARAM_STR);
 
