@@ -12,6 +12,7 @@
 
 		// saves tournaments to database
 		public function persist(Tournament $tournament) {
+			/*
 			$i = $tournament->getId() === 0 ? "INSERT INTO" : "UPDATE";
 			$l = $tournament->getId() === 0 ? "" : " WHERE id = :id";
 			$sth = $this->getConnection()->prepare($i . " tournaments
@@ -34,6 +35,25 @@
 			if ($tournament->getId() !== 0){
 				$sth->bindValue(":id", $tournament->getId(), PDO::PARAM_INT);
 			}
+
+			$sth->execute();
+			*/
+			$sth = $this->getConnection()->prepare("INSERT INTO tournaments
+					SET name = :name,
+					url = :url,
+					tournamenttype = :t_type,
+					date = :date,
+					description = :desc,
+					regstate = :regstate,
+					tournamentstate = :t_state");
+
+			$sth->bindValue(":name", $tournament->getName(), PDO::PARAM_STR);
+			$sth->bindValue(":desc", $tournament->getDescription(), PDO::PARAM_STR);
+			$sth->bindValue(":url", $tournament->getUrl(), PDO::PARAM_STR);
+			$sth->bindValue(":date", $tournament->getDate(), PDO::PARAM_INT);
+			$sth->bindValue(":regstate", $tournament->getRegState(), PDO::PARAM_INT);
+			$sth->bindValue(":t_type", $tournament->getTournamentType(), PDO::PARAM_INT);
+			$sth->bindValue(":t_state", $tournament->getTournamentState(), PDO::PARAM_INT);
 
 			$sth->execute();
 		}
