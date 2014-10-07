@@ -141,6 +141,10 @@
 		public function isInviteOnly(){
 			return $this->getRegState() === RegistrationState::INVITE_ONLY;
 		}
+
+		public function registrationsOpen(){
+			return $this->getTournamentState() === TournamentState::REGISTRATION;
+		}
 		
 		public function getBracketById($id){
 			foreach ($this->getRounds() as $r){

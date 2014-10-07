@@ -7,7 +7,7 @@
 		</div>
 		<div class='player-score'>
 			{% set s = player_1.getBracketScore(bracket.id) %}
-			<input type='text' value='{{ s != -1 ? s : '' }}' name="score-player-{{ player_1.id }}" placeholder="Score" />
+			<input type='number' min="0" value='{{ s != -1 ? s : '' }}' name="score-player-{{ player_1.id }}" placeholder="Score" />
 		</div>
 	</div>
 	<div class='vs'>VS</div>
@@ -18,7 +18,7 @@
 		</div>
 		<div class='player-score'>
 			{% set s = player_2.getBracketScore(bracket.id) %}
-			<input type='text' value='{{ s != -1 ? s : '' }}' name="score-player-{{ player_2.id }}" placeholder="Score" />
+			<input type='number' min="0" value='{{ s != -1 ? s : '' }}' name="score-player-{{ player_2.id }}" placeholder="Score" />
 		</div>
 	</div>
 	<input type="hidden" name="winner" value="{% if winner %}{{ winner.id }}{% else %}-1{% endif %}" />

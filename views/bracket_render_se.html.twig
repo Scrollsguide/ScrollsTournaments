@@ -8,7 +8,7 @@
 				{% for b in r.brackets %}
 					{% set c = b.players|length < 2 ? ' np' : '' %}
 					<div class='b-match' style='height: {{ bracketheight }}px;'>
-						<div class='teamContainer{{ c }}' style='top: {{ (bracketheight - teamcontainerheight) / 2 }}px' data-child='{{ b.child.id }}' data-id='{{ b.id }}'>
+						<div class='teamContainer{{ c }}{{ nt }}' style='top: {{ (bracketheight - teamcontainerheight) / 2 }}px' data-child='{{ b.child.id }}' data-id='{{ b.id }}'>
 							{% for p in b.players %}
 								{% set s = p.getBracketScore(b.id) %}
 								<div class='team' data-team-id='{{ p.id }}' data-result='{{ s }}' data-win='{{ p.getBracketWin(b.id) }}'>

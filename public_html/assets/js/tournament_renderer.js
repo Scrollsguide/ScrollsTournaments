@@ -1,7 +1,10 @@
 $(document).ready(function(){
 	refreshView();
 	
-	$(".jQBracket .teamContainer").click(function(){
+	$(".bracket-graph").on("click", ".teamContainer", function(){
+		if ($(this).hasClass("np")){
+			return;
+		}
 		// load current scores and player data
 		var bracketId = $(this).attr("data-id");
 		var tournamentName = $(this).parents(".jQBracket").attr("data-tournament-name");

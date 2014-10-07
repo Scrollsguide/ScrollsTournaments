@@ -3,9 +3,13 @@
 	<div class="col-lg-12 text-center">
 		<h2>
 			{% if is_participating %}
-
+				You are registered
 			{% else %}
-				<a href="{{ path('tournament_register', { name: tournament.url }) }}">Participate</a>
+				{% if tournament.registrationsOpen() %}
+					<a href="{{ path('tournament_register', { name: tournament.url }) }}">Participate</a>
+				{% else %}
+					Registrations closed
+				{% endif %}
 			{% endif %}
 		</h2>
 	</div>

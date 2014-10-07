@@ -20,9 +20,11 @@
 				$tournamentRepository->addTournamentPlayers($tournament);
 				$tournamentRepository->addBracket($tournament);
 
-				// $tournamentRepository->getUserRole($tournament, $this->user->getId());
+				$isAdmin = false;
+				if ($this->user->checkAccessLevel(AccessLevel::USER)) {
+					$isAdmin = $tournamentRepository->getUserRole($tournament, $this->user->getUserData('id')) === TournamentPlayerRole::ADMIN;
+				}
 
-				// TODO: add && user->isAdmin()
 				if ($tournament->isInviteOnly()) {
 					$inviteRepository = $em->getRepository("Invite");
 					$inviteRepository->addInvite($tournament);
@@ -45,6 +47,7 @@
 				return $this->render("tournament_user.html.twig", array(
 					"tournament"       => $tournament,
 					"renderdata"       => $renderData,
+					"is_admin"         => $isAdmin,
 					"is_participating" => $tournament->isPlayer($this->user)
 				));
 			} else { // tournament not found in the repository
@@ -145,7 +148,7 @@
 			$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "You are now participating!");
 
 			// add log
-			$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $this->user->getUsername()));
+			$this->saveLog($tournament, $em, sprintf("Player %s just joined the tournament.", $this->user->getUserData('ingame')));
 		}
 
 		public function startAction($url) {
@@ -157,6 +160,15 @@
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
 				// TODO: check whether user is admin for this tournament
 				$tournamentRepository->addTournamentPlayers($tournament);
+
+				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
+
+				// check whether there are enough players
+				if (count($tournament->getPlayers()) < 3){
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "The tournament can't start with less than 3 players.");
+
+					return new RedirectResponse($tournamentRoute);
+				}
 
 				$bracketGenerator = new BracketGenerator($tournament);
 				$bracketGenerator->setSeed(rand());
@@ -184,8 +196,11 @@
 				// add notification
 				$this->getApp()->getSession()->getFlashBag()->add("tournament_message", $msg);
 
+				// change tournament state
+				$tournament->setTournamentState(TournamentState::STARTED);
+				$tournamentRepository->persist($tournament);
+
 				// redirect to tournament page
-				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
 
 				return new RedirectResponse($tournamentRoute);
 			} else { // tournament not found
@@ -244,6 +259,7 @@
 			$t->setDescription($r->getParameter("desc"));
 			$t->setUrl(URLUtils::makeBlob($name));
 			$t->setRegState($regState);
+			$t->setTournamentState(TournamentState::REGISTRATION);
 
 			// TODO: use request parameter for type
 			$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);
@@ -254,6 +270,9 @@
 			$tournamentRepository->persist($t);
 
 			$t->setId($this->getApp()->get("database")->getConnection()->lastInsertId());
+
+			// add user as admin
+			$tournamentRepository->persistRole($t->getId(), $this->user->getUserData('id'), TournamentPlayerRole::ADMIN);
 
 			// check for invite-only and generate invite
 			if ($regState === RegistrationState::INVITE_ONLY) {

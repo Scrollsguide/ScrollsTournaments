@@ -12,13 +12,16 @@
 
 		// saves tournaments to database
 		public function persist(Tournament $tournament) {
-			$sth = $this->getConnection()->prepare("INSERT INTO tournaments
+			$i = $tournament->getId() === null ? "INSERT INTO" : "UPDATE";
+			$l = $tournament->getId() === null ? "" : " WHERE id = :id";
+			$sth = $this->getConnection()->prepare($i . " tournaments
 					SET name = :name,
-					description = :desc,
 					url = :url,
+					tournamenttype = :t_type,
 					date = :date,
+					description = :desc,
 					regstate = :regstate,
-					tournamenttype = :t_type");
+					tournamentstate = :t_state" . $l);
 
 			$sth->bindValue(":name", $tournament->getName(), PDO::PARAM_STR);
 			$sth->bindValue(":desc", $tournament->getDescription(), PDO::PARAM_STR);
@@ -26,6 +29,11 @@
 			$sth->bindValue(":date", $tournament->getDate(), PDO::PARAM_INT);
 			$sth->bindValue(":regstate", $tournament->getRegState(), PDO::PARAM_INT);
 			$sth->bindValue(":t_type", $tournament->getTournamentType(), PDO::PARAM_INT);
+			$sth->bindValue(":t_state", $tournament->getTournamentState(), PDO::PARAM_INT);
+
+			if ($tournament->getId() !== null){
+				$sth->bindValue(":id", $tournament->getId(), PDO::PARAM_INT);
+			}
 
 			$sth->execute();
 		}
@@ -158,6 +166,18 @@
 			$sth->bindValue(":p_id", $tp->getId(), PDO::PARAM_INT);
 			$sth->bindValue(":score", $tp->getBracketScore($b->getId()));
 			$sth->bindValue(":win", $tp->getBracketWin($b->getId()));
+
+			$sth->execute();
+		}
+
+		public function persistRole(Tournament $t, $userId, $role){
+			$sth = $this->getConnection()->prepare("INSERT INTO roles
+						SET tournament_id = :t_id,
+						user_id = :u_id,
+						role = :role");
+			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
+			$sth->bindValue(":u_id", $userId, PDO::PARAM_INT);
+			$sth->bindValue(":role", $role, PDO::PARAM_INT);
 
 			$sth->execute();
 		}

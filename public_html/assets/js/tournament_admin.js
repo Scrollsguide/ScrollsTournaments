@@ -1,12 +1,18 @@
 var is_updating = false;
 
 $("document").ready(function () {
-	$(".jQBracket .score").click(function (e) {
+	$(".bracket-graph").on("click", ".score", function (e) {
 		// stop score dialog from showing up
 		e.stopPropagation();
 
 		// load current scores and player data
-		var bracketId = $(this).parents(".teamContainer").attr("data-id");
+		var tc = $(this).parents(".teamContainer");
+
+		if (tc.hasClass("np")){
+			return;
+		}
+
+		var bracketId = tc.attr("data-id");
 		var tournamentName = $(this).parents(".jQBracket").attr("data-tournament-name");
 
 		loadBracketAdmin(tournamentName, bracketId);
@@ -14,7 +20,7 @@ $("document").ready(function () {
 		$("#update-score-modal").modal();
 	});
 
-	$("#update-score-modal #save-bracket").click(function () {
+	$("#update-score-modal").on("click", "#save-bracket", function () {
 		if (is_updating) {
 			return;
 		}
@@ -29,7 +35,16 @@ $("document").ready(function () {
 					data: updateForm.serialize(),
 					success: function (output) {
 						// score saved
+						$("#update-score-modal").modal('hide');
+
+						console.log("Got:");
 						console.log(output);
+
+						is_updating = false;
+					},
+					error: function(xhr, error, code){
+						console.log(error);
+						console.log(code);
 
 						is_updating = false;
 					}

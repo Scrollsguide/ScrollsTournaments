@@ -29,8 +29,8 @@
 		<div class="row">
 			<p>
 				<i class="fa fa-circle color-not-started"></i> <b>Match has not started</b>
-				<i class="fa fa-circle color-started"></i> <b>Match has started</b>
-				<i class="fa fa-circle color-finished"></i> <b>Match is over</b>
+				<!--<i class="fa fa-circle color-started"></i> <b>Match has started</b>-->
+				<i class="fa fa-circle color-started"></i> <b>Match is over</b>
 			</p>
 		</div>
 
@@ -49,9 +49,11 @@
 		<ul class='nav nav-tabs'>
 			<li><a data-toggle='tab' href='#overview'>Overview</a></li>
 			<li class='active'><a data-toggle='tab' href='#bracket'>Bracket</a></li>
-			<li><a data-toggle='tab' href='#bracket-swiss'>Swiss</a></li>
+			<!--<li><a data-toggle='tab' href='#bracket-swiss'>Swiss</a></li>-->
 			<li><a data-toggle='tab' href='#tournament-log'>Log</a></li>
-			<li><a data-toggle='tab' href='#admin'>Admin</a></li>
+			{% if is_admin %}
+				<li><a data-toggle='tab' href='#admin'>Admin</a></li>
+			{% endif %}
 		</ul>
 
 		<div class='tab-content'>
@@ -92,91 +94,93 @@
 						<ul class="list-unstyled players">
 							<li class="text-center players-header">Participating players</li>
 							{% for player in tournament.players %}
-								<li>{{ player.ingamename }} <span class="pull-right"><a href="#decklink">Deck
-											1</a> - <a href="#decklink">Deck 2</a></span></li>
+								<li>{{ player.ingamename }} <!--<span class="pull-right"><a href="#decklink">Deck
+											1</a> - <a href="#decklink">Deck 2</a></span>--></li>
 							{% endfor %}
 						</ul>
 					</div>
 				</div>
 
 			</div>
-			<div id='admin' class='tab-pane fade'>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-sm-12 text-center">
-							<br />
-							<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.url }) }}">Start {{ tournament.name }}</a>
+			{% if is_admin %}
+				<div id='admin' class='tab-pane fade'>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-12 text-center">
+								<br />
+								<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.url }) }}">Start {{ tournament.name }}</a>
 
-							<div class="col-sm-12">
-								<label class="" for="">Create the brackets and start the tournament</label>
+								<div class="col-sm-12">
+									<label class="" for="">Create the brackets and start the tournament</label>
+								</div>
+
 							</div>
-
 						</div>
 					</div>
-				</div>
-				<form method="post" action="">
-					<div class="row">
-						<div class="col-md-4">
-							<h2>Players Signed up
-								<small>{{ tournament.players|length }}</small>
-							</h2>
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="twitch_imput">Search</label>
-									<input type="search" id="twitch_imput" class="form-control" placeholder="Search player...">
+					<form method="post" action="">
+						<div class="row">
+							<div class="col-md-4">
+								<h2>Players Signed up
+									<small>{{ tournament.players|length }}</small>
+								</h2>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="twitch_imput">Search</label>
+										<input type="search" id="twitch_imput" class="form-control" placeholder="Search player...">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<p>
+										<i class="fa fa-circle color-not-started"></i> <b>Not checked in</b>
+										<i class="fa fa-circle color-started"></i> <b>Checked in</b>
+									</p>
+									<ul class="list-unstyled">
+										{% for player in tournament.players %}
+											<li><i class="fa fa-circle color-started"></i> {{ player.ingamename }}</li>
+										{% endfor %}
+									</ul>
 								</div>
 							</div>
-							<div class="col-md-12">
-								<p>
-									<i class="fa fa-circle color-not-started"></i> <b>Not checked in</b>
-									<i class="fa fa-circle color-started"></i> <b>Checked in</b>
-								</p>
-								<ul class="list-unstyled">
-									{% for player in tournament.players %}
-										<li><i class="fa fa-circle color-started"></i> {{ player.ingamename }}</li>
-									{% endfor %}
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-8">
-							<div class="form-group">
-								<label for="name">Name</label>
-								<input type="text" id="name" class="form-control" placeholder="Tournament Name" value="{{ tournament.name }}" disabled="disabled" />
-							</div>
-							<div class="form-group">
-								<label for="gold_input">Registration fee(In-Game Gold)</label>
-								<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="" disabled="disabled" />
-							</div>
-							{% if tournament.isInviteOnly() %}
-								{% if tournament.invite %}
-									<div class="form-group">
-										<label for="invite_code">Invite code</label>
-										<input type="text" id="invite_code" class="form-control" value="{{ tournament.invite.code }}" disabled="disabled" />
-									</div>
-									<div class="form-group">
-										<label for="invite_url">Invite URL</label>
-										<input type="text" id="invite_url" class="form-control" value="{{ fullPath('tournament_invite', { code: tournament.invite.code }) }}" disabled="disabled" />
-									</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input type="text" id="name" class="form-control" placeholder="Tournament Name" value="{{ tournament.name }}" disabled="disabled" />
+								</div>
+								<div class="form-group">
+									<label for="gold_input">Registration fee(In-Game Gold)</label>
+									<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="" disabled="disabled" />
+								</div>
+								{% if tournament.isInviteOnly() %}
+									{% if tournament.invite %}
+										<div class="form-group">
+											<label for="invite_code">Invite code</label>
+											<input type="text" id="invite_code" class="form-control" value="{{ tournament.invite.code }}" disabled="disabled" />
+										</div>
+										<div class="form-group">
+											<label for="invite_url">Invite URL</label>
+											<input type="text" id="invite_url" class="form-control" value="{{ fullPath('tournament_invite', { code: tournament.invite.code }) }}" disabled="disabled" />
+										</div>
+									{% endif %}
 								{% endif %}
-							{% endif %}
-							<div class="form-group">
-								<label class="control-label" for="desc">Description of the tournament</label>
-								<textarea class="form-control" name="desc" id="desc" rows="5">{{ tournament.description }}</textarea>
+								<div class="form-group">
+									<label class="control-label" for="desc">Description of the tournament</label>
+									<textarea class="form-control" name="desc" id="desc" rows="5">{{ tournament.description }}</textarea>
+								</div>
+								<div class="form-group">
+									<label for="twitch-input">Twitch Stream</label>
+									<input type="text" id="twitch-input" class="form-control" placeholder="http://twitch.tv/username" />
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="twitch-input">Twitch Stream</label>
-								<input type="text" id="twitch-input" class="form-control" placeholder="http://twitch.tv/username" />
+								<div class="col-sm-offset-4 col-sm-8">
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-4 col-sm-8">
-								<button type="submit" class="btn btn-primary">Save</button>
-							</div>
-						</div>
 
-					</div>
-				</form>
-			</div>
+						</div>
+					</form>
+				</div>
+			{% endif %}
 			<div id='bracket' class='tab-pane fade in active'>
 				<!-- Finals -->
 				<div class="row">
@@ -185,25 +189,22 @@
 						<br /><i class="fa fa-circle color-started"></i> Finals<br />
 						<small>(Best of X)</small>
 					</h1>
+					<!--
 					<div class="col-md-3 col-sm-3 text-right hidden-xs">
-						<!-- Insert Animated avatar like the SG profiles -->
 						<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
 					</div>
 
 					<div class="col-md-6 col-sm-6">
 
 						<div class="col-md-5 col-xs-5 text-center">
-							<!-- Names likes to scrolldier or SG profiles -->
 							<h2><a target="_blank" href="http://scrolldier.com/user/orangee">Orangee</a></h2>
 							<span><img src="http://i.imgur.com/0njz5pI.png" alt="" width="100%" /></span>
 
 						</div>
 						<div class="col-md-2 col-xs-2 text-center">
-							<!-- Numbers are number of wins for each player -->
 							<h2><b>3</b> VS <b>2</b></h2>
 						</div>
 						<div class="col-md-5 col-xs-5 text-center">
-							<!-- Names likes to scrolldier or SG profiles -->
 							<h2><a target="_blank" href="http://scrolldier.com/user/kBasten">kBasten</a></h2>
 							<span><img src="http://i.imgur.com/2cAp13M.png" alt="" width="100%" /></span>
 						</div>
@@ -226,20 +227,22 @@
 					</div>
 
 					<div class="col-md-3 col-sm-3 hidden-xs text-left">
-						<!-- Insert Animated avatar like the SG profiles flip this one 180deg-->
 						<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
 					</div>
+					-->
 				</div>
 
-				<div class='bracket-graph-se'>
+				<div class='bracket-graph bracket-graph-se'>
 					{% include 'bracket_render_se.html.twig' %}
 				</div>
 			</div>
-			<div id='bracket-swiss' class='tab-pane fade'>
-				<div class='bracket-graph-swiss'>
-					{% include 'bracket_render_swiss.html.twig' %}
+			<!--
+				<div id='bracket-swiss' class='tab-pane fade'>
+					<div class='bracket-graph bracket-graph-swiss'>
+						{% include 'bracket_render_swiss.html.twig' %}
+					</div>
 				</div>
-			</div>
+			-->
 			<div id="tournament-log" class="tab-pane fade">
 				<div class="page-header">
 					<h2>Tournament log</h2>
@@ -263,5 +266,7 @@
 {% endblock %}
 {% block customjs %}
 	<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_renderer.js') }}'></script>
-	<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_admin.js') }}'></script>
+	{% if is_admin %}
+		<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_admin.js') }}'></script>
+	{% endif %}
 {% endblock %}
