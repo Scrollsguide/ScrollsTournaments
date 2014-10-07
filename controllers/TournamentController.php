@@ -272,7 +272,7 @@
 			$t->setId($this->getApp()->get("database")->getConnection()->lastInsertId());
 
 			// add user as admin
-			$tournamentRepository->persistRole($t->getId(), $this->user->getUserData('id'), TournamentPlayerRole::ADMIN);
+			$tournamentRepository->persistRole($t, $this->user->getUserData('id'), TournamentPlayerRole::ADMIN);
 
 			// check for invite-only and generate invite
 			if ($regState === RegistrationState::INVITE_ONLY) {
