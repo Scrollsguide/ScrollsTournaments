@@ -92,6 +92,17 @@
 			"path": "/calendar",
 			"action": "Calendar::index"
 		},
+		"calendar_date": {
+			"path": "/calendar/{date}",
+			"action": "Calendar::index",
+			"requirements": {
+				"date": "[0-9]{2}-[0-9]{2}-20[0-3][0-9]"
+			}
+		},
+		"calendar_temp": {
+			"path": "/calendar-temp",
+			"action": "Calendar::temp"
+		},
 		"login": {
 			"path": "/login",
 			"action": "User::login"

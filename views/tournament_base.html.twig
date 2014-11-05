@@ -2,8 +2,9 @@
 {% block content %}
 
 
-	<!-- TODO: only include if admin -->
-	{% include 'admin/update_bracket_modal.html.twig' %}
+	{% if is_admin %}
+		{% include 'admin/update_bracket_modal.html.twig' %}
+	{% endif %}
 
 
 	<div class="modal fade" role="dialog" id="view-score-modal">
@@ -108,7 +109,7 @@
 						<div class="form-group">
 							<div class="col-sm-12 text-center">
 								<br />
-								<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.url }) }}">Start {{ tournament.name }}</a>
+								<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.url }) }}" name="btn-start" data-attr-clicked="0">Start {{ tournament.name }}</a>
 
 								<div class="col-sm-12">
 									<label class="" for="">Create the brackets and start the tournament</label>
@@ -117,7 +118,7 @@
 							</div>
 						</div>
 					</div>
-					<form method="post" action="">
+					<form method="post" action="{{ path('tournament_save') }}">
 						<div class="row">
 							<div class="col-md-4">
 								<h2>Players Signed up
@@ -173,6 +174,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-4 col-sm-8">
+									<input type="hidden" name="id" value="{{ tournament.id }}" />
 									<button type="submit" class="btn btn-primary">Save</button>
 								</div>
 							</div>
@@ -189,23 +191,23 @@
 						<br /><i class="fa fa-circle color-started"></i> Finals<br />
 						<small>(Best of X)</small>
 					</h1>
-					<!--
+
 					<div class="col-md-3 col-sm-3 text-right hidden-xs">
-						<img src="http://scrolldier.com/userAvatar/orangee" alt="" height="500px" />
+						<img src="http://scrolldier.com/userAvatar/Orangee" alt="" height="500px" />
 					</div>
 
 					<div class="col-md-6 col-sm-6">
 
 						<div class="col-md-5 col-xs-5 text-center">
-							<h2><a target="_blank" href="http://scrolldier.com/user/orangee">Orangee</a></h2>
+							<h2><a target="_blank" href="http://scrolldier.com/user/orangee">Atmaz</a></h2>
 							<span><img src="http://i.imgur.com/0njz5pI.png" alt="" width="100%" /></span>
 
 						</div>
 						<div class="col-md-2 col-xs-2 text-center">
-							<h2><b>3</b> VS <b>2</b></h2>
+							<h2><b>2</b> VS <b>1</b></h2>
 						</div>
 						<div class="col-md-5 col-xs-5 text-center">
-							<h2><a target="_blank" href="http://scrolldier.com/user/kBasten">kBasten</a></h2>
+							<h2><a target="_blank" href="http://scrolldier.com/user/SpiffyDrew">SpiffyDrew</a></h2>
 							<span><img src="http://i.imgur.com/2cAp13M.png" alt="" width="100%" /></span>
 						</div>
 
@@ -221,7 +223,7 @@
 							</div>
 							<div class="col-md-6 col-sm-6 col-xs-6">
 								<div class="player-head flip" style="background-image: url(http://scrolldier.com/resources/head_197.png);"></div>
-								<span>(1) Blinky</span>
+								<span>(1) Orangee</span>
 							</div>
 						</div>
 					</div>
@@ -229,7 +231,7 @@
 					<div class="col-md-3 col-sm-3 hidden-xs text-left">
 						<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
 					</div>
-					-->
+
 				</div>
 
 				<div class='bracket-graph bracket-graph-se'>

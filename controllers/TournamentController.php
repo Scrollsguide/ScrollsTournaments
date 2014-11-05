@@ -163,9 +163,17 @@
 
 				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
 
+				// check whether this tournament has started already
+				if ($tournament->getTournamentState() !== TournamentState::REGISTRATION){
+					// either started, finished or closed
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start, not in registrations.");
+
+					return new RedirectResponse($tournamentRoute);
+				}
+
 				// check whether there are enough players
-				if (count($tournament->getPlayers()) < 3){
-					$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "The tournament can't start with less than 3 players.");
+				if (count($tournament->getPlayers()) < 3) {
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start with less than 3 players.");
 
 					return new RedirectResponse($tournamentRoute);
 				}
@@ -250,42 +258,60 @@
 				return $this->toNewPage();
 			}
 
-			$name = $r->getParameter("name");
-
-			$t = new Tournament();
-
-			$t->setDate(time());
-			$t->setName($name);
-			$t->setDescription($r->getParameter("desc"));
-			$t->setUrl(URLUtils::makeBlob($name));
-			$t->setRegState($regState);
-			$t->setTournamentState(TournamentState::REGISTRATION);
-
-			// TODO: use request parameter for type
-			$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);
-
+			// initialize repository
 			$em = $this->getApp()->get("EntityManager");
 			$tournamentRepository = $em->getRepository("Tournament");
 
-			$tournamentRepository->persist($t);
 
-			$t->setId($this->getApp()->get("database")->getConnection()->lastInsertId());
+			$isNew = $r->getParameter("id", null) === null;
+			if (!$isNew) { // edit old tournament
+				// TODO: Check whether user is admin and has edit access
+				$t = $tournamentRepository->findOneById((int)$r->getParameter("id"));
+			} else { // create new tournament
+				$t = new Tournament();
 
-			// add user as admin
-			$tournamentRepository->persistRole($t, $this->user->getUserData('id'), TournamentPlayerRole::ADMIN);
+				$name = $r->getParameter("name");
+				$t->setDate(time());
+				$t->setName($name);
+				$t->setUrl(URLUtils::makeBlob($name));
+				$t->setRegState($regState);
+				$t->setTournamentState(TournamentState::REGISTRATION);
 
-			// check for invite-only and generate invite
-			if ($regState === RegistrationState::INVITE_ONLY) {
-				$invite = new Invite();
-				$invite->setTournamentId($t->getId());
-				$invite->setCode(InviteHelper::generateCode());
-
-				$inviteRepository = $em->getRepository("Invite");
-				$inviteRepository->persist($invite);
+				// TODO: use request parameter for type
+				$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);
 			}
 
-			// save create tournament action to log
-			$this->saveLog($t, $em, "Tournament created.");
+			// parameters that can be edited after creation:
+			$t->setDescription($r->getParameter("desc"));
+
+			$tournamentRepository->persist($t);
+
+			if ($isNew) {
+				$t->setId($this->getApp()->get("database")->getConnection()->lastInsertId());
+
+				// add user as admin
+				$tournamentRepository->persistRole($t, $this->user->getUserData('id'), TournamentPlayerRole::ADMIN);
+
+				// check for invite-only and generate invite
+				if ($regState === RegistrationState::INVITE_ONLY) {
+					$invite = new Invite();
+					$invite->setTournamentId($t->getId());
+					$invite->setCode(InviteHelper::generateCode());
+
+					$inviteRepository = $em->getRepository("Invite");
+					$inviteRepository->persist($invite);
+				}
+
+				// save create tournament action to log
+				$this->saveLog($t, $em, "Tournament created.");
+
+				// add notification
+				$notification = "Tournament created.";
+			} else { // old tournament that's edited
+				$notification = "Tournament details updated.";
+			}
+
+			$this->getApp()->getSession()->getFlashBag()->add("tournament_message", $notification);
 
 			// redirect to new tournament page
 			$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $t->getUrl()));
@@ -293,13 +319,13 @@
 			return new RedirectResponse($tournamentRoute);
 		}
 
-		private function toNewPage() {
+		private	function toNewPage() {
 			$newTournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_new");
 
 			return new RedirectResponse($newTournamentRoute);
 		}
 
-		private function saveLog(Tournament $t, EntityManager $em, $line) {
+		private	function saveLog(Tournament $t, EntityManager $em, $line) {
 			$tl = new TournamentLog();
 			$tl->setTournamentId($t->getId());
 			$tl->setTime(time());

@@ -191,7 +191,6 @@
 				$total .= "array(";
 
 				$i = 0;
-				$len = count($item);
 				foreach ($item as $key => $value) {
 					if ($i > 0) { // first item doesn't need leading comma
 						$total .= ",";
@@ -261,24 +260,6 @@
 				throw new Exception(sprintf("No action defined for route '%s'.", $id));
 			}
 			// passed all simple checks
-		}
-
-		/**
-		 * Maps parameters to their positions in the url
-		 * so we can later pass them as arguments to controllers
-		 */
-		private function mapParameters(&$route) {
-			$route['paramMap'] = array();
-			if (preg_match_all("#{([a-z0-9]+)}#i", $route['path'], $matches, PREG_SET_ORDER)) {
-				$paramCount = 0;
-
-				print_r($matches);
-				foreach ($matches as $m) {
-					$paramName = $m[1];
-
-					$route['paramMap'][] = $paramName;
-				}
-			}
 		}
 
 		private function wrapRegexDelimiter($str) {

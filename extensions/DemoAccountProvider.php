@@ -20,7 +20,7 @@
 		public function callback(User $u) {
 			// load user data here
 			$u->setUserData(array(
-				'id'     => rand(0, 100),
+				'id'     => 1,//rand(0, 100),
 				'ingame' => 'ingame'
 			));
 		}

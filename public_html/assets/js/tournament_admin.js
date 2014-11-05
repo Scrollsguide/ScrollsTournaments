@@ -52,6 +52,14 @@ $("document").ready(function () {
 			}).submit();
 		}
 	});
+
+	// prevent double clicking
+	$("a[name='btn-start']").click(function(e){
+		if ($(this).attr("data-clicked") == "1"){
+			e.preventDefault();
+		}
+		$(this).attr("data-clicked", "1");
+	});
 });
 
 var loadBracketAdmin = function (tournament, bracketId) {
