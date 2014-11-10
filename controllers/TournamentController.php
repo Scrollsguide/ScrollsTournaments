@@ -184,7 +184,6 @@
 				$bracketRounds = $bracketGenerator->generateBrackets();
 
 				// start inserting rounds in database
-				$pdo = $this->getApp()->get("database")->getConnection();
 				for ($round = count($bracketRounds) - 1; $round >= 0; $round--) {
 					$tournamentRepository->persistRound($bracketRounds[$round]);
 

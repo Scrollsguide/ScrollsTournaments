@@ -1,41 +1,10 @@
 {% extends "base.html.twig" %}
 {% block content %}
-	<div class="row content-well content-block error-page">
+	<div class="row content-well">
 		<!-- div.week*5>div.cal-1*7>div.pull-right.small>{$.} -->
 		<div class="calender">
 			<div class="page-header">
-				<h2>{{ current.day }}. {{ current.month }} <small>{{ current.year }}</small></h2>
-				<ul class="pull-left clear list-unstyled events">
-					<li class="stream">
-						<span><i class="fa fa-circle"></i> Carnalizer</span>
-						<div class="pull-right">
-							<small>10:04 CEST</small>
-						</div>
-						<div class="today-desc">
-							<small>Drawing Stuff!</small>
-						</div>
-						
-					</li>
-					<li class="event">
-						<span><i class="fa fa-circle"></i> CM</span>
-
-						<div class="pull-right">
-							<small>12:00 CEST</small>
-						</div>
-						<div class="today-desc">
-							<small>Mojang announces who the new CM are!</small>
-						</div>
-					</li>
-					<li class="personal">
-						<span><i class="fa fa-circle"></i> Collection</span>
-						<div class="pull-right">
-							<small>All Day</small>
-						</div>
-						<div class="today-desc">
-							<small>Get a full collection!</small>
-						</div>
-					</li>
-				</ul>
+				{% include 'calendar/partials/view_date.html.twig' with { 'date': current } %}
 			</div>
 		</div>
 		<div class="calendar clearfix">

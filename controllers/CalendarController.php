@@ -18,11 +18,18 @@
 					// not valid
 					return $this->p404();
 				}
+
+				if ($this->getApp()->getRequest()->isAjax()) {
+					return $this->dateViewAction($day, $month, $year);
+				}
 			} else { // today
 				$day = (int)date('d');
 				$month = (int)date('n');
 				$year = (int)date('Y');
 			}
+
+			// current selected date:
+			$current = DateTime::createFromFormat("d/n/Y|", sprintf('%d/%d/%d', $day, $month, $year));
 
 			// first of month:
 			$fom = DateTime::createFromFormat("d/n/Y", sprintf("1/%d/%d", $month, $year));
@@ -71,24 +78,49 @@
 			$lastDay = DateTimeHelper::nextDay($lastDay->getDate());
 			$events = $calendarRepo->findAllBetweenDates($fom, $lastDay);
 
-			foreach ($events as $event){
+			foreach ($events as $event) {
 				$eventDate = $event->getDate();
 
 				// no need to check, but to make sure...
-				if (isset($displayDays[$eventDate])){
+				if (isset($displayDays[$eventDate])) {
 					$displayDays[$eventDate]->addEvent($event);
 				}
 			}
 
+			// select the current day's events:
+			$currentFormattedDate = $current->format("d/n/Y");
+
+			$currentEvents = isset($displayDays[$currentFormattedDate]) ? $displayDays[$currentFormattedDate]->getEvents() : "";
 
 			return $this->render("calendar/index.html.twig", array(
+				"title"   => "Scrolls Calendar",
 				"current" => array(
-					'day'   => $day,
-					'month' => $month,
-					'year'  => $year
+					'day'    => $day,
+					'month'  => $month,
+					'year'   => $year,
+					'date'   => $current,
+					'events' => $currentEvents
 				),
-				"today"   => new DateTime(),
 				"weeks"   => array_chunk($displayDays, 7)
+			));
+		}
+
+		public function dateViewAction($day, $month, $year) {
+			// now select all events for this date
+			$em = $this->getApp()->get("EntityManager");
+			$calendarRepo = $em->getRepository("Calendar");
+
+			$format = sprintf("%02d/%02d/%d", $day, $month, $year);
+			$events = $calendarRepo->findByDate(DateTime::createFromFormat("d/n/Y|", $format));
+
+			return $this->render("calendar/partials/view_date.html.twig", array(
+				'date' => array(
+					'day'    => $day,
+					'month'  => $month,
+					'year'   => $year,
+					'date'   => DateTime::createFromFormat("d/n/Y|", sprintf('%d/%d/%d', $day, $month, $year)),
+					'events' => $events
+				)
 			));
 		}
 

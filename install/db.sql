@@ -30,6 +30,17 @@ CREATE TABLE IF NOT EXISTS `bracket_rounds` (
   PRIMARY KEY (`tournament_id`,`round_nr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `calendar` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `subtitle` varchar(100) NOT NULL,
+  `time` int(10) NOT NULL,
+  `type` int(1) NOT NULL,
+  `allday` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 CREATE TABLE IF NOT EXISTS `invites` (
   `tournament_id` int(10) NOT NULL,
   `code` varchar(10) NOT NULL,
@@ -77,4 +88,4 @@ CREATE TABLE IF NOT EXISTS `users` (
   `ingamename` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

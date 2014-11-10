@@ -11,6 +11,8 @@
 
 		private $type;
 
+		private $allday;
+
 		public function getId() {
 			return (int)$this->id;
 		}
@@ -36,18 +38,25 @@
 		}
 
 		public function getTime() {
-			return (int)$this->time;
+			$date = new DateTime();
+			$date->setTimestamp($this->getTimestamp());
+
+			return $date->format("H:i");
 		}
 
-		public function setTime($time) {
+		public function setTimestamp($time) {
 			$this->time = $time;
 		}
 
 		public function getDate(){
 			$date = new DateTime();
-			$date->setTimestamp($this->getTime());
+			$date->setTimestamp($this->getTimestamp());
 
 			return $date->format("d/n/Y");
+		}
+
+		public function getTimestamp(){
+			return $this->time;
 		}
 
 		public function getType() {
@@ -56,6 +65,14 @@
 
 		public function setType($type) {
 			$this->type = $type;
+		}
+
+		public function getAllday() {
+			return (int)$this->allday;
+		}
+
+		public function setAllday($allday) {
+			$this->allday = $allday;
 		}
 
 

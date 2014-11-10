@@ -1,0 +1,12 @@
+{% set class = header ? '' : ' visible-xs' %}
+<li class="{{ eventIcon(event.type) }}">
+	<span><i class="fa fa-circle"></i> {{ tiny ? '' : event.title }}</span>
+	{% if not tiny %}
+		<div class="pull-right{{ class }}">
+			<small>{% if event.allday %}All day{% else %}{{ event.time }} GMT{% endif %}</small>
+		</div>
+		<div class="today-desc{{ class }}">
+			<small>{{ event.subtitle }}</small>
+		</div>
+	{% endif %}
+</li>

@@ -25,4 +25,10 @@
 
 			return $events;
 		}
+
+		public function findByDate(DateTime $date){
+			$next = DateTimeHelper::nextDay($date);
+
+			return $this->findAllBetweenDates($date, $next);
+		}
 	}

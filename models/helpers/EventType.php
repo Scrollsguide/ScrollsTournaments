@@ -6,5 +6,6 @@
 		const MOJANG = 2;
 		const TOURNAMENT = 3;
 		const EVENT = 4;
+		const PERSONAL = 5;
 
 	}

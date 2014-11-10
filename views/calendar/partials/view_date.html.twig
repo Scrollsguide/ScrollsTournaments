@@ -1,0 +1,10 @@
+<h2>{{ date.day }}. {{ date.date.format('F') }} <small>{{ date.year }}</small></h2>
+<ul class="pull-left clear list-unstyled events">
+	{% if date.events|length %}
+		<ul class="pull-left small clear list-unstyled events">
+			{% for event in date.events %}
+				{% include 'calendar/partials/event.html.twig' with { 'event': event, 'header': true, 'tiny': false } %}
+			{% endfor %}
+		</ul>
+	{% endif %}
+</ul>

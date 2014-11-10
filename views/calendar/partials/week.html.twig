@@ -1,16 +1,23 @@
 <div class="week">
 	{% for day in week %}
 		{% set class = day.date.format('n') != current.month ? " next-month" : "" %}
-		{% if day.date == today %}
+		{% if day.date == current.date %}
 			{% set class = class ~ " today" %}
 		{% endif %}
-		<div class="cal-1{{ class }}">
+		{% set tiny = day.events|length > 3 %}
+		{% if tiny %}
+			{% set class = class ~ " tiny" %}
+		{% endif %}
+		<div class="cal-1{{ class }}" data-attr-date="{{ day.date.format('d-n-Y') }}">
 			<div class="text-left small day-date">{{ day.date.format('j') }}. <span class="visible-xs date-xs">{{ day.date.format('l') }}</span></div>
 			{% if day.events|length %}
 				<ul class="pull-left small clear list-unstyled events">
 					{% for event in day.events %}
-						<li class="turny"><i class="fa fa-circle"></i> {{ event.title }}</li>
+						{% include 'calendar/partials/event.html.twig' with { 'event': event, 'header': false, 'tiny': tiny } %}
 					{% endfor %}
+					{% if tiny %}
+						<li class="msg">View all</li>
+					{% endif %}
 				</ul>
 			{% endif %}
 		</div>

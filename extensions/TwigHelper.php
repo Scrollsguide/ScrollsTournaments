@@ -22,6 +22,8 @@
 
 			$twig->addFunction(new Twig_SimpleFunction("currentRoute", array($t, "currentRoute")));
 			$twig->addFunction(new Twig_SimpleFunction("categoryIcon", array($t, "categoryIcon")));
+			$twig->addFunction(new Twig_SimpleFunction("eventIcon", array($t, "eventIcon")));
+
 			$twig->addFunction(new Twig_SimpleFunction("imagePath", array($t, "imagePath")));
 
 			$twig->addFunction(new Twig_SimpleFunction("tournamentType", array($t, "tournamentType")));
@@ -89,11 +91,23 @@
 				'about' => 'info',
 				'404'   => 'exclamation',
 				'forum' => 'comments',
-				'wiki'  => 'globe'
+				'wiki'  => 'globe',
 			);
 			$category = strtolower($category);
 
 			return isset($iconMap[$category]) ? $iconMap[$category] : '';
+		}
+
+		public function eventIcon($eventType){
+			$iconMap = array(
+				EventType::EVENT => "event",
+				EventType::MOJANG => "season",
+				EventType::STREAM => "stream",
+				EventType::TOURNAMENT => "turny",
+				EventType::PERSONAL => "personal"
+			);
+
+			return isset($iconMap[$eventType]) ? $iconMap[$eventType] : '';
 		}
 
 		public function tournamentType($t) {

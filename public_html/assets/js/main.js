@@ -41,6 +41,25 @@
 		};
 		// add target blank to external links in primary content
 		$(".primary-content a:external").attr("target", "_blank");
+
+		$(".week").on("click", "div.cal-1", function(){
+			var date = $(this).attr("data-attr-date");
+			var url = "/calendar/" + date;
+
+			if (url !== window.location.pathname){
+				$(".today").removeClass("today");
+				$(this).addClass('today');
+				// scroll first so it looks smoother :)
+				$('html, body').animate({
+					scrollTop: 0 // not: $(".page-header").eq(0).offset().top because of floating navbar
+				}, 300);
+				// load events
+				$.get(url, function(output){
+					window.history.pushState({}, "", url);
+					$(".page-header").html(output);
+				});
+			}
+		});
 	}
 
 	$(init);
