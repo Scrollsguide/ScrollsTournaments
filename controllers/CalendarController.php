@@ -29,10 +29,10 @@
 			}
 
 			// current selected date:
-			$current = DateTime::createFromFormat("d/n/Y|", sprintf('%d/%d/%d', $day, $month, $year));
+			$current = DateTime::createFromFormat("!d/n/Y", sprintf('%d/%d/%d', $day, $month, $year));
 
 			// first of month:
-			$fom = DateTime::createFromFormat("d/n/Y", sprintf("1/%d/%d", $month, $year));
+			$fom = DateTime::createFromFormat("!d/n/Y", sprintf("1/%d/%d", $month, $year));
 
 			// check day offset, how many days to display from previous month
 			$dow = (int)$fom->format('N');
@@ -111,14 +111,14 @@
 			$calendarRepo = $em->getRepository("Calendar");
 
 			$format = sprintf("%02d/%02d/%d", $day, $month, $year);
-			$events = $calendarRepo->findByDate(DateTime::createFromFormat("d/n/Y|", $format));
+			$events = $calendarRepo->findByDate(DateTime::createFromFormat("!d/n/Y", $format));
 
 			return $this->render("calendar/partials/view_date.html.twig", array(
 				'date' => array(
 					'day'    => $day,
 					'month'  => $month,
 					'year'   => $year,
-					'date'   => DateTime::createFromFormat("d/n/Y|", sprintf('%d/%d/%d', $day, $month, $year)),
+					'date'   => DateTime::createFromFormat("!d/n/Y", sprintf('%d/%d/%d', $day, $month, $year)),
 					'events' => $events
 				)
 			));
@@ -128,7 +128,7 @@
 			$format = sprintf("%02d/%02d/%d", $day, $month, $year);
 			$date = new CalendarDate();
 			// | sets the time to 00:00:00
-			$date->setDate(DateTime::createFromFormat("d/n/Y|", $format));
+			$date->setDate(DateTime::createFromFormat("!d/n/Y", $format));
 
 			$dates[$format] = $date;
 		}
