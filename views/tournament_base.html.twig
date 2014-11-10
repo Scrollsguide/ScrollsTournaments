@@ -105,19 +105,21 @@
 			</div>
 			{% if is_admin %}
 				<div id='admin' class='tab-pane fade'>
-					<div class="row">
-						<div class="form-group">
-							<div class="col-sm-12 text-center">
-								<br />
-								<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.url }) }}" name="btn-start" data-attr-clicked="0">Start {{ tournament.name }}</a>
+					{% if tournament.tournamentstate != 2 %}
+						<div class="row">
+							<div class="form-group">
+								<div class="col-sm-12 text-center">
+									<br />
+									<a class="btn btn-primary btn-lg" href="{{ path('tournament_start', { name: tournament.url }) }}" name="btn-start" data-attr-clicked="0">Start {{ tournament.name }}</a>
 
-								<div class="col-sm-12">
-									<label class="" for="">Create the brackets and start the tournament</label>
+									<div class="col-sm-12">
+										<label class="" for="">Create the brackets and start the tournament</label>
+									</div>
+
 								</div>
-
 							</div>
 						</div>
-					</div>
+					{% endif %}
 					<form method="post" action="{{ path('tournament_save') }}">
 						<div class="row">
 							<div class="col-md-4">
@@ -192,6 +194,7 @@
 						<small>(Best of X)</small>
 					</h1>
 
+					<!--
 					<div class="col-md-3 col-sm-3 text-right hidden-xs">
 						<img src="http://scrolldier.com/userAvatar/Orangee" alt="" height="500px" />
 					</div>
@@ -231,11 +234,15 @@
 					<div class="col-md-3 col-sm-3 hidden-xs text-left">
 						<img src="http://scrolldier.com/userAvatar/kBasten" alt="" class="flip" height="500px" />
 					</div>
-
+					-->
 				</div>
 
 				<div class='bracket-graph bracket-graph-se'>
-					{% include 'bracket_render_se.html.twig' %}
+					{% if tournament.tournamentstate >= 2 %}
+						{% include 'bracket_render_se.html.twig' %}
+					{% else %}
+						Brackets will be displayed after the tournament has started.
+					{% endif %}
 				</div>
 			</div>
 			<!--

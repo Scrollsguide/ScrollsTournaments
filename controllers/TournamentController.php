@@ -164,7 +164,7 @@
 				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
 
 				// check whether this tournament has started already
-				if ($tournament->getTournamentState() !== TournamentState::REGISTRATION){
+				if ($tournament->getTournamentState() !== TournamentState::REGISTRATION) {
 					// either started, finished or closed
 					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start, not in registrations.");
 
@@ -318,13 +318,13 @@
 			return new RedirectResponse($tournamentRoute);
 		}
 
-		private	function toNewPage() {
+		private function toNewPage() {
 			$newTournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_new");
 
 			return new RedirectResponse($newTournamentRoute);
 		}
 
-		private	function saveLog(Tournament $t, EntityManager $em, $line) {
+		private function saveLog(Tournament $t, EntityManager $em, $line) {
 			$tl = new TournamentLog();
 			$tl->setTournamentId($t->getId());
 			$tl->setTime(time());

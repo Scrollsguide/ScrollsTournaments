@@ -4,6 +4,9 @@
 		<h2>
 			{% if is_participating %}
 				You are registered
+				{% if tournament.tournamentstate == 1 %}
+					<a href="#">leave</a>
+				{%  endif %}
 			{% else %}
 				{% if tournament.registrationsOpen() %}
 					<a href="{{ path('tournament_register', { name: tournament.url }) }}">Participate</a>

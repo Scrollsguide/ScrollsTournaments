@@ -33,10 +33,12 @@
 				$sth->execute();
 			} else { // edit tournament
 				$sth = $this->getConnection()->prepare("UPDATE tournaments
-							SET description = :desc
+							SET description = :desc,
+							tournamentstate = :t_state
 							WHERE id = :t_id");
 
 				$sth->bindValue(":desc", $tournament->getDescription(), PDO::PARAM_STR);
+				$sth->bindValue(":t_state", $tournament->getTournamentState(), PDO::PARAM_INT);
 				$sth->bindValue(":t_id", $tournament->getId(), PDO::PARAM_INT);
 
 				$sth->execute();
