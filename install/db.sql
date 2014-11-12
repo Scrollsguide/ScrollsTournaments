@@ -41,6 +41,13 @@ CREATE TABLE IF NOT EXISTS `calendar` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `deck_settings` (
+  `tournament_id` int(10) NOT NULL,
+  `decks_required` int(1) NOT NULL DEFAULT '0',
+  `sideboard_size` int(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`tournament_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `invites` (
   `tournament_id` int(10) NOT NULL,
   `code` varchar(10) NOT NULL,
@@ -63,6 +70,16 @@ CREATE TABLE IF NOT EXISTS `tournaments` (
   `regstate` int(1) NOT NULL DEFAULT '0',
   `tournamenttype` int(1) NOT NULL,
   `tournamentstate` int(1) NOT NULL DEFAULT '0',
+  `visibility` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `tournament_decks` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `tournament_id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `deck` varchar(500) NOT NULL,
+  `is_sideboard` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
