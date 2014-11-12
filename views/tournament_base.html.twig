@@ -50,6 +50,9 @@
 		<ul class='nav nav-tabs'>
 			<li><a data-toggle='tab' href='#overview'>Overview</a></li>
 			<li class='active'><a data-toggle='tab' href='#bracket'>Bracket</a></li>
+			{% if is_participating %}
+				<li><a data-toggle='tab' href="#mydetails">My details</a></li>
+			{% endif %}
 			<!--<li><a data-toggle='tab' href='#bracket-swiss'>Swiss</a></li>-->
 			<li><a data-toggle='tab' href='#tournament-log'>Log</a></li>
 			{% if is_admin %}
@@ -238,8 +241,8 @@
 				</div>
 
 				<div class='bracket-graph bracket-graph-se'>
-					{% if tournament.tournamentstate >= 2 %}
-						{% include 'bracket_render_se.html.twig' %}
+					{% if tournament.inProgress() or tournament.isFinished() %}
+						{% include 'bracket_render_se.html.twig' with { 'rounds': tournament.rounds } %}
 					{% else %}
 						Brackets will be displayed after the tournament has started.
 					{% endif %}
@@ -266,6 +269,40 @@
 					</ul>
 				</div>
 			</div>
+			{% if is_participating %}
+				<div id="mydetails" class="tab-pane fade">
+					<div class="page-header">
+						<h2>My details</h2>
+					</div>
+					<form class="form-horizontal" role="form" method="POST" action="{{ path('save_decks') }}">
+						{% set decks_required = 0 + tournament.decksettings.getDecksRequired() %}
+						{% for a in 1..decks_required %}
+							<div class="form-group">
+								<label for="decks[]" class="col-sm-4 control-label">Deck {{ loop.index }} *</label>
+								<div class="col-sm-8">
+									<textarea class="form-control" name="decks[]" rows="3" required>{"types":[1,2,3]}</textarea>
+								</div>
+							</div>
+						{% endfor %}
+						{% if tournament.decksettings.getSideboardSize() > 0 %}
+							<div class="form-group">
+								<label for="sideboard" class="col-sm-4 control-label">Sideboard ({{ tournament.decksettings.getSideboardSize() }} scrolls) *</label>
+								<div class="col-sm-8">
+									<textarea class="form-control" name="sideboard" rows="3" required>{"types":[1,2,3]}</textarea>
+								</div>
+							</div>
+						{% endif %}
+						{% if tournament.registrationsOpen() %}
+							<div class="form-group">
+								<div class="col-sm-offset-4 col-sm-8">
+									<input type="hidden" name="id" value="{{ tournament.id }}" />
+									<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save settings</button>
+								</div>
+							</div>
+						{% endif %}
+					</form>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 
@@ -277,5 +314,8 @@
 	<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_renderer.js') }}'></script>
 	{% if is_admin %}
 		<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_admin.js') }}'></script>
+	{% endif %}
+	{% if is_participating %}
+		<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_user.js') }}'></script>
 	{% endif %}
 {% endblock %}

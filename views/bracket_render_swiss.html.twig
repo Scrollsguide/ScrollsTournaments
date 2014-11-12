@@ -2,7 +2,7 @@
 {% set teamcontainerheight = 53 %}
 <div class='jQBracket' style='width: {{ renderdata.total_width }}px'>
 	<div class='bracket swiss'>
-		{% for r in tournament.rounds %}
+		{% for r in rounds %}
 			<div class='round'>
 				{% set bracketheight = maxheight / r.brackets|length %}
 				{% for b in r.brackets %}

@@ -14,13 +14,13 @@
 		<div class="row content-well">
 			<form class="form-horizontal" role="form" method="POST" action="{{ path('tournament_save') }}">
 				<div class="form-group">
-					<label for="name" class="col-sm-4 control-label">Name *</label>
+					<label for="name" class="col-sm-4 control-label">Name *<sup>&#8224;</sup></label>
 					<div class="col-sm-8">
 						<input type="text" class="form-control" name="name" value="" required />
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="type" class="col-sm-4 control-label">Type *</label>
+					<label for="type" class="col-sm-4 control-label">Type *<sup>&#8224;</sup></label>
 					<div class="col-sm-8">
 						<select class="form-control" name="type">
 							<option value="single-elimination">Single Elimination</option>
@@ -29,7 +29,7 @@
 
 				</div>
 
-				<!-- 				Only show this if select[name='type'] is single-elimination -->
+				<!-- Only show this if select[name='type'] is single-elimination -->
 				<div class="form-group">
 					<label for="secondtype" class="col-sm-4 control-label">Best of</label>
 					<div class="col-sm-8">
@@ -42,7 +42,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="regstate" class="col-sm-4 control-label">Registration state *</label>
+					<label for="regstate" class="col-sm-4 control-label">Registration state *<sup>&#8224;</sup></label>
 					<div class="col-sm-8">
 						<select class="form-control" name="regstate">
 							<!--<option value="0">Closed</option>-->
@@ -53,9 +53,9 @@
 				</div>
 
 				<div class="form-group">
-					<label for="gold_input" class="col-sm-4 control-label">Registration fee(In-Game Gold)</label>
+					<label for="gold_input" class="col-sm-4 control-label">Registration fee(In-Game Gold)<sup>&#8224;</sup></label>
 					<div class="col-sm-8">
-						<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="">
+						<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="" />
 					</div>
 				</div>
 
@@ -69,7 +69,7 @@
 				<div class="form-group">
 					<label for="twitch_input" class="col-sm-4 control-label">Twitch stream</label>
 					<div class="col-sm-8">
-						<input type="text" id="twitch_input" class="form-control" placeholder="http://twitch.tv/username">
+						<input type="text" id="twitch_input" class="form-control" placeholder="http://twitch.tv/username" />
 					</div>
 				</div>
 
@@ -77,26 +77,32 @@
 					<div class="col-sm-offset-4 col-sm-8">
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name='hidetournament'> Hide tournament (This tournament will not
-								be listed)
+								<input type="checkbox" name='hidetournament'> Hide tournament (This tournament will not	be listed)<sup>&#8224;</sup>
 							</label>
 						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="decks" class="col-sm-4 control-label">Deck settings<sup>&#8224;</sup></label>
+					<div class="col-sm-8">
+						<select class="form-control" name="decks">
+							<option value="0">No decks required</option>
+							<option value="1">One deck required</option>
+							<option value="2">Two decks required</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" id="sideboard-settings" style="display: none;">
+					<label for="sideboard" class="col-sm-4 control-label">Sideboard size<sup>&#8224;</sup></label>
+					<div class="col-sm-8">
+						<input type="number" id="sideboard" name="sideboard" class="form-control" min="0" value="0" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name='requiredecks'> Require decks
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-8">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name='requireCheckinn'> Require check in (15min before start)
+								<input type="checkbox" name='requireCheckinn'> Require check in (15min before start)<sup>&#8224;</sup>
 							</label>
 						</div>
 					</div>
@@ -104,12 +110,24 @@
 
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
-						<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Create Tournament
-						</button>
+						<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Create Tournament</button>
 					</div>
 				</div>
 			</form>
 		</div>
 
 	</div>
+{% endblock %}
+{% block customjs %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("select[name='decks']").change(function(){
+				if ($(this).val() >= 1){
+					$("#sideboard-settings").show(300);
+				} else {
+					$("#sideboard-settings").hide(300);
+				}
+			});
+		});
+	</script>
 {% endblock %}

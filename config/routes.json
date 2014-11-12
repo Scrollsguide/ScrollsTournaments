@@ -88,6 +88,11 @@
 				"id": "[0-9]+"
 			}
 		},
+		"save_decks": {
+			"path": "/save-decks",
+			"action": "Deck::save",
+			"method": "POST"
+		},
 		"calendar": {
 			"path": "/calendar",
 			"action": "Calendar::index"

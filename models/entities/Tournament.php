@@ -7,7 +7,7 @@
 		private $name;
 
 		private $description;
-		
+
 		private $date;
 
 		private $url;
@@ -21,14 +21,18 @@
 
 		private $tournamentstate;
 
+		private $visibility;
+
 		private $players = array();
 
 		private $logLines = array();
 
 		private $rounds = array();
 
+		private $deckSettings;
+
 		private $invite;
-		
+
 		public function __construct() {
 
 		}
@@ -48,12 +52,12 @@
 		public function setName($name) {
 			$this->name = $name;
 		}
-		
-		public function getDescription(){
+
+		public function getDescription() {
 			return $this->description;
 		}
-		
-		public function setDescription($description){
+
+		public function setDescription($description) {
 			$this->description = $description;
 		}
 
@@ -121,51 +125,77 @@
 			$this->tournamenttype = $type;
 		}
 
-		public function getTournamentState(){
+		public function getTournamentState() {
 			return (int)$this->tournamentstate;
 		}
 
-		public function setTournamentState($state){
+		public function setTournamentState($state) {
 			$this->tournamentstate = $state;
 		}
-		
-		public function getInvite(){
+
+		public function getInvite() {
 			return $this->invite;
 		}
-		
-		public function setInvite(Invite $invite){
+
+		public function setInvite(Invite $invite) {
 			$this->invite = $invite;
 		}
 
 		// helper for twig
-		public function isInviteOnly(){
+		public function isInviteOnly() {
 			return $this->getRegState() === RegistrationState::INVITE_ONLY;
 		}
 
-		public function registrationsOpen(){
+		public function registrationsOpen() {
 			return $this->getTournamentState() === TournamentState::REGISTRATION;
 		}
-		
-		public function getBracketById($id){
-			foreach ($this->getRounds() as $r){
-				foreach ($r->getBrackets() as $b){
-					if ($b->getId() === $id){
+
+		public function inProgress() {
+			return $this->getTournamentState() === TournamentState::STARTED;
+		}
+
+		public function isFinished() {
+			return $this->getTournamentState() === TournamentState::FINISHED;
+		}
+
+		public function getBracketById($id) {
+			foreach ($this->getRounds() as $r) {
+				foreach ($r->getBrackets() as $b) {
+					if ($b->getId() === $id) {
 						return $b;
 					}
 				}
 			}
+
 			return null;
 		}
 
-		public function isPlayer(User $u){
-			if (($ingameName = $u->getUserData('ingame')) !== null){
-				foreach ($this->players as $p){
-					if ($p->getIngameName() === $ingameName){
+		public function isPlayer(User $u) {
+			if (($ingameName = $u->getUserData('ingame')) !== null) {
+				foreach ($this->players as $p) {
+					if ($p->getIngameName() === $ingameName) {
 						return true;
 					}
 				}
 			}
+
 			return false;
+		}
+
+		public function getVisibility() {
+			return (int)$this->visibility;
+		}
+
+		public function setVisibility($visibility) {
+			$this->visibility = $visibility;
+		}
+
+		public function getDeckSettings() {
+			return $this->deckSettings;
+		}
+
+		public function setDeckSettings(DeckSettings $deckSettings) {
+			$this->deckSettings = $deckSettings;
 		}
 
 	}

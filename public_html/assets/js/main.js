@@ -64,3 +64,7 @@
 
 	$(init);
 }(window, jQuery));
+
+var isValidDeck = function(deckJSON){
+	return true;
+}

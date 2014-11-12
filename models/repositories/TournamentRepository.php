@@ -10,6 +10,28 @@
 			return "Tournament";
 		}
 
+		public function findOneBy($column, $value){
+			if (($tournament = parent::findOneBy($column, $value)) === null){
+				return null;
+			}
+
+			// add deck settings
+			$sth = $this->getConnection()->prepare("SELECT *
+						FROM deck_settings
+						WHERE tournament_id = :t_id");
+			$sth->bindValue(":t_id", $tournament->getId(), PDO::PARAM_INT);
+
+			$sth->execute();
+
+			if (($settings = $sth->fetchObject("DeckSettings")) === false){
+				$settings = new DeckSettings();
+			}
+
+			$tournament->setDeckSettings($settings);
+
+			return $tournament;
+		}
+
 		// saves tournaments to database
 		public function persist(Tournament $tournament) {
 			if ($tournament->getId() === 0){ // new tournament
@@ -20,7 +42,8 @@
 							date = :date,
 							description = :desc,
 							regstate = :regstate,
-							tournamentstate = :t_state");
+							tournamentstate = :t_state,
+							visibility = :visibility");
 
 				$sth->bindValue(":name", $tournament->getName(), PDO::PARAM_STR);
 				$sth->bindValue(":desc", $tournament->getDescription(), PDO::PARAM_STR);
@@ -29,6 +52,7 @@
 				$sth->bindValue(":regstate", $tournament->getRegState(), PDO::PARAM_INT);
 				$sth->bindValue(":t_type", $tournament->getTournamentType(), PDO::PARAM_INT);
 				$sth->bindValue(":t_state", $tournament->getTournamentState(), PDO::PARAM_INT);
+				$sth->bindValue(":visibility", $tournament->getVisibility(), PDO::PARAM_INT);
 
 				$sth->execute();
 			} else { // edit tournament
@@ -43,6 +67,19 @@
 
 				$sth->execute();
 			}
+		}
+
+		public function persistDeckSettings(DeckSettings $d){
+			$sth = $this->getConnection()->prepare("INSERT INTO deck_settings
+						SET tournament_id = :t_id,
+						decks_required = :decks_required,
+						sideboard_size = :sideboard_size");
+
+			$sth->bindValue(":t_id", $d->getTournamentId(), PDO::PARAM_INT);
+			$sth->bindValue(":decks_required", $d->getDecksRequired(), PDO::PARAM_INT);
+			$sth->bindValue(":sideboard_size", $d->getSideboardSize(), PDO::PARAM_INT);
+
+			$sth->execute();
 		}
 
 		public function addTournamentLog(Tournament $t) {

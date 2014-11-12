@@ -40,8 +40,7 @@
 
 				$renderData = array(
 					'total_width'  => count($tournament->getRounds()) * 190 + 10,
-					'max_matchups' => $maxMatchups,
-					'num_byes'     => BracketUtils::calcByes(count($tournament->getPlayers()))
+					'max_matchups' => $maxMatchups
 				);
 
 				return $this->render("tournament_user.html.twig", array(
@@ -256,6 +255,12 @@
 
 				return $this->toNewPage();
 			}
+			$visibility = (int)$r->getParameter("visibility");
+			if (!Visibility::valid($visibility)){
+				$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid visibility state.");
+
+				return $this->toNewPage();
+			}
 
 			// initialize repository
 			$em = $this->getApp()->get("EntityManager");
@@ -275,6 +280,7 @@
 				$t->setUrl(URLUtils::makeBlob($name));
 				$t->setRegState($regState);
 				$t->setTournamentState(TournamentState::REGISTRATION);
+				$t->setVisibility($visibility);
 
 				// TODO: use request parameter for type
 				$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);
@@ -300,6 +306,16 @@
 					$inviteRepository = $em->getRepository("Invite");
 					$inviteRepository->persist($invite);
 				}
+
+				// get deck settings
+				$decks = (int)$r->getParameter("decks");
+				$sideboard = (int)$r->getParameter("sideboard");
+
+				$d = new DeckSettings();
+				$d->setTournamentId($t->getId());
+				$d->setDecksRequired($decks);
+				$d->setSideboardSize($sideboard);
+				$tournamentRepository->persistDeckSettings($d);
 
 				// save create tournament action to log
 				$this->saveLog($t, $em, "Tournament created.");
