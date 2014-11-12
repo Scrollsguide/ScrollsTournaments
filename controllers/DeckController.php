@@ -24,9 +24,14 @@
 					$deckRepository = $em->getRepository("Deck");
 
 					// save decks
-					$decks = $this->getApp()->getRequest()->getParameter("decks");
+					$decks = $r->getParameter("decks");
 
-					$deckRepository->persistDecks($tournament, $this->user, $decks);
+					$deckRepository->persistDecks($tournament, $this->user, $decks, false);
+
+					// add sideboard if needed
+					if (($sideboard = $r->getParameter("sideboard")) !== ""){
+						$deckRepository->persistSideboard($tournament, $this->user, $sideboard);
+					}
 
 					$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "Your decks have been saved.");
 				}
