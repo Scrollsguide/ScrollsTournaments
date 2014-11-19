@@ -50,7 +50,7 @@
 			$this->router = new Router($this);
 			$this->router->addRouteFile($this->baseDir . "/config", "routes.json");
 			$this->router->addRouteFile($this->baseDir . "/config", "admin_routes.json");
-
+			
 			$this->setupDatabase();
 		}
 
@@ -265,7 +265,7 @@
 			return $this->optObjects[$obj];
 		}
 
-		public function getDebug() {
+		public function getDebug(){
 			return Debug::output();
 		}
 	}
