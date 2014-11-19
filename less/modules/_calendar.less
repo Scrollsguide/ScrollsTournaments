@@ -135,10 +135,34 @@ h2 + ul.events{
 		color: #444;
 	}
 	
+	
+	
+	&.next-month{
+		background-color: darken(@normalColor, 8%);
+		color: #888;
+		
+		&:hover{
+			background-color: darken(@normalColor, 16%);
+			color: #666;
+		}
+		&:nth-last-of-type(odd):not(.day-lable) {
+			background-color: darken(@normalColor, 12%);
+		}
+	}
 	&.today{
 		background-color: @todayColor;
 		border: 1px solid darken(@todayColor ,10%);
 		color: darken(@todayColor ,50%);
+		
+		&:nth-last-of-type(odd):not(.day-lable) {
+			background-color: @todayColor;
+			&:hover{
+				background-color: darken(@todayColor ,10%);
+				border: 1px solid darken(@todayColor ,20%);
+				color: darken(@todayColor ,60%);
+			}
+		}
+		
 		&:hover{
 			background-color: darken(@todayColor ,10%);
 			border: 1px solid darken(@todayColor ,20%);
@@ -146,18 +170,6 @@ h2 + ul.events{
 		}
 	}
 	
-	&.next-month{
-		background-color: lighten(@normalColor, 5%);
-		color: #888;
-		
-		&:hover{
-			background-color: darken(@normalColor, 5%);
-			color: #666;
-		}
-		&:nth-last-of-type(odd):not(.day-lable) {
-			background-color: darken(@normalColor, .5%);
-		}
-	}
 	
 	&.tiny{
 		cursor: pointer;
