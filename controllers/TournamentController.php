@@ -20,14 +20,22 @@
 				$tournamentRepository->addTournamentPlayers($tournament);
 				$tournamentRepository->addBracket($tournament);
 
+				// add invite
+				if ($tournament->isInviteOnly()) {
+					$inviteRepository = $em->getRepository("Invite");
+					$inviteRepository->addInvite($tournament);
+				}
+
 				$isAdmin = false;
 				if ($this->user->checkAccessLevel(AccessLevel::USER)) {
 					$isAdmin = $tournamentRepository->getUserRole($tournament, $this->user->getUserData('id')) === TournamentPlayerRole::ADMIN;
 				}
 
-				if ($tournament->isInviteOnly()) {
-					$inviteRepository = $em->getRepository("Invite");
-					$inviteRepository->addInvite($tournament);
+				// check if this user is participating
+				$isParticipating = $tournament->isPlayer($this->user);
+				// ... and if so, load decks
+				if ($isParticipating){
+
 				}
 
 				// add some rendering data
@@ -47,7 +55,7 @@
 					"tournament"       => $tournament,
 					"renderdata"       => $renderData,
 					"is_admin"         => $isAdmin,
-					"is_participating" => $tournament->isPlayer($this->user)
+					"is_participating" => $isParticipating
 				));
 			} else { // tournament not found in the repository
 				return $this->p404();

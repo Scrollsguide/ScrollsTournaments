@@ -32,4 +32,17 @@
 			return $this->persistDecks($t, $u, array($sideboard), true);
 		}
 
+		public function findByTournamentUser(Tournament $t, $userId){
+			$sth = $this->getConnection()->prepare("SELECT * FROM tournament_decks
+						WHERE tournament_id = :t_id
+						AND user_id = :u_id");
+
+			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
+			$sth->bindValue(":u_id", $userId, PDO::PARAM_INT);
+
+			$sth->execute();
+
+			return $sth->fetchAll(PDO::FETCH_CLASS, "TournamentDeck");
+		}
+
 	}
