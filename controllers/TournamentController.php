@@ -31,11 +31,16 @@
 					$isAdmin = $tournamentRepository->getUserRole($tournament, $this->user->getUserData('id')) === TournamentPlayerRole::ADMIN;
 				}
 
-				// check if this user is participating
-				$isParticipating = $tournament->isPlayer($this->user);
-				// ... and if so, load decks
-				if ($isParticipating){
+				// add data for this player to the twig renderer
+				$playerData = array();
 
+				// check if this user is participating
+				$playerData['is_participating'] = $tournament->isPlayer($this->user);
+				// ... and if so, load decks
+				if ($playerData['is_participating']){
+					$deckRepository = $em->getRepository("Deck");
+					$decks = $deckRepository->findAllByTournamentUser($tournament, $this->user->getUserData("id"));
+					$playerData['decks'] = $decks;
 				}
 
 				// add some rendering data
@@ -55,7 +60,7 @@
 					"tournament"       => $tournament,
 					"renderdata"       => $renderData,
 					"is_admin"         => $isAdmin,
-					"is_participating" => $isParticipating
+					"playerdata" => $playerData
 				));
 			} else { // tournament not found in the repository
 				return $this->p404();

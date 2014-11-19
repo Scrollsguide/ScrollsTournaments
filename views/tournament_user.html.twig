@@ -2,7 +2,7 @@
 {% block tournament_actions %}
 	<div class="col-lg-12 text-center">
 		<h2>
-			{% if is_participating %}
+			{% if player.is_participating %}
 				You are registered
 				{% if tournament.tournamentstate == 1 %}
 					<a href="#">leave</a>

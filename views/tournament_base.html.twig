@@ -50,7 +50,7 @@
 		<ul class='nav nav-tabs'>
 			<li><a data-toggle='tab' href='#overview'>Overview</a></li>
 			<li class='active'><a data-toggle='tab' href='#bracket'>Bracket</a></li>
-			{% if is_participating %}
+			{% if playerdata.is_participating %}
 				<li><a data-toggle='tab' href="#mydetails">My details</a></li>
 			{% endif %}
 			<!--<li><a data-toggle='tab' href='#bracket-swiss'>Swiss</a></li>-->
@@ -269,7 +269,7 @@
 					</ul>
 				</div>
 			</div>
-			{% if is_participating %}
+			{% if playerdata.is_participating %}
 				<div id="mydetails" class="tab-pane fade">
 					<div class="page-header">
 						<h2>My details</h2>
@@ -277,6 +277,8 @@
 					<form class="form-horizontal" role="form" method="POST" action="{{ path('save_decks') }}">
 						{% set decks_required = 0 + tournament.decksettings.getDecksRequired() %}
 						{% for a in 1..decks_required %}
+							{% if playerdata.decks %}
+							{% set deck = playerdata.decks[] %}
 							<div class="form-group">
 								<label for="decks[]" class="col-sm-4 control-label">Deck {{ loop.index }} *</label>
 								<div class="col-sm-8">
@@ -315,7 +317,7 @@
 	{% if is_admin %}
 		<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_admin.js') }}'></script>
 	{% endif %}
-	{% if is_participating %}
+	{% if playerdata.is_participating %}
 		<script type='text/javascript' src='{{ cdn_asset('/assets/js/tournament_user.js') }}'></script>
 	{% endif %}
 {% endblock %}

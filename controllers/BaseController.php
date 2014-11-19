@@ -36,10 +36,20 @@
 		}
 
 		// redirects to admin login page
-		protected function toLogin() {
-			$loginRoute = $this->getApp()->getRouter()->getRoute("login");
+		protected function toLogin($redirect = array()) {
+			if (!empty($redirect)) {
+				if (!isset($redirect['to'])) {
+					throw new Exception("Parameter 'to' not set for redirect route.");
+				}
+				$params = isset($redirect['parameters']) ? $redirect['parameters'] : array();
+				$redirectParams = array('to' => "?to=" . $this->getApp()->getRouter()->generateUrl($redirect['to'], $params));
+			} else {
+				$redirectParams = array();
+			}
 
-			return new RedirectResponse($loginRoute->get("path"));
+			$loginRoute = $this->getApp()->getRouter()->generateUrl("login", $redirectParams);
+
+			return new RedirectResponse($loginRoute);
 		}
 
 		public function p404() {
