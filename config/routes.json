@@ -108,6 +108,10 @@
 			"path": "/calendar-temp",
 			"action": "Calendar::temp"
 		},
+		"draft": {
+			"path": "/draft",
+			"action": "Draft::draft"
+		},
 		"login": {
 			"path": "/login{to}",
 			"action": "User::login",
