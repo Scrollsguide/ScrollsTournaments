@@ -1,12 +1,193 @@
 {% extends "base.html.twig" %}
 {% block content %}
 	<div class="row content-block">
-		<div class="col-md-12 category-hdr">
-			<h4><i class="fa fa-cogs"></i> Draft</h4>
-		</div>
+		
 
 		<div class="row content-well">
-			<p>Draft</p>
+			<div class="col-md-12 category-hdr page-header">
+				<h2>Scroll Draft</h2>
+			</div>
+			
+			<div class="col-lg-12">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+				  Create Draft
+				</button>
+			</div>
+			
+			
+			<!--		Chat		-->
+			<div class="row">
+				<div class="chat-bar">Lobby</div>
+				<div class="col-lg-8">
+					<div class="well well-sm chat-well">
+						<div class="chat-message console">
+							<span class="chat-time">12:12</span>
+							<span class="chat-msg">Orangee has joined the room</span>
+						</div>
+						<div class="chat-message me">
+							<span class="chat-time">12:12</span>
+							<span class="chat-player me">Orangee</span>
+							<span class="chat-msg">Hello</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:13</span>
+							<span class="chat-rank admin"></span>
+							<span class="chat-player">kBasten</span>
+							<span class="chat-msg">hi</span>
+						</div>
+						
+						<div class="chat-message me">
+							<span class="chat-time">12:13</span>
+							<span class="chat-player me">Orangee</span>
+							<span class="chat-msg">Whats up</span>
+						</div>
+						<div class="chat-message console">
+							<span class="chat-time">12:13</span>
+							<span class="chat-msg">Zylus has joined the room</span>
+						</div>
+						<div class="chat-message">
+							<span class="chat-time">12:14</span>
+							<span class="chat-rank admin"></span>
+							<span class="chat-player">kBasten</span>
+							<span class="chat-msg">Pushed some code to github, you should sync it.</span>
+						</div>
+						
+						<div class="chat-message me">
+							<span class="chat-time">12:15</span>
+							<span class="chat-player me">Orangee</span>
+							<span class="chat-msg">oh, nice. Well this text i'm writing now is very long just to see how very very very long text works on this chat i'm currently making.</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:15</span>
+							<span class="chat-rank mod"></span>
+							<span class="chat-player">SeeMeScrollin</span>
+							<span class="chat-msg">I WANT TO SEE IT!</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:16</span>
+							<span class="chat-rank mod"></span>
+							<span class="chat-player">SeeMeScrollin</span>
+							<span class="chat-msg">Text</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:17</span>
+							<span class="chat-rank mod"></span>
+							<span class="chat-player">SeeMeScrollin</span>
+							<span class="chat-msg">More Text</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:19</span>
+							<span class="chat-player">Zylus</span>
+							<span class="chat-msg">Woho Draft!11!!</span>
+						</div>
+						<div class="chat-message console">
+							<span class="chat-time">12:13</span>
+							<span class="chat-msg">SeeMeScrollin disconnected</span>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-lg-4">
+					<div class="well well-sm chat-members-well">
+					<div class="chat-header">
+						<span class="chat-player">Members</span>
+					</div>
+					<div class="chat-message">
+<!--					Sort players by rank then name-->
+						<div class="chat-player"><span class="chat-rank admin"></span> kBasten</div>
+						<!--<div class="chat-player"><span class="chat-rank mod"></span> SeeMescrollin</div>-->
+						<div class="chat-player">Orangee</div>
+						<div class="chat-player">Zylus</div>
+					</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+				<div class="input-group">
+					<div class="input-group-addon">Orangee</div>
+					<input type="text" class="form-control" placeholder="Message..">
+				</div>
+				</div>
+				
+			</div>
+			<!--	End Chat		-->
+			
+			<!--		Create a game popup	-->
+				<!-- Button trigger modal -->
+				
+				
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    	<div class="modal-content">
+				     	 <div class="modal-header">
+				        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				       		 <h2 class="modal-title" id="myModalLabel">Create Draft</h2>
+				     	 </div>
+				      <div class="modal-body">
+				      
+				      <form class="form-horizontal" role="form">
+				        <div class="form-group">
+				         	 <label for="inputdraftName" class="col-sm-4 control-label">Draft Name</label>
+				          	<div class="col-sm-8">
+				            	<input type="text" class="form-control" id="inputdraftName" placeholder="Draft Name">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputPacks" class="col-sm-4 control-label">Packs</label>
+				          	<div class="col-sm-8">
+				            	<input type="number" class="form-control" id="inputPacks" placeholder="packs" value="8">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputPlayerLimit" class="col-sm-4 control-label">Player Limit</label>
+				          	<div class="col-sm-8">
+				            	<input type="number" class="form-control" id="inputPlayerLimit" placeholder="Player Limit" value="8">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputBots" class="col-sm-4 control-label">Bots</label>
+				          	<div class="col-sm-8">
+				            	<input type="number" class="form-control" id="inputBots" placeholder="Bots" value="1">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputPassword" class="col-sm-4 control-label">Password</label>
+				          	<div class="col-sm-8">
+				            	<input type="text" class="form-control" id="inputPassword" placeholder="password">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				         	<div class="col-sm-offset-4 col-sm-8">
+				            	<div class="checkbox">
+				             		<label>
+				               			<input type="checkbox"> Show all drafts when done
+				             		 </label>
+				            	</div>
+				          	</div>
+				        </div>
+				        
+				     
+				        
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="button" class="btn btn-primary">Create</button>
+				      </div>
+				       </form>
+				    </div>
+				  </div>
+				</div>
+			<!--		End Create a game popup	-->
 		</div>
 
 	</div>

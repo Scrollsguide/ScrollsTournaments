@@ -1,0 +1,64 @@
+.chat-well, .chat-members-well{
+	height: 300px;
+	width: 100%;
+	overflow-x: scroll;
+}
+
+
+
+.chat-message{
+	font-size: .7em;
+	padding: 0px 10px;
+	&:nth-of-type(odd){
+		background-color: rgba(0, 0, 0, .03);
+	}
+	&:first-of-type{
+		border-radius: 3px 3px 0px 0px;
+	}
+	
+	&:last-of-type{
+		border-radius: 0px 0px 3px 3px;
+	}
+	
+	&.console{
+		color: #888;
+	}
+	&.me{
+		background-color: lighten(#1094e1, 42%);
+	}
+}
+
+.chat-bar{
+	text-align: center;
+}
+
+.chat-time{
+	color: #888;
+}
+
+.chat-player{
+	font-weight: bold;
+	
+	&.me{
+		color: #1094e1;
+	}
+}
+
+.chat-rank{
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	border-radius: 4px;
+	margin-bottom: 1px;
+	
+	&.admin{
+		background-color: #e14111;
+	}
+	&.mod{
+		background-color: #4fa3f7;
+	}
+}
+
+.chat-text{
+
+}
