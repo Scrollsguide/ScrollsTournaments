@@ -37,8 +37,8 @@
 			// check day offset, how many days to display from previous month
 			$dow = (int)$fom->format('N');
 			$daysInMonth = (int)$fom->format('t');
+			$prevMonthDateTime = DateTimeHelper::previousMonth($fom);
 			if ($dow > 0) {
-				$prevMonthDateTime = DateTimeHelper::previousMonth($fom);
 
 				$offset = (int)$prevMonthDateTime->format('t') - $dow + 1;
 				$prevMonthNr = (int)$prevMonthDateTime->format('n');
@@ -59,8 +59,8 @@
 			$mod = (int)($totalDays / 7);
 			$remaining = 7 - ($totalDays - (7 * $mod));
 
+			$nextMonthDateTime = DateTimeHelper::nextMonth($fom);
 			if ($remaining !== 7) {
-				$nextMonthDateTime = DateTimeHelper::nextMonth($fom);
 				$nextMonthNr = (int)$nextMonthDateTime->format('n');
 				$nextMonthYear = (int)$nextMonthDateTime->format('Y');
 				for ($i = 1; $i <= $remaining; $i++) {
@@ -101,7 +101,11 @@
 					'date'   => $current,
 					'events' => $currentEvents
 				),
-				"weeks"   => array_chunk($displayDays, 7)
+				"weeks"   => array_chunk($displayDays, 7),
+				"controls" => array(
+					"prev" => $prevMonthDateTime,
+					"next" => $nextMonthDateTime
+				)
 			));
 		}
 

@@ -4,11 +4,11 @@
 		<div class="row">
 		
 			<div class="col-lg-6 col-md-6 col-xs-6 text-left">
-				<h2><small><a href="#"><i class="fa fa-chevron-left"></i> October</a></small></h2>
+				<h2><small><a href="{{ path('calendar_date', { date: controls.prev.format("d-m-Y")}) }}"><i class="fa fa-chevron-left"></i> {{ controls.prev.format("F") }}</a></small></h2>
 			</div>
 			
 			<div class="col-lg-6 col-md-6 col-xs-6 text-right">
-				<h2><small><a href="#">December <i class="fa fa-chevron-right"></i></a></small></h2>
+				<h2><small><a href="{{ path('calendar_date', { date: controls.next.format("d-m-Y") }) }}">{{ controls.next.format("F") }} <i class="fa fa-chevron-right"></i></a></small></h2>
 			</div>
 		
 		</div>

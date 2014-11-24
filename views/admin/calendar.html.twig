@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block navbar %}
+	{% include "admin/navbar.html.twig" %}
+{% endblock %}
+{% block content %}
+	<div class="row content-block">
+		<div class="row">
+			<div class="col-xs-6 category-hdr">
+				<h4><i class="fa fa-cogs"></i> All Events</h4>
+			</div>
+			<div class="col-xs-6" style="margin-top: 45px;">
+				<a href="{{ path('admin_new_event') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add event</a>
+			</div>
+		</div>
+
+		{% for flash in app.session.flashbag.get('event_message') %}
+			<div class="alert alert-success">{{ flash }}</div>
+		{% endfor %}
+
+		{% for event in events %}
+			<div class="col-md-4 col-sm-6">
+				<a href="{{ path('admin_edit_event', { 'id': event.id }) }}">
+					<div class="content-item">
+						<div class="content-container">
+							<h4>{{ event.title }}</h4>
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

@@ -4,6 +4,21 @@
 			"path": "/admin",
 			"action": "Admin::index"
 		},
+		"admin_calendar": {
+			"path": "/admin/calendar",
+			"action": "Admin::calendar"
+		},
+		"admin_new_event": {
+			"path": "/event/new",
+			"action": "Admin::newEvent"
+		},
+		"admin_edit_event": {
+			"path": "/event/{id}",
+			"action": "Admin::editEvent",
+			"requirements": {
+				"id": "[0-9]+"
+			}
+		},
 		"admin_login": {
 			"path": "/admin/login",
 			"action": "Admin::login"

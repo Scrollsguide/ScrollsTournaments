@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+{% block navbar %}
+	{% include "admin/navbar.html.twig" %}
+{% endblock %}
+{% block content %}
+	<div class="row content-block">
+		{% for flash in app.session.flashbag.get('homepage_message') %}
+			<div class="alert alert-success">{{ flash }}</div>
+		{% endfor %}
+	</div>
+{% endblock %}
