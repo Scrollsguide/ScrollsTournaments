@@ -93,18 +93,21 @@
 				</div>
 			
 				<div class="col-lg-4">
-					<div class="well well-sm chat-members-well">
-					<div class="chat-header">
-						<span class="chat-player">Members</span>
+					<div class="panel panel-default">
+					  <div class="panel-heading">Members</div>
+					  <div class="panel-body">
+					    <div class="chat-message">
+	<!--					Sort players by rank then name-->
+							<div class="chat-player"><span class="chat-rank admin"></span> kBasten</div>
+							<!--<div class="chat-player"><span class="chat-rank mod"></span> SeeMescrollin</div>-->
+							<div class="chat-player">Orangee</div>
+							<div class="chat-player">Zylus</div>
+						</div>
+					  </div>
 					</div>
-					<div class="chat-message">
-<!--					Sort players by rank then name-->
-						<div class="chat-player"><span class="chat-rank admin"></span> kBasten</div>
-						<!--<div class="chat-player"><span class="chat-rank mod"></span> SeeMescrollin</div>-->
-						<div class="chat-player">Orangee</div>
-						<div class="chat-player">Zylus</div>
-					</div>
-					</div>
+					
+					
+					
 				</div>
 				<div class="col-lg-12">
 				<div class="input-group">
@@ -116,12 +119,234 @@
 			</div>
 			<!--	End Chat		-->
 			
+			
+			<!--	Current Drafts		-->
+			<div class="row">
+				<div class="row">
+					<div class="chat-bar">Current Drafts</div>
+				</div>
+				
+				<div class="row">
+				
+
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+<!--					Open game-->
+						<div class="panel panel-sm panel-success">
+						  <div class="panel-heading">Draft Name</div>
+						  <div class="panel-body">
+						    
+						    <div class="col-lg-12">
+						        <div class="progress">
+						          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+						            0%
+						          </div>
+						        </div>
+						    </div>
+						    
+						    <div class="col-lg-8">
+						    	<ul class="list-unstyled pull">
+						    		<li>Players:</li>
+						    		<li>Test Server:</li>
+						    		<li>Bots:</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-4 pull-right">
+						    	<ul class="list-unstyled pull">
+						    		<li>4 of 8</li>
+						    		<li>No</li>
+						    		<li>0</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-12">
+						    	<button class="btn btn-primary col-lg-12">Join Game</button>
+						    </div>
+						    
+						  </div>
+						</div>
+					</div>	
+				
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+<!--					Open game-->
+						<div class="panel panel-sm panel-success">
+						  <div class="panel-heading">Draft Name</div>
+						  <div class="panel-body">
+						    
+						    <div class="col-lg-12">
+						        <div class="progress">
+						          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+						            0%
+						          </div>
+						        </div>
+						    </div>
+						    
+						    <div class="col-lg-8">
+						    	<ul class="list-unstyled pull">
+						    		<li>Players:</li>
+						    		<li>Test Server:</li>
+						    		<li>Bots:</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-4 pull-right">
+						    	<ul class="list-unstyled pull">
+						    		<li>4 of 8</li>
+						    		<li>No</li>
+						    		<li>0</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-12">
+						    	<button class="btn btn-primary col-lg-12">Join Game</button>
+						    </div>
+						    
+						  </div>
+						</div>
+					</div>	
+
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+						<div class="panel panel-danger">
+<!--					Full game-->
+						  <div class="panel-heading">Draft Name</div>
+						  <div class="panel-body">
+						    
+						    <div class="col-lg-12">
+							    <div class="progress">
+							      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+							        60%
+							      </div>
+							    </div>
+						    </div>
+						    <div class="col-lg-8">
+						    	<ul class="list-unstyled pull">
+						    		<li>Players:</li>
+						    		<li>Test Server:</li>
+						    		<li>Bots:</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-4 pull-right">
+						    	<ul class="list-unstyled pull">
+						    		<li>8 of 8</li>
+						    		<li>No</li>
+						    		<li>2</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-12">
+						    	<button class="btn btn-primary col-lg-12" disabled="">Game Full</button>
+						    </div>
+						    
+						  </div>
+						</div>
+					</div>
+	
+					
+				</div>
+			</div>
+			<!--	End Current Drafts		-->
+			
+			<!-- Replace the Game with current drafts when someone join a game -->
+			
+			
+			<!--	Game		-->
+			
+			<div class="row">
+			
+				<div class="row">
+					<div class="chat-bar">Draft Name</div>
+				</div>
+			
+				<div class="row">
+					
+					<div class="row">
+						Just testing out possibilities for the game state... not sure about this one
+						<div class="chat-bar">Pack 1, Round 1</div>
+					</div>
+					
+					
+					<div class="col-lg-9 well">
+
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+					</div>
+					
+<!--				Show Scroll on Hower-->
+					<div class="col-lg-3">
+						<img src="http://a.scrollsguide.com/image/screen?name=Blessing+of+Haste&size=large" width="100%" alt="" />
+					</div>
+				</div>
+			
+			</div>
+			
+			<!--	End Game		-->
+			
+			
+			
 			<!--		Create a game popup	-->
-				<!-- Button trigger modal -->
-				
-				
-				<!-- Modal -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    	<div class="modal-content">
 				     	 <div class="modal-header">
@@ -174,6 +399,13 @@
 				             		 </label>
 				            	</div>
 				          	</div>
+				          	<div class="col-sm-offset-4 col-sm-8">
+				          		<div class="checkbox">
+				          	 		<label>
+				          	   			<input type="checkbox"> Use test server scrolls
+				          	 		 </label>
+				          		</div>
+				          		</div>
 				        </div>
 				        
 				     
