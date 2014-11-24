@@ -1,12 +1,425 @@
 {% extends "base.html.twig" %}
 {% block content %}
 	<div class="row content-block">
-		<div class="col-md-12 category-hdr">
-			<h4><i class="fa fa-cogs"></i> Draft</h4>
-		</div>
+		
 
 		<div class="row content-well">
-			<p>Draft</p>
+			<div class="col-md-12 category-hdr page-header">
+				<h2>Scroll Draft</h2>
+			</div>
+			
+			<div class="col-lg-12">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+				  Create Draft
+				</button>
+			</div>
+			
+			
+			<!--		Chat		-->
+			<div class="row">
+				<div class="chat-bar">Lobby</div>
+				<div class="col-lg-8">
+					<div class="well well-sm chat-well">
+						<div class="chat-message console">
+							<span class="chat-time">12:12</span>
+							<span class="chat-msg">Orangee has joined the room</span>
+						</div>
+						<div class="chat-message me">
+							<span class="chat-time">12:12</span>
+							<span class="chat-player me">Orangee</span>
+							<span class="chat-msg">Hello</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:13</span>
+							<span class="chat-rank admin"></span>
+							<span class="chat-player">kBasten</span>
+							<span class="chat-msg">hi</span>
+						</div>
+						
+						<div class="chat-message me">
+							<span class="chat-time">12:13</span>
+							<span class="chat-player me">Orangee</span>
+							<span class="chat-msg">Whats up</span>
+						</div>
+						<div class="chat-message console">
+							<span class="chat-time">12:13</span>
+							<span class="chat-msg">Zylus has joined the room</span>
+						</div>
+						<div class="chat-message">
+							<span class="chat-time">12:14</span>
+							<span class="chat-rank admin"></span>
+							<span class="chat-player">kBasten</span>
+							<span class="chat-msg">Pushed some code to github, you should sync it.</span>
+						</div>
+						
+						<div class="chat-message me">
+							<span class="chat-time">12:15</span>
+							<span class="chat-player me">Orangee</span>
+							<span class="chat-msg">oh, nice. Well this text i'm writing now is very long just to see how very very very long text works on this chat i'm currently making.</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:15</span>
+							<span class="chat-rank mod"></span>
+							<span class="chat-player">SeeMeScrollin</span>
+							<span class="chat-msg">I WANT TO SEE IT!</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:16</span>
+							<span class="chat-rank mod"></span>
+							<span class="chat-player">SeeMeScrollin</span>
+							<span class="chat-msg">Text</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:17</span>
+							<span class="chat-rank mod"></span>
+							<span class="chat-player">SeeMeScrollin</span>
+							<span class="chat-msg">More Text</span>
+						</div>
+						
+						<div class="chat-message">
+							<span class="chat-time">12:19</span>
+							<span class="chat-player">Zylus</span>
+							<span class="chat-msg">Woho Draft!11!!</span>
+						</div>
+						<div class="chat-message console">
+							<span class="chat-time">12:13</span>
+							<span class="chat-msg">SeeMeScrollin disconnected</span>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-lg-4">
+					<div class="panel panel-default">
+					  <div class="panel-heading">Members</div>
+					  <div class="panel-body">
+					    <div class="chat-message">
+	<!--					Sort players by rank then name-->
+							<div class="chat-player"><span class="chat-rank admin"></span> kBasten</div>
+							<!--<div class="chat-player"><span class="chat-rank mod"></span> SeeMescrollin</div>-->
+							<div class="chat-player">Orangee</div>
+							<div class="chat-player">Zylus</div>
+						</div>
+					  </div>
+					</div>
+					
+					
+					
+				</div>
+				<div class="col-lg-12">
+				<div class="input-group">
+					<div class="input-group-addon">Orangee</div>
+					<input type="text" class="form-control" placeholder="Message..">
+				</div>
+				</div>
+				
+			</div>
+			<!--	End Chat		-->
+			
+			
+			<!--	Current Drafts		-->
+			<div class="row">
+				<div class="row">
+					<div class="chat-bar">Current Drafts</div>
+				</div>
+				
+				<div class="row">
+				
+
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+<!--					Open game-->
+						<div class="panel panel-sm panel-success">
+						  <div class="panel-heading">Draft Name</div>
+						  <div class="panel-body">
+						    
+						    <div class="col-lg-12">
+						        <div class="progress">
+						          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+						            0%
+						          </div>
+						        </div>
+						    </div>
+						    
+						    <div class="col-lg-8">
+						    	<ul class="list-unstyled pull">
+						    		<li>Players:</li>
+						    		<li>Test Server:</li>
+						    		<li>Bots:</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-4 pull-right">
+						    	<ul class="list-unstyled pull">
+						    		<li>4 of 8</li>
+						    		<li>No</li>
+						    		<li>0</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-12">
+						    	<button class="btn btn-primary col-lg-12">Join Game</button>
+						    </div>
+						    
+						  </div>
+						</div>
+					</div>	
+				
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+<!--					Open game-->
+						<div class="panel panel-sm panel-success">
+						  <div class="panel-heading">Draft Name</div>
+						  <div class="panel-body">
+						    
+						    <div class="col-lg-12">
+						        <div class="progress">
+						          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+						            0%
+						          </div>
+						        </div>
+						    </div>
+						    
+						    <div class="col-lg-8">
+						    	<ul class="list-unstyled pull">
+						    		<li>Players:</li>
+						    		<li>Test Server:</li>
+						    		<li>Bots:</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-4 pull-right">
+						    	<ul class="list-unstyled pull">
+						    		<li>4 of 8</li>
+						    		<li>No</li>
+						    		<li>0</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-12">
+						    	<button class="btn btn-primary col-lg-12">Join Game</button>
+						    </div>
+						    
+						  </div>
+						</div>
+					</div>	
+
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+						<div class="panel panel-danger">
+<!--					Full game-->
+						  <div class="panel-heading">Draft Name</div>
+						  <div class="panel-body">
+						    
+						    <div class="col-lg-12">
+							    <div class="progress">
+							      <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+							        60%
+							      </div>
+							    </div>
+						    </div>
+						    <div class="col-lg-8">
+						    	<ul class="list-unstyled pull">
+						    		<li>Players:</li>
+						    		<li>Test Server:</li>
+						    		<li>Bots:</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-4 pull-right">
+						    	<ul class="list-unstyled pull">
+						    		<li>8 of 8</li>
+						    		<li>No</li>
+						    		<li>2</li>
+						    	</ul>
+						    </div>
+						    
+						    <div class="col-lg-12">
+						    	<button class="btn btn-primary col-lg-12" disabled="">Game Full</button>
+						    </div>
+						    
+						  </div>
+						</div>
+					</div>
+	
+					
+				</div>
+			</div>
+			<!--	End Current Drafts		-->
+			
+			<!-- Replace the Game with current drafts when someone join a game -->
+			
+			
+			<!--	Game		-->
+			
+			<div class="row">
+			
+				<div class="row">
+					<div class="chat-bar">Draft Name</div>
+				</div>
+			
+				<div class="row">
+					
+					<div class="row">
+						Just testing out possibilities for the game state... not sure about this one
+						<div class="chat-bar">Pack 1, Round 1</div>
+					</div>
+					
+					
+					<div class="col-lg-9 well">
+
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+							
+							<div class="col-lg-3">
+								<div class="col-lg-12 draft-image" style="background-image: url(http://dev.scrolldier.com/img/scrolls/501.png);">
+									<div class=""><i class="icon-growth"></i></div>
+									
+								</div>
+								<div class="label label-success draft-label col-lg-12">x2 Quake</div>
+							</div>
+					</div>
+					
+<!--				Show Scroll on Hower-->
+					<div class="col-lg-3">
+						<img src="http://a.scrollsguide.com/image/screen?name=Blessing+of+Haste&size=large" width="100%" alt="" />
+					</div>
+				</div>
+			
+			</div>
+			
+			<!--	End Game		-->
+			
+			
+			
+			<!--		Create a game popup	-->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    	<div class="modal-content">
+				     	 <div class="modal-header">
+				        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				       		 <h2 class="modal-title" id="myModalLabel">Create Draft</h2>
+				     	 </div>
+				      <div class="modal-body">
+				      
+				      <form class="form-horizontal" role="form">
+				        <div class="form-group">
+				         	 <label for="inputdraftName" class="col-sm-4 control-label">Draft Name</label>
+				          	<div class="col-sm-8">
+				            	<input type="text" class="form-control" id="inputdraftName" placeholder="Draft Name">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputPacks" class="col-sm-4 control-label">Packs</label>
+				          	<div class="col-sm-8">
+				            	<input type="number" class="form-control" id="inputPacks" placeholder="packs" value="8">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputPlayerLimit" class="col-sm-4 control-label">Player Limit</label>
+				          	<div class="col-sm-8">
+				            	<input type="number" class="form-control" id="inputPlayerLimit" placeholder="Player Limit" value="8">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputBots" class="col-sm-4 control-label">Bots</label>
+				          	<div class="col-sm-8">
+				            	<input type="number" class="form-control" id="inputBots" placeholder="Bots" value="1">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				          	<label for="inputPassword" class="col-sm-4 control-label">Password</label>
+				          	<div class="col-sm-8">
+				            	<input type="text" class="form-control" id="inputPassword" placeholder="password">
+				          	</div>
+				        </div>
+				        
+				        <div class="form-group">
+				         	<div class="col-sm-offset-4 col-sm-8">
+				            	<div class="checkbox">
+				             		<label>
+				               			<input type="checkbox"> Show all drafts when done
+				             		 </label>
+				            	</div>
+				          	</div>
+				          	<div class="col-sm-offset-4 col-sm-8">
+				          		<div class="checkbox">
+				          	 		<label>
+				          	   			<input type="checkbox"> Use test server scrolls
+				          	 		 </label>
+				          		</div>
+				          		</div>
+				        </div>
+				        
+				     
+				        
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="button" class="btn btn-primary">Create</button>
+				      </div>
+				       </form>
+				    </div>
+				  </div>
+				</div>
+			<!--		End Create a game popup	-->
 		</div>
 
 	</div>
