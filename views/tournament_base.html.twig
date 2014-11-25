@@ -59,6 +59,9 @@
 				<li><a data-toggle='tab' href='#admin'>Admin</a></li>
 			{% endif %}
 		</ul>
+		
+
+
 
 		<div class='tab-content'>
 			<div id='overview' class='tab-pane fade bracket'>
@@ -260,13 +263,18 @@
 					<h2>Tournament log</h2>
 				</div>
 				<div class="col-sm-12">
-					<ul class="list-unstyled">
+
+						<div class="chat-well">
 						{% for l in tournament.loglines %}
-							<li>
-								<span class='log-time'>{{ l.time|date('d/m/Y H:i:s') }}</span><span class="log-line">{{ l.line }}</span>
-							</li>
+							
+									<div class="chat-message log console">
+										<span class="chat-time">{{ l.time|date('d/m/Y H:i:s') }}</span>
+										<span class="chat-player">Console</span>
+										<span class="chat-msg">{{ l.line }}</span>
+									</div>
+									
 						{% endfor %}
-					</ul>
+					</div>
 				</div>
 			</div>
 			{% if playerdata.is_participating %}
