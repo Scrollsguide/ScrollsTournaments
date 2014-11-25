@@ -277,20 +277,28 @@
 					<form class="form-horizontal" role="form" method="POST" action="{{ path('save_decks') }}">
 						{% set decks_required = 0 + tournament.decksettings.getDecksRequired() %}
 						{% for a in 1..decks_required %}
-							{% if playerdata.decks %}
-							{% set deck = playerdata.decks[] %}
+							{% if playerdata.decks.decks and playerdata.decks.decks[loop.index0] %}
+								{% set deck = playerdata.decks.decks[loop.index0].deck %}
+							{% else %}
+								{% set deck = "" %}
+							{% endif %}
 							<div class="form-group">
 								<label for="decks[]" class="col-sm-4 control-label">Deck {{ loop.index }} *</label>
 								<div class="col-sm-8">
-									<textarea class="form-control" name="decks[]" rows="3" required>{"types":[1,2,3]}</textarea>
+									<textarea class="form-control" name="decks[]" rows="3" required>{{ deck }}</textarea>
 								</div>
 							</div>
 						{% endfor %}
 						{% if tournament.decksettings.getSideboardSize() > 0 %}
+							{% if playerdata.decks.sideboard %}
+								{% set sideboard = playerdata.decks.sideboard.deck %}
+							{% else %}
+								{% set sideboard = "" %}
+							{% endif %}
 							<div class="form-group">
 								<label for="sideboard" class="col-sm-4 control-label">Sideboard ({{ tournament.decksettings.getSideboardSize() }} scrolls) *</label>
 								<div class="col-sm-8">
-									<textarea class="form-control" name="sideboard" rows="3" required>{"types":[1,2,3]}</textarea>
+									<textarea class="form-control" name="sideboard" rows="3" required>{{ sideboard }}</textarea>
 								</div>
 							</div>
 						{% endif %}

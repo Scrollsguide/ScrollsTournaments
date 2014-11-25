@@ -36,8 +36,8 @@
 			$sth = $this->getConnection()->prepare("SELECT * FROM tournament_decks
 						WHERE tournament_id = :t_id
 						AND user_id = :u_id
-						ORDER BY id DESC");
-			// order this by id desc so the decks are selected in the order the
+						ORDER BY id ASC");
+			// order this by id asc so the decks are selected in the order the
 			// player saved them, so there is no reordering by the template
 			// engine needed.
 
@@ -47,6 +47,17 @@
 			$sth->execute();
 
 			return $sth->fetchAll(PDO::FETCH_CLASS, "TournamentDeck");
+		}
+
+		public function deleteByTournament(Tournament $t, User $u){
+			$sth = $this->getConnection()->prepare("DELETE FROM tournament_decks
+						WHERE tournament_id = :t_id
+						AND user_id = :u_id");
+
+			$sth->bindValue(":t_id", $t->getId(), PDO::PARAM_INT);
+			$sth->bindValue(":u_id", $u->getUserData("id"), PDO::PARAM_INT);
+
+			$sth->execute();
 		}
 
 	}

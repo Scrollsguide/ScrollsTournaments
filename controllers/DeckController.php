@@ -23,6 +23,9 @@
 				} else {
 					$deckRepository = $em->getRepository("Deck");
 
+					// delete old decks for this user in this tournament
+					$deckRepository->deleteByTournament($tournament, $this->user);
+
 					// save decks
 					$decks = $r->getParameter("decks");
 

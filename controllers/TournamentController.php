@@ -37,10 +37,17 @@
 				// check if this user is participating
 				$playerData['is_participating'] = $tournament->isPlayer($this->user);
 				// ... and if so, load decks
-				if ($playerData['is_participating']){
+				if ($playerData['is_participating']) {
 					$deckRepository = $em->getRepository("Deck");
 					$decks = $deckRepository->findAllByTournamentUser($tournament, $this->user->getUserData("id"));
-					$playerData['decks'] = $decks;
+					$playerData['decks'] = array(
+						'decks'     => array_filter($decks, function ($d) {
+							return $d->getIsSideboard() === 0;
+						}),
+						'sideboard' => reset(array_filter($decks, function ($d) {
+							return $d->getIsSideboard() === 1;
+						}))
+					);
 				}
 
 				// add some rendering data
@@ -57,9 +64,9 @@
 				);
 
 				return $this->render("tournament_user.html.twig", array(
-					"tournament"       => $tournament,
-					"renderdata"       => $renderData,
-					"is_admin"         => $isAdmin,
+					"tournament" => $tournament,
+					"renderdata" => $renderData,
+					"is_admin"   => $isAdmin,
 					"playerdata" => $playerData
 				));
 			} else { // tournament not found in the repository
@@ -269,7 +276,7 @@
 				return $this->toNewPage();
 			}
 			$visibility = (int)$r->getParameter("visibility");
-			if (!Visibility::valid($visibility)){
+			if (!Visibility::valid($visibility)) {
 				$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid visibility state.");
 
 				return $this->toNewPage();
