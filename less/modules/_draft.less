@@ -4,13 +4,26 @@
 	overflow-x: scroll;
 }
 
-
+.chat-members{
+	font-size: .7em;
+	padding: 0px 10px;
+}
 
 .chat-message{
 	font-size: .7em;
 	padding: 0px 10px;
-	&:nth-of-type(odd){
+	
+	&:hover{
 		background-color: rgba(0, 0, 0, .03);
+	}
+	
+	
+	&:nth-of-type(odd){
+		background-color: rgba(0, 0, 0, .04);
+		
+		&:hover{
+			background-color: rgba(0, 0, 0, .07);
+		}
 	}
 	&:first-of-type{
 		border-radius: 3px 3px 0px 0px;
@@ -21,11 +34,16 @@
 	}
 	
 	&.console{
-		color: #888;
+		color: #888888;
 	}
 	&.me{
 		background-color: lighten(#1094e1, 42%);
+		
+		&:hover{
+			background-color: lighten(#1094e1, 38%);
+		}
 	}
+	
 }
 
 .chat-bar{
