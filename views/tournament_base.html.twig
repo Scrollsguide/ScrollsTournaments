@@ -263,15 +263,14 @@
 					<h2>Tournament log</h2>
 				</div>
 				<div class="col-sm-12">
-
-						<div class="chat-well">
+					<div class="chat-well">
 						{% for l in tournament.loglines %}
 							
-									<div class="chat-message log console">
-										<span class="chat-time">{{ l.time|date('d/m/Y H:i:s') }}</span>
-										<span class="chat-player">Console</span>
-										<span class="chat-msg">{{ l.line }}</span>
-									</div>
+							<div class="chat-message log console">
+								<span class="chat-time">{{ l.time|date('d/m/Y H:i:s') }}</span>
+								<span class="chat-player">Console</span>
+								<span class="chat-msg">{{ l.line }}</span>
+							</div>
 									
 						{% endfor %}
 					</div>
