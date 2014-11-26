@@ -16,6 +16,8 @@
 
 		private $role;
 
+		private $checked_in;
+
 		public function setId($id) {
 			$this->id = $id;
 		}
@@ -89,6 +91,14 @@
 				'score' => $score,
 				'win'   => $win
 			);
+		}
+
+		public function getCheckedIn() {
+			return (int)$this->checked_in;
+		}
+
+		public function setCheckedIn($checked_in) {
+			$this->checked_in = $checked_in;
 		}
 
 	}

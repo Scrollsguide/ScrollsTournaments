@@ -38,15 +38,24 @@
 				$playerData['is_participating'] = $tournament->isPlayer($this->user);
 				// ... and if so, load decks
 				if ($playerData['is_participating']) {
+					$playerData['player'] = $tournament->getPlayerById($this->user->getUserData("id"));
+
 					$deckRepository = $em->getRepository("Deck");
 					$decks = $deckRepository->findAllByTournamentUser($tournament, $this->user->getUserData("id"));
+
+					$playerDecks = array_filter($decks, function ($d) {
+						return $d->getIsSideboard() === 0;
+					});
+
+					$sideboard = array_filter($decks, function ($d) {
+						return $d->getIsSideboard() === 1;
+					});
+					// $sideboard is now an array, we just need the first element
+					$sideboard = reset($sideboard);
+
 					$playerData['decks'] = array(
-						'decks'     => array_filter($decks, function ($d) {
-							return $d->getIsSideboard() === 0;
-						}),
-						'sideboard' => reset(array_filter($decks, function ($d) {
-							return $d->getIsSideboard() === 1;
-						}))
+						'decks'     => $playerDecks,
+						'sideboard' => $sideboard
 					);
 				}
 
@@ -252,6 +261,39 @@
 			}
 
 			// TODO: invite/tournament not found page
+			return $this->p404();
+		}
+
+		public function checkinAction($url){
+			if (!$this->user->checkAccessLevel(AccessLevel::USER)) {
+				return $this->toLogin();
+			}
+
+			// set up entity and repository
+			$em = $this->getApp()->get("EntityManager");
+			$tournamentRepository = $em->getRepository("Tournament");
+
+			// look for tournament in the repo
+			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
+				$tournamentRepository->addTournamentPlayers($tournament);
+
+				if ($tournament->isPlayer($this->user)){
+					$tournamentPlayer = $tournament->getPlayerById($this->user->getUserData("id"));
+					$tournamentPlayer->setCheckedIn(1);
+
+					$tournamentPlayerRepository = $em->getRepository("TournamentPlayer");
+					$tournamentPlayerRepository->persist($tournamentPlayer);
+
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_message", "You are now checked in.");
+				} else {
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "You are not registered for this tournament.");
+				}
+
+				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
+				return new RedirectResponse($tournamentRoute);
+			}
+
+			return $this->p404();
 		}
 
 		public function newAction() {

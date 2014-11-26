@@ -42,6 +42,13 @@
 				"code": "[a-z0-9]{10}"
 			}
 		},
+		"check_in": {
+			"path": "/tournament/{name}/checkin",
+			"action": "Tournament::checkin",
+			"requirements": {
+				"name": "[a-z0-9-]+"
+			}
+		},
 		"tournament_result": {
 			"path": "/tournament/{name}/results",
 			"action": "Tournament::viewResult",

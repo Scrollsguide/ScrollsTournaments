@@ -182,6 +182,15 @@
 			return false;
 		}
 
+		public function getPlayerById($id){
+			foreach ($this->players as $p){
+				if ($p->getPlayerId() === $id){
+					return $p;
+				}
+			}
+			return null;
+		}
+
 		public function getVisibility() {
 			return (int)$this->visibility;
 		}

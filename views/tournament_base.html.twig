@@ -142,7 +142,7 @@
 									</p>
 									<ul class="list-unstyled">
 										{% for player in tournament.players %}
-											<li><i class="fa fa-circle color-started"></i> {{ player.ingamename }}</li>
+											<li><i class="fa fa-circle color-{% if player.checkedin == 0 %}not-{% endif %}started"></i> {{ player.ingamename }}</li>
 										{% endfor %}
 									</ul>
 								</div>

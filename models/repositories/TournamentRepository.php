@@ -99,7 +99,7 @@
 		}
 
 		public function addTournamentPlayers(Tournament $t) {
-			$sth = $this->getConnection()->prepare("SELECT TP.id, TP.tournament_id, TP.player_id, U.ingamename
+			$sth = $this->getConnection()->prepare("SELECT TP.id, TP.tournament_id, TP.player_id, U.ingamename, TP.checked_in
 						FROM tournament_players TP, users U
 						WHERE TP.tournament_id = :t_id
 						AND U.id = TP.player_id");
