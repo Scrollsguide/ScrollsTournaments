@@ -200,13 +200,14 @@
 				}
 
 				// check whether there are enough players
-				if (count($tournament->getPlayers()) < 3) {
-					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start with less than 3 players.");
+				if (count($tournament->getCheckedInPlayers()) < 3) {
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start with less than 3 checked in players.");
 
 					return new RedirectResponse($tournamentRoute);
 				}
 
 				$bracketGenerator = new BracketGenerator($tournament);
+				// TODO: load seed from user
 				$bracketGenerator->setSeed(rand());
 
 				$bracketRounds = $bracketGenerator->generateBrackets();
@@ -225,7 +226,7 @@
 				}
 
 				// add start action to log and notification
-				$msg = sprintf("The tournament has started with %d players!", count($tournament->getPlayers()));
+				$msg = sprintf("The tournament has started with %d players!", count($tournament->getCheckedInPlayers()));
 				$this->saveLog($tournament, $em, $msg);
 
 				// add notification
@@ -264,7 +265,7 @@
 			return $this->p404();
 		}
 
-		public function checkinAction($url){
+		public function checkinAction($url) {
 			if (!$this->user->checkAccessLevel(AccessLevel::USER)) {
 				return $this->toLogin();
 			}
@@ -277,7 +278,7 @@
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
 				$tournamentRepository->addTournamentPlayers($tournament);
 
-				if ($tournament->isPlayer($this->user)){
+				if ($tournament->isPlayer($this->user)) {
 					$tournamentPlayer = $tournament->getPlayerById($this->user->getUserData("id"));
 					$tournamentPlayer->setCheckedIn(1);
 
@@ -290,6 +291,7 @@
 				}
 
 				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
+
 				return new RedirectResponse($tournamentRoute);
 			}
 

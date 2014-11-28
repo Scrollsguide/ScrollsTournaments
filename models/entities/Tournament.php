@@ -191,6 +191,12 @@
 			return null;
 		}
 
+		public function getCheckedInPlayers(){
+			return array_filter($this->getPlayers(), function($p){
+				return $p->getCheckedIn() === 1;
+			});
+		}
+
 		public function getVisibility() {
 			return (int)$this->visibility;
 		}

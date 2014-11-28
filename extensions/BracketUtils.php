@@ -22,7 +22,7 @@
 			// Add scores to TournamentPlayers
 			// convert players to hashmap
 			$tournamentPlayers = array();
-			foreach ($t->getPlayers() as $p) {
+			foreach ($t->getCheckedInPlayers() as $p) {
 				$tournamentPlayers[$p->getId()] = $p;
 			}
 
