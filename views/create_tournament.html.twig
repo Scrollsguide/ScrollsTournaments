@@ -59,13 +59,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="decks" class="col-sm-4 control-label">Start date<sup>&#8224;</sup></label>
+					<label for="datetimepicker" class="col-sm-4 control-label">Start date<sup>&#8224;</sup></label>
 					<div class="col-sm-8">
-						<select class="form-control" name="decks">
-							<option value="0">No decks required</option>
-							<option value="1">One deck required</option>
-							<option value="2">Two decks required</option>
-						</select>
+						<div class='input-group date' id='datetimepicker'>
+							<input type='text' class="form-control" name="startdate" data-date-format="DD/MM/YYYY HH:mm"/>
+							<span class="input-group-addon"><span class="fa fa-calendar"></span>
+							</span>
+						</div>
 					</div>
 				</div>
 
@@ -127,6 +127,16 @@
 					$("#sideboard-settings").show(300);
 				} else {
 					$("#sideboard-settings").hide(300);
+				}
+			});
+			$('#datetimepicker').datetimepicker({
+				useSeconds: false,
+				minDate: moment().format("DD/MM/YYYY"),
+				icons: {
+					time: "fa fa-clock-o",
+					date: "fa fa-calendar",
+					up: "fa fa-arrow-up",
+					down: "fa fa-arrow-down"
 				}
 			});
 		});

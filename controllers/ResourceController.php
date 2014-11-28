@@ -16,11 +16,13 @@
 			'css/vendors.css' => array(
 				'/styles/vendor/bootstrap.min.css',
 				'/styles/vendor/font-awesome.min.css',
-				'/styles/vendor/rrssb.css'
+				'/styles/vendor/rrssb.css',
+				'/styles/vendor/bootstrap-datetimepicker.min.css'
 			),
 
 			'js/vendors.js'   => array(
 				'/js/vendor/jquery-1.11.0.min.js',
+				'/js/vendor/moment.min.js',
 				'/js/vendor/bootstrap/affix.js',
 				'/js/vendor/bootstrap/alert.js',
 				'/js/vendor/bootstrap/dropdown.js',
@@ -33,7 +35,8 @@
 				'/js/vendor/bootstrap/scrollspy.js',
 				'/js/vendor/bootstrap/collapse.js',
 				'/js/vendor/bootstrap/tab.js',
-				'/js/vendor/rrssb.js'
+				'/js/vendor/rrssb.js',
+				'/js/vendor/bootstrap-datetimepicker.min.js'
 			)
 		);
 
