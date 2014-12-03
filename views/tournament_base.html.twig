@@ -132,12 +132,13 @@
 								<h2>Players Signed up
 									<small>{{ tournament.players|length }}</small>
 								</h2>
+								<!--
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="twitch_imput">Search</label>
 										<input type="search" id="twitch_imput" class="form-control" placeholder="Search player...">
 									</div>
-								</div>
+								</div>-->
 								<div class="col-md-12">
 									<p>
 										<i class="fa fa-circle color-not-started"></i> <b>Not checked in</b>
@@ -155,10 +156,11 @@
 									<label for="name">Name</label>
 									<input type="text" id="name" class="form-control" placeholder="Tournament Name" value="{{ tournament.name }}" disabled="disabled" />
 								</div>
+								<!--
 								<div class="form-group">
 									<label for="gold_input">Registration fee(In-Game Gold)</label>
 									<input type="number" id="gold_input" min="0" class="form-control" placeholder="0" value="" disabled="disabled" />
-								</div>
+								</div>-->
 								{% if tournament.isInviteOnly() %}
 									{% if tournament.invite %}
 										<div class="form-group">
@@ -175,10 +177,11 @@
 									<label class="control-label" for="desc">Description of the tournament</label>
 									<textarea class="form-control" name="desc" id="desc" rows="5">{{ tournament.description }}</textarea>
 								</div>
+								<!--
 								<div class="form-group">
 									<label for="twitch-input">Twitch Stream</label>
 									<input type="text" id="twitch-input" class="form-control" placeholder="http://twitch.tv/username" />
-								</div>
+								</div>-->
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-4 col-sm-8">
@@ -196,8 +199,8 @@
 				<div class="row">
 					<h1 class="text-center">{{ tournament.name }}<br />
 						{{ tournament.players|length }} player {{ tournamentType(tournament) }}
-						<br /><i class="fa fa-circle color-started"></i> Finals<br />
-						<small>(Best of X)</small>
+						<!--<br /><i class="fa fa-circle color-started"></i> Finals<br />
+						<small>(Best of X)</small>-->
 					</h1>
 
 					<!--

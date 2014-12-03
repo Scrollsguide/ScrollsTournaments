@@ -367,7 +367,7 @@
 			}
 
 			// parameters that can be edited after creation:
-			$t->setDescription($r->getParameter("desc"));
+			$t->setDescription(strip_tags($r->getParameter("desc")));
 
 			$tournamentRepository->persist($t);
 
