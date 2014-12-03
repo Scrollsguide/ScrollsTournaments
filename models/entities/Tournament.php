@@ -213,4 +213,10 @@
 			$this->deckSettings = $deckSettings;
 		}
 
+		public function canShowStartButton(){
+			// the admin of a tournament can start it manually when the tournament is in checkins and
+			// the tournament hasn't started automatically yet, so the start date is smaller than the
+			// current time
+			return $this->getTournamentState() === TournamentState::CHECKIN && $this->getDate() > time();
+		}
 	}

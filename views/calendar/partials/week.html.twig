@@ -8,7 +8,7 @@
 		{% if tiny %}
 			{% set class = class ~ " tiny" %}
 		{% endif %}
-		<div class="cal-1{{ class }}" data-attr-date="{{ day.date.format('d-n-Y') }}">
+		<div class="cal-1{{ class }}" data-attr-date="{{ day.date.format('d-m-Y') }}">
 			<div class="text-left small day-date">{{ day.date.format('j') }}. <span class="visible-xs date-xs">{{ day.date.format('l') }}</span></div>
 			{% if day.events|length %}
 				<ul class="pull-left small clear list-unstyled events">

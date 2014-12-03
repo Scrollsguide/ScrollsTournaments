@@ -192,9 +192,9 @@
 				$tournamentRoute = $this->getApp()->getRouter()->generateUrl("tournament_view", array("name" => $tournament->getUrl()));
 
 				// check whether this tournament has started already
-				if ($tournament->getTournamentState() !== TournamentState::REGISTRATION) {
+				if ($tournament->getTournamentState() !== TournamentState::CHECKIN) {
 					// either started, finished or closed
-					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start, not in registrations.");
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start, not in checkins.");
 
 					return new RedirectResponse($tournamentRoute);
 				}
@@ -278,6 +278,7 @@
 			if (($tournament = $tournamentRepository->findOneBy("url", $url)) !== null) {
 				$tournamentRepository->addTournamentPlayers($tournament);
 
+				// TODO: Check TournamentState::CHECKIN
 				if ($tournament->isPlayer($this->user)) {
 					$tournamentPlayer = $tournament->getPlayerById($this->user->getUserData("id"));
 					$tournamentPlayer->setCheckedIn(1);
@@ -319,7 +320,7 @@
 
 				return $this->toNewPage();
 			}
-			$visibility = (int)$r->getParameter("visibility");
+			$visibility = Visibility::VISIBLE; //(int)$r->getParameter("visibility");
 			if (!Visibility::valid($visibility)) {
 				$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid visibility state.");
 
@@ -339,12 +340,27 @@
 				$t = new Tournament();
 
 				$name = $r->getParameter("name");
-				$t->setDate(time());
 				$t->setName($name);
 				$t->setUrl(URLUtils::makeBlob($name));
 				$t->setRegState($regState);
 				$t->setTournamentState(TournamentState::REGISTRATION);
 				$t->setVisibility($visibility);
+
+				// load start date
+				$startDate = $r->getParameter("startdate");
+				if (($startDate = DateTime::createFromFormat("d/m/Y H:m", $startDate)) === false) {
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "Not a valid start date.");
+
+					return $this->toNewPage();
+				}
+
+				if ($startDate->getTimestamp() < time() + 60 * 15) {
+					$this->getApp()->getSession()->getFlashBag()->add("tournament_error", "The tournament can't start within 15 minutes from now.");
+
+					return $this->toNewPage();
+				}
+
+				$t->setDate($startDate->getTimestamp());
 
 				// TODO: use request parameter for type
 				$t->setTournamentType(TournamentType::SINGLE_ELIMINATION);

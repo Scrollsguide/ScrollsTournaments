@@ -98,7 +98,7 @@
 						<ul class="list-unstyled players">
 							<li class="text-center players-header">Participating players</li>
 							{% for player in tournament.players %}
-								<li>{{ player.ingamename }} <!--<span class="pull-right"><a href="#decklink">Deck
+								<li><i class="fa fa-circle color-{% if player.checkedin == 0 %}not-{% endif %}started"></i> {{ player.ingamename }} <!--<span class="pull-right"><a href="#decklink">Deck
 											1</a> - <a href="#decklink">Deck 2</a></span>--></li>
 							{% endfor %}
 						</ul>
@@ -108,7 +108,7 @@
 			</div>
 			{% if is_admin %}
 				<div id='admin' class='tab-pane fade'>
-					{% if tournament.tournamentstate != 2 %}
+					{% if tournament.canShowStartButton() %}
 						<div class="row">
 							<div class="form-group">
 								<div class="col-sm-12 text-center">
@@ -276,39 +276,41 @@
 					</div>
 					<form class="form-horizontal" role="form" method="POST" action="{{ path('save_decks') }}">
 						{% set decks_required = 0 + tournament.decksettings.getDecksRequired() %}
-						{% for a in 1..decks_required %}
-							{% if playerdata.decks.decks and playerdata.decks.decks[loop.index0] %}
-								{% set deck = playerdata.decks.decks[loop.index0].deck %}
-							{% else %}
-								{% set deck = "" %}
+						{% if decks_required > 0 %}
+							{% for a in 1..decks_required %}
+								{% if playerdata.decks.decks and playerdata.decks.decks[loop.index0] %}
+									{% set deck = playerdata.decks.decks[loop.index0].deck %}
+								{% else %}
+									{% set deck = "" %}
+								{% endif %}
+								<div class="form-group">
+									<label for="decks[]" class="col-sm-4 control-label">Deck {{ loop.index }} *</label>
+									<div class="col-sm-8">
+										<textarea class="form-control" name="decks[]" rows="3" required>{{ deck }}</textarea>
+									</div>
+								</div>
+							{% endfor %}
+							{% if tournament.decksettings.getSideboardSize() > 0 %}
+								{% if playerdata.decks.sideboard %}
+									{% set sideboard = playerdata.decks.sideboard.deck %}
+								{% else %}
+									{% set sideboard = "" %}
+								{% endif %}
+								<div class="form-group">
+									<label for="sideboard" class="col-sm-4 control-label">Sideboard ({{ tournament.decksettings.getSideboardSize() }} scrolls) *</label>
+									<div class="col-sm-8">
+										<textarea class="form-control" name="sideboard" rows="3" required>{{ sideboard }}</textarea>
+									</div>
+								</div>
 							{% endif %}
-							<div class="form-group">
-								<label for="decks[]" class="col-sm-4 control-label">Deck {{ loop.index }} *</label>
-								<div class="col-sm-8">
-									<textarea class="form-control" name="decks[]" rows="3" required>{{ deck }}</textarea>
+							{% if tournament.registrationsOpen() %}
+								<div class="form-group">
+									<div class="col-sm-offset-4 col-sm-8">
+										<input type="hidden" name="id" value="{{ tournament.id }}" />
+										<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save settings</button>
+									</div>
 								</div>
-							</div>
-						{% endfor %}
-						{% if tournament.decksettings.getSideboardSize() > 0 %}
-							{% if playerdata.decks.sideboard %}
-								{% set sideboard = playerdata.decks.sideboard.deck %}
-							{% else %}
-								{% set sideboard = "" %}
 							{% endif %}
-							<div class="form-group">
-								<label for="sideboard" class="col-sm-4 control-label">Sideboard ({{ tournament.decksettings.getSideboardSize() }} scrolls) *</label>
-								<div class="col-sm-8">
-									<textarea class="form-control" name="sideboard" rows="3" required>{{ sideboard }}</textarea>
-								</div>
-							</div>
-						{% endif %}
-						{% if tournament.registrationsOpen() %}
-							<div class="form-group">
-								<div class="col-sm-offset-4 col-sm-8">
-									<input type="hidden" name="id" value="{{ tournament.id }}" />
-									<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save settings</button>
-								</div>
-							</div>
 						{% endif %}
 					</form>
 				</div>
