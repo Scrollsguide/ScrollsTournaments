@@ -19,89 +19,17 @@
 			<div class="row">
 				<div class="chat-bar">Lobby</div>
 				<div class="col-md-8">
-					<div class="well well-sm chat-well">
-						<div class="chat-message console">
-							<span class="chat-time">12:12</span>
-							<span class="chat-msg">Orangee has joined the room</span>
-						</div>
-						<div class="chat-message me">
-							<span class="chat-time">12:12</span>
-							<span class="chat-player me">Orangee</span>
-							<span class="chat-msg">Hello</span>
-						</div>
-						
-						<div class="chat-message">
-							<span class="chat-time">12:13</span>
-							<span class="chat-rank admin"></span>
-							<span class="chat-player">kBasten</span>
-							<span class="chat-msg">hi</span>
-						</div>
-						
-						<div class="chat-message me">
-							<span class="chat-time">12:13</span>
-							<span class="chat-player me">Orangee</span>
-							<span class="chat-msg">Whats up</span>
-						</div>
-						<div class="chat-message console">
-							<span class="chat-time">12:13</span>
-							<span class="chat-msg">Zylus has joined the room</span>
-						</div>
-						<div class="chat-message">
-							<span class="chat-time">12:14</span>
-							<span class="chat-rank admin"></span>
-							<span class="chat-player">kBasten</span>
-							<span class="chat-msg">Pushed some code to github, you should sync it.</span>
-						</div>
-						
-						<div class="chat-message me">
-							<span class="chat-time">12:15</span>
-							<span class="chat-player me">Orangee</span>
-							<span class="chat-msg">oh, nice. Well this text i'm writing now is very long just to see how very very very long text works on this chat i'm currently making.</span>
-						</div>
-						
-						<div class="chat-message">
-							<span class="chat-time">12:15</span>
-							<span class="chat-rank mod"></span>
-							<span class="chat-player">SeeMeScrollin</span>
-							<span class="chat-msg">I WANT TO SEE IT!</span>
-						</div>
-						
-						<div class="chat-message">
-							<span class="chat-time">12:16</span>
-							<span class="chat-rank mod"></span>
-							<span class="chat-player">SeeMeScrollin</span>
-							<span class="chat-msg">Text</span>
-						</div>
-						
-						<div class="chat-message">
-							<span class="chat-time">12:17</span>
-							<span class="chat-rank mod"></span>
-							<span class="chat-player">SeeMeScrollin</span>
-							<span class="chat-msg">More Text</span>
-						</div>
-						
-						<div class="chat-message">
-							<span class="chat-time">12:19</span>
-							<span class="chat-player">Zylus</span>
-							<span class="chat-msg">Woho Draft!11!!</span>
-						</div>
-						<div class="chat-message console">
-							<span class="chat-time">12:13</span>
-							<span class="chat-msg">SeeMeScrollin disconnected</span>
-						</div>
-					</div>
+					<div class="well well-sm chat-well" id="chat"></div>
 				</div>
 			
 				<div class="col-md-4 hidden-xs hidden-sm">
 					<div class="panel panel-default">
 					  <div class="panel-heading">Members</div>
 					  <div class="panel-body">
-					    <div class="chat-members">
-	<!--					Sort players by rank then name-->
+					    <div class="chat-members" id="chat-members">
+	<!--					Sort players by rank then name
 							<div class="chat-player"><span class="chat-rank admin"></span> kBasten</div>
-							<!--<div class="chat-player"><span class="chat-rank mod"></span> SeeMescrollin</div>-->
-							<div class="chat-player">Orangee</div>
-							<div class="chat-player">Zylus</div>
+							<div class="chat-player"><span class="chat-rank mod"></span> SeeMescrollin</div>-->
 						</div>
 					  </div>
 					</div>
@@ -111,8 +39,8 @@
 				</div>
 				<div class="col-md-12">
 				<div class="input-group">
-					<div class="input-group-addon">Orangee</div>
-					<input type="text" class="form-control" placeholder="Message..">
+					<div class="input-group-addon">{{ app.session.user.username }}</div>
+					<input type="text" class="form-control" placeholder="Message.." name='chat-input' />
 				</div>
 				</div>
 				
@@ -348,7 +276,7 @@
 			<!--		Create a game popup	-->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
-				    	<div class="modal-content">
+				    <div class="modal-content">
 				     	 <div class="modal-header">
 				        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				       		 <h2 class="modal-title" id="myModalLabel">Create Draft</h2>
@@ -414,7 +342,7 @@
 				          	   			<input type="checkbox"> Use test server scrolls
 				          	 		 </label>
 				          		</div>
-				          		</div>
+				          	</div>
 				        </div>
 				        
 				     
@@ -432,4 +360,10 @@
 		</div>
 
 	</div>
+{% endblock %}
+{% block customjs %}
+	<script type="text/javascript">
+		var username = "{{ app.session.user.username }}";
+	</script>
+	<script type="text/javascript" src="{{ cdn_asset("/assets/js/draft.js") }}"></script>
 {% endblock %}

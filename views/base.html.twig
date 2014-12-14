@@ -25,7 +25,7 @@
 		<!-- custom css -->
 		<link rel="stylesheet" type="text/css" href="{{ cdn_asset('/assets/cache/css/main.css') }}" />
 
-		<script src="{{ cdn_asset('/assets/js/vendor/modernizr.js') }}"></script>
+		<script type="text/javascript" src="{{ cdn_asset('/assets/js/vendor/modernizr.js') }}"></script>
 
 	</head>
 	<body>
@@ -114,7 +114,7 @@
 
 		{{ app.debug|raw }}
 
-		<script>
+		<script type="text/javascript">
 			var _gaq = [
 				['_setAccount', 'UA-16433114-4'],
 				['_trackPageview']
@@ -126,12 +126,12 @@
 			}(document, 'script'));
 		</script>
 
-		<script src="{{ cdn_asset('/assets/cache/js/vendors.js') }}" data-no-instant></script>
+		<script type="text/javascript" src="{{ cdn_asset('/assets/cache/js/vendors.js') }}" data-no-instant></script>
 
-		<script src="{{ cdn_asset('/assets/js/main.js') }}"></script>
+		<script type="text/javascript" src="{{ cdn_asset('/assets/js/main.js') }}"></script>
 		<!--
-		<script src="{{ cdn_asset('/assets/js/vendor/instantclick.min.js') }}"></script>
-		<script data-no-instant>
+		<script type="text/javascript" src="{{ cdn_asset('/assets/js/vendor/instantclick.min.js') }}"></script>
+		<script type="text/javascript" data-no-instant>
 			InstantClick.on('change', function(){
 				ga('send', 'pageview');
                 //fix social buttons and any other weird responsive glitches caused by
